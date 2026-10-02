@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AstroHout – index of /</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --grey: #e6e6e6;
+    --mid: #777;
+    --link: #0000ee;
+    --accent: #ff3b00;
+    --mono: "JetBrains Mono", ui-monospace, "Courier New", monospace;
+    --heavy: "Archivo Black", Impact, "Arial Black", sans-serif;
+    --b: 2px solid var(--ink);
+    --gutter: 16px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.35;
+    overflow: hidden;
+  }
+  a { color: var(--link); text-decoration: underline; text-underline-offset: 3px; }
+  a:hover { background: var(--ink); color: var(--paper); }
+
+  .page {
+    height: 100vh; height: 100svh;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    border: var(--b);
+  }
+
+  /* ---- top bar ---- */
+  .top { display: grid; grid-template-columns: auto 1fr auto; border-bottom: var(--b); }
+  .top > * { padding: 8px 12px; }
+  .top .path { border-right: var(--b); font-weight: 700; white-space: nowrap; }
+  .top nav { display: flex; flex-wrap: wrap; gap: 4px 18px; align-items: center; }
+  .top nav span { color: var(--mid); }
+  .top .ts { border-left: var(--b); color: var(--mid); white-space: nowrap; text-align: right; }
+
+  /* ---- main ---- */
+  .main { display: grid; grid-template-columns: minmax(300px, 1.05fr) 2.4fr; min-height: 0; }
+  .info { border-right: var(--b); display: grid; grid-template-rows: auto auto 1fr auto; min-height: 0; }
+  .block { border-bottom: var(--b); padding: 10px 12px; }
+  .block:last-child { border-bottom: 0; }
+  .label { color: var(--mid); display: block; margin-bottom: 4px; }
+  h1.tag {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(20px, 2.1vw, 32px); line-height: 1.12; letter-spacing: -0.02em;
+  }
+  .ls { list-style: none; }
+  .ls li { display: grid; grid-template-columns: 10ch 1fr auto; gap: 8px; border-top: 1px solid var(--ink); padding: 2px 0; }
+  .ls li:first-child { border-top: 0; }
+  .ls .k { color: var(--mid); }
+  .logo-cell {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 0; padding: 10px; background: var(--grey);
+  }
+  .logo-cell img { height: 100%; max-height: 100%; width: auto; max-width: 100%; display: block; mix-blend-mode: multiply; }
+  .cta {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    background: var(--accent); color: var(--ink); text-decoration: none;
+    font-weight: 700; font-size: 15px; padding: 14px 12px; text-transform: uppercase;
+    border: 0;
+  }
+  .cta:hover { background: var(--ink); color: var(--accent); }
+  .cta .arrow { font-size: 22px; line-height: 1; }
+
+  .photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); min-height: 0; }
+  figure { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; border-right: var(--b); min-height: 0; }
+  figure:last-child { border-right: 0; }
+  figcaption { padding: 4px 8px; white-space: nowrap; overflow: hidden; text-overflow: clip; }
+  figcaption.h { border-bottom: var(--b); background: var(--paper); font-weight: 700; }
+  figcaption.f { border-top: var(--b); color: var(--mid); }
+  figure .img { position: relative; min-height: 0; background: var(--grey); }
+  figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  figure:hover figcaption.h { background: var(--ink); color: var(--paper); }
+
+  /* ---- giant wordmark ---- */
+  .word { border-top: var(--b); overflow: hidden; position: relative; background: var(--ink); color: var(--paper); }
+  .word h2 {
+    font-family: var(--heavy); font-weight: 400;
+    font-size: 15vw; line-height: 0.82; letter-spacing: -0.03em;
+    white-space: nowrap; margin: 0 0 0 -0.02em; padding-top: 0.04em;
+    transform: translateY(0.08em);
+  }
+  .word .meta {
+    position: absolute; right: 12px; top: 8px; text-align: right;
+    font-family: var(--mono); font-size: 12px; color: var(--paper);
+    background: var(--ink); padding: 0 0 0 8px;
+  }
+  .word .br { display: none; }
+
+  /* ---- mobile ---- */
+  @media (max-width: 760px) {
+    body { font-size: 12px; }
+    .page { border-left: 0; border-right: 0; }
+    .top { grid-template-columns: 1fr auto; }
+    .top > * { padding: 7px var(--gutter); }
+    .top .path { border-right: 0; border-bottom: var(--b); grid-column: 1 / -1; }
+    .top nav { gap: 2px 16px; }
+    .top .ts { display: none; }
+    .top nav { grid-column: 1 / -1; }
+    .main { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); }
+    .info { border-right: 0; border-bottom: var(--b); grid-template-columns: 1fr 76px; grid-template-rows: auto auto; }
+    .info .b-tag { grid-column: 1; border-bottom: 0; padding: 10px var(--gutter); }
+    .info .b-ls { display: none; }
+    .info .logo-cell { grid-column: 2; grid-row: 1; padding: 6px; border-left: var(--b); }
+    .info .b-cta { grid-column: 1 / -1; grid-row: 2; border-top: var(--b); }
+    h1.tag { font-size: 20px; }
+    .cta { padding: 12px var(--gutter); font-size: 14px; }
+    figcaption { padding: 3px 6px; font-size: 10px; }
+    figcaption.f { display: none; }
+    .word h2 { font-size: 26vw; line-height: 0.8; white-space: normal; padding: 0 var(--gutter); transform: none; margin: 0; letter-spacing: -0.04em; }
+    .word h2 .br { display: block; }
+    .word { padding: 10px 0 0; height: auto; }
+    .word h2 { transform: translateY(0.06em); }
+    .word .meta { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <div class="path">Index of /astrohout/</div>
+    <nav aria-label="Hoofdnavigatie">
+      <a href="#werk">Werk</a>
+      <a href="#werkwijze">Werkwijze</a>
+      <a href="#over">Over</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="ts">2026-10-01 08:00 · NL</div>
+  </header>
+
+  <main class="main">
+    <section class="info">
+      <div class="block b-tag">
+        <span class="label">[TXT 00] tagline.txt</span>
+        <h1 class="tag">Meubels op maat, met de hand gemaakt.</h1>
+      </div>
+      <div class="block b-ls">
+        <ul class="ls">
+          <li><span class="k">type</span><span>meubelmaker</span><span>1 man</span></li>
+          <li><span class="k">materiaal</span><span>massief hout</span><span>eik / noten</span></li>
+          <li><span class="k">plaats</span><span>Nederland</span><span>op maat</span></li>
+        </ul>
+      </div>
+      <div class="logo-cell"><img src="../logo/base-logo.svg" alt="AstroHout logo: astronaut met houtnerf"></div>
+      <div class="block b-cta" style="padding:0">
+        <a class="cta" href="#contact"><span>Vraag een ontwerp aan</span><span class="arrow">&rarr;</span></a>
+      </div>
+    </section>
+
+    <section class="photos" id="werk" aria-label="Werk">
+      <figure>
+        <figcaption class="h">[IMG 01] borrelplank1.jpg</figcaption>
+        <div class="img"><img src="../portfolio/borrelplank1.jpg" alt="Borrelplank"></div>
+        <figcaption class="f">3072×4096 · 2026-09-14</figcaption>
+      </figure>
+      <figure>
+        <figcaption class="h">[IMG 02] bed5.jpg</figcaption>
+        <div class="img"><img src="../portfolio/bed5.jpg" alt="Bed"></div>
+        <figcaption class="f">3072×4096 · 2026-08-02</figcaption>
+      </figure>
+      <figure>
+        <figcaption class="h">[IMG 03] hek2.jpg</figcaption>
+        <div class="img"><img src="../portfolio/hek2.jpg" alt="Hek"></div>
+        <figcaption class="f">3072×4096 · 2026-06-21</figcaption>
+      </figure>
+    </section>
+  </main>
+
+  <div class="word">
+    <div class="meta">3 items · 0 bytes vrij · hout.</div>
+    <h2 aria-label="AstroHout">ASTRO<span class="br"></span>HOUT</h2>
+  </div>
+
+</div>
+</body>
+</html>
