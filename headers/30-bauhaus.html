@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AstroHout – Bauhaus werkplaats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#efe5d0;
+  --ink:#1b1a18;
+  --red:#b3321f;
+  --ochre:#d9a22a;
+  --blue:#1f3a5f;
+  --gutter:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:"Jost","Futura",sans-serif;overflow-x:hidden}
+
+.hero{
+  height:100vh;height:100svh;
+  display:grid;grid-template-rows:auto minmax(0,1fr);
+  padding:0 var(--gutter) var(--gutter);
+  overflow:hidden;
+}
+
+/* nav */
+nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:4px solid var(--ink)}
+.mark{display:flex;align-items:center;gap:4px;flex:none}
+.mark i{display:block;width:14px;height:14px}
+.mark .c{background:var(--red);border-radius:50%}
+.mark .s{background:var(--ochre)}
+.mark .t{background:var(--blue);clip-path:polygon(50% 0,0 100%,100% 100%)}
+nav ul{display:flex;gap:clamp(12px,2.6vw,36px);list-style:none}
+nav a{color:var(--ink);text-decoration:none;font-weight:600;font-size:13px;letter-spacing:.04em;text-transform:lowercase;padding:6px 0;border-bottom:3px solid transparent}
+nav a:hover,nav a:focus-visible{border-bottom-color:var(--red);outline:none}
+
+/* layout */
+.main{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);gap:14px;padding-top:16px;min-height:0}
+
+.copy{position:relative;display:flex;flex-direction:column;justify-content:center;gap:12px}
+h1{font-weight:800;text-transform:lowercase;line-height:.88;letter-spacing:-.045em;font-size:clamp(44px,16.4vw,200px)}
+h1 span{color:var(--red)}
+.bar{height:12px;width:56%;background:var(--ink);position:relative}
+.bar::after{content:"";position:absolute;right:-12px;top:0;width:12px;height:12px;background:var(--ochre)}
+.tag{font-weight:500;font-size:clamp(17px,4.6vw,26px);line-height:1.2;max-width:22ch;text-wrap:balance}
+.motto{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:lowercase;color:var(--blue)}
+.motto b{color:var(--red)}
+.cta{
+  align-self:flex-start;display:inline-flex;align-items:center;gap:12px;
+  background:var(--ink);color:var(--paper);text-decoration:none;
+  font-weight:800;font-size:15px;letter-spacing:.03em;text-transform:lowercase;
+  padding:12px 16px 12px 18px;border-radius:0 0 0 0;box-shadow:6px 6px 0 var(--red);
+  transition:transform .15s,box-shadow .15s;
+}
+.cta::after{content:"";width:12px;height:14px;background:var(--ochre);clip-path:polygon(0 0,100% 50%,0 100%)}
+.cta:hover,.cta:focus-visible{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--red);outline:none}
+
+/* composition */
+.stage{container-type:size;min-height:0;display:flex;justify-content:center;align-items:flex-start}
+.comp{
+  width:min(100cqw, 100cqh*.8);aspect-ratio:4/5;
+  display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(5,1fr);
+}
+.comp>*{position:relative;overflow:hidden;min-width:0;min-height:0}
+.comp img.ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+
+.circle{grid-area:1/1/3/3;border-radius:50%}
+.red{grid-area:1/3/2/4;background:var(--red)}
+.half{grid-area:2/3/3/4;background:var(--ochre);height:50%;align-self:end;border-radius:999px 999px 0 0}
+.arch{grid-area:1/4/4/5;border-radius:999px 999px 0 0}
+.quarter{grid-area:3/1/4/2;background:var(--blue);border-radius:100% 0 0 0}
+.tri{grid-area:3/2/4/3;background:var(--ink);clip-path:polygon(50% 0,0 100%,100% 100%)}
+.slab{grid-area:3/3/4/4;background:var(--ink);height:50%;align-self:end}
+.square{grid-area:4/1/6/3}
+.logo{grid-area:4/3/6/5;background:var(--blue);display:flex;align-items:center;justify-content:center}
+.logo img{height:82%;width:auto;filter:invert(1)}
+.logo::before{content:"";position:absolute;top:0;right:0;width:22%;aspect-ratio:1;background:var(--ochre);border-radius:0 0 0 100%}
+
+/* desktop */
+@media (min-width:860px){
+  :root{--gutter:clamp(24px,3.4vw,56px)}
+  nav a{font-size:15px}
+  .mark i{width:20px;height:20px}
+  .main{grid-template-columns:minmax(0,4fr) minmax(0,7fr);grid-template-rows:minmax(0,1fr);gap:clamp(24px,4vw,64px);padding-top:clamp(16px,3vh,32px)}
+  h1{font-size:clamp(48px,min(6vw,18vh),150px)}
+  .tag{font-size:clamp(20px,min(2.3vw,4vh),32px)}
+  .copy{gap:clamp(14px,2.6vh,26px);padding-left:34px}
+  .motto{position:absolute;left:0;top:50%;writing-mode:vertical-rl;transform:translateY(-50%) rotate(180deg);font-size:12px;white-space:nowrap}
+  .cta{font-size:clamp(16px,1.3vw,20px);padding:clamp(12px,2vh,18px) 22px}
+  .stage{align-items:center}
+  .comp{
+    width:min(100cqw, 100cqh*4/3);aspect-ratio:4/3;
+    grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);
+  }
+  .circle{grid-area:1/1/3/3}
+  .red{grid-area:1/3/2/4}
+  .half{grid-area:2/3/3/4}
+  .arch{grid-area:1/4/3/5}
+  .quarter{grid-area:3/1/4/2}
+  .square{grid-area:3/2/4/3}
+  .tri{grid-area:3/3/4/4}
+  .logo{grid-area:3/4/4/5}
+  .slab{display:none}
+  .logo img{height:88%}
+}
+
+/* short phones: tighten text */
+@media (max-width:859px) and (max-height:700px){
+  h1{font-size:clamp(44px,14.5vw,200px)}
+  .copy{gap:9px}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <nav aria-label="Hoofdmenu">
+    <div class="mark" aria-hidden="true"><i class="c"></i><i class="s"></i><i class="t"></i></div>
+    <ul>
+      <li><a href="#werk">Werk</a></li>
+      <li><a href="#werkwijze">Werkwijze</a></li>
+      <li><a href="#over">Over</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="main">
+    <div class="copy">
+      <p class="motto">tischlerei &middot; <b>vorm volgt functie</b></p>
+      <h1>astro<span>hout</span></h1>
+      <div class="bar" aria-hidden="true"></div>
+      <p class="tag">Meubels op maat, met de hand gemaakt.</p>
+      <a class="cta" href="#contact">Vraag een ontwerp aan</a>
+    </div>
+
+    <div class="stage">
+      <div class="comp" aria-label="Werk van AstroHout">
+        <div class="circle"><img class="ph" src="../portfolio/borrelplank1.jpg" alt="Handgemaakte borrelplank"></div>
+        <div class="red"></div>
+        <div class="half"></div>
+        <div class="arch"><img class="ph" src="../portfolio/bed5.jpg" alt="Houten bed op maat"></div>
+        <div class="quarter"></div>
+        <div class="tri"></div>
+        <div class="slab"></div>
+        <div class="square"><img class="ph" src="../portfolio/hek2.jpg" alt="Houten tuinhek"></div>
+        <div class="logo"><img src="../logo/base-logo.svg" alt="AstroHout logo"></div>
+      </div>
+    </div>
+  </div>
+</header>
+</body>
+</html>

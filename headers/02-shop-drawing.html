@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AstroHout — Tekening 02</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bp:#0c3b66;
+  --bp-deep:#082b4b;
+  --line:#e9f2fc;
+  --line-2:rgba(233,242,252,.6);
+  --line-3:rgba(233,242,252,.28);
+  --grid-minor:rgba(233,242,252,.055);
+  --grid-major:rgba(233,242,252,.12);
+  --chalk:#ffd24a;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --f-sans:'IBM Plex Sans Condensed','Arial Narrow',Arial,sans-serif;
+  --f-hand:'Architects Daughter','Comic Sans MS',cursive;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  height:100svh;overflow:hidden;padding:6px;
+  background-color:var(--bp);
+  background-image:
+    linear-gradient(var(--grid-major) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-major) 1px,transparent 1px),
+    linear-gradient(var(--grid-minor) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-minor) 1px,transparent 1px);
+  background-size:80px 80px,80px 80px,16px 16px,16px 16px;
+  color:var(--line);font-family:var(--f-mono);
+}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--chalk);outline-offset:3px}
+
+/* sheet */
+.sheet{
+  position:relative;height:100%;display:flex;flex-direction:column;
+  border:1px solid var(--line);padding:10px;
+}
+.sheet::before{content:"";position:absolute;inset:3px;border:1px solid var(--line-3);pointer-events:none}
+
+/* header / nav */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding:2px 2px 8px;border-bottom:1px solid var(--line-3);flex:none}
+.mark{font:600 15px/1 var(--f-sans);letter-spacing:.2em;text-transform:uppercase;text-decoration:none}
+.mark small{font:400 10px var(--f-mono);letter-spacing:.06em;color:var(--line-2);margin-left:8px;text-transform:none}
+.nav{display:flex;gap:14px;list-style:none;margin:0;padding:0}
+.nav a{display:inline-flex;align-items:baseline;gap:4px;font-size:11px;letter-spacing:.02em;text-decoration:none;padding:4px 0;white-space:nowrap}
+.nav a small{font-size:9.5px;color:var(--line-2)}
+.nav a:hover{color:var(--chalk)}
+.nav a:hover small{color:var(--chalk)}
+.nav .l{display:none}
+
+/* layout */
+.main{flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;padding-top:10px}
+.copy,.right{display:contents}
+.intro{order:1}
+.row{order:2}
+.cut{order:3}
+.tb{order:4}
+
+.eyebrow{display:none}
+h1{margin:0;font:600 clamp(26px,7.4vw,32px)/1.04 var(--f-sans);letter-spacing:-.005em}
+h1 em{font-style:normal;color:var(--chalk)}
+.cta-wrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:10px}
+.cta{
+  display:inline-flex;align-items:center;gap:10px;min-height:42px;padding:0 14px;
+  background:var(--chalk);color:var(--bp-deep);text-decoration:none;
+  font:600 11.5px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;
+  box-shadow:3px 3px 0 0 var(--bp-deep),3px 3px 0 1px var(--line-2);
+  transition:transform .15s,box-shadow .15s;white-space:nowrap;
+}
+.cta:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 0 var(--bp-deep),4px 4px 0 1px var(--line)}
+.hand{font-family:var(--f-hand);color:var(--chalk);line-height:1.1;font-size:14px;transform:rotate(-3deg);white-space:nowrap}
+.cta-wrap .hand{display:flex;align-items:center;gap:2px}
+.hand svg{width:34px;height:20px;flex:none;overflow:visible}
+
+/* cut list */
+.cut{border-collapse:collapse;width:100%;font-size:9.5px;flex:none}
+.cut caption{caption-side:top;text-align:left;padding:0 0 3px;font:600 9.5px var(--f-mono);letter-spacing:.16em}
+.cut caption span{float:right;font-weight:400;color:var(--line-2);letter-spacing:.06em}
+.cut th,.cut td{border:1px solid var(--line-2);padding:2px 5px;text-align:left;font-weight:400;white-space:nowrap}
+.cut th{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;background:rgba(233,242,252,.09)}
+.cut td:nth-child(2),.cut th:nth-child(2){text-align:center}
+
+/* views */
+.row{flex:1;min-height:0;position:relative;display:grid;grid-template-columns:1.3fr 1fr;grid-template-rows:1fr 1fr;gap:0 14px}
+.v{display:flex;flex-direction:column;min-height:0;min-width:0}
+.v-b{grid-row:1/3;grid-column:1}
+.v-a{grid-column:2;grid-row:1}
+.v-c{grid-column:2;grid-row:2}
+.v-a,.v-c{padding-bottom:4px}
+.v-a .frame,.v-c .frame{min-height:44px}
+.frame{position:relative;flex:1;min-height:90px;border:1px solid var(--line)}
+.frame img{position:absolute;inset:4px;width:calc(100% - 8px);height:calc(100% - 8px);object-fit:cover;display:block;filter:saturate(.92) contrast(1.02)}
+.v-a img{object-position:50% 55%}
+
+.dim-h{position:relative;flex:none;height:16px;margin-bottom:5px;display:flex;align-items:center;justify-content:center;font:500 9.5px var(--f-mono);letter-spacing:.05em}
+.dim-h::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line)}
+.dim-h span{position:relative;z-index:1;background:var(--bp);padding:0 6px}
+.dim-h i{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+.dim-h i.l{left:0}.dim-h i.r{right:0}
+.dim-h i::after{content:"";position:absolute;top:50%;margin-top:-3px;border:3px solid transparent}
+.dim-h i.l::after{left:0;border-right:9px solid var(--line);border-left:0}
+.dim-h i.r::after{right:0;border-left:9px solid var(--line);border-right:0}
+
+.dim-v{display:none}
+
+.cap{position:relative;flex:none;display:flex;align-items:center;gap:7px;margin-top:9px;font-size:9px;letter-spacing:.12em;white-space:nowrap}
+.cap em{font-style:normal;color:var(--line-2);letter-spacing:.04em;display:none}
+.co{position:relative;flex:none;width:20px;height:20px;border:1px solid var(--line);border-radius:50%;background:var(--bp);
+  display:grid;place-items:center;font:600 11px/1 var(--f-mono);letter-spacing:0}
+.co::before{content:"";position:absolute;left:50%;bottom:100%;width:1px;height:34px;background:var(--line);
+  box-shadow:0 0 2px 1px var(--bp-deep);margin-left:-.5px}
+.co::after{content:"";position:absolute;left:50%;bottom:calc(100% + 34px);width:7px;height:7px;margin:0 0 -3px -3.5px;
+  border-radius:50%;background:var(--line);box-shadow:0 0 0 1.5px var(--bp-deep)}
+
+.note-a{display:none}
+
+/* title block */
+.tb{flex:none;display:grid;grid-template-columns:62px 1fr;border:1.5px solid var(--line);background:var(--bp)}
+.tb-logo{grid-row:1/3;border-right:1px solid var(--line);display:grid;place-items:center;padding:5px}
+.tb-logo img{height:50px;width:auto;filter:invert(1);display:block}
+.tb-brand{padding:5px 10px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:2px;justify-content:center}
+.tb-brand b{font:600 17px/1 var(--f-sans);letter-spacing:.2em;text-transform:uppercase}
+.tb-brand span{font-size:9.5px;letter-spacing:.03em;color:var(--line-2)}
+.tb-f{margin:0;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-2)}
+.tb-f div{background:var(--bp);padding:2px 6px 3px;min-width:0}
+.tb-f div:nth-child(1){grid-column:1/3;grid-row:1}
+.tb-f div:nth-child(2){grid-column:3;grid-row:1}
+.tb-f div:nth-child(5){grid-column:4;grid-row:1}
+.tb-f div:nth-child(3){grid-column:1/3;grid-row:2}
+.tb-f div:nth-child(4){grid-column:3/5;grid-row:2}
+.tb-f dt{font-size:7.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--line-2)}
+.tb-f dd{margin:1px 0 0;font:500 10px var(--f-mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+@media (max-width:559px) and (max-height:720px){
+  .cut tbody tr:last-child{display:none}
+  .main{gap:8px}
+}
+
+/* ---------- very small phones ---------- */
+@media (max-width:359px){
+  .nav{gap:10px}
+  .mark small{display:none}
+}
+
+/* ---------- tablet+ ---------- */
+@media (min-width:560px){
+  body{padding:10px}
+  .sheet{padding:14px 18px}
+  .nav{gap:22px}
+  .nav a{font-size:12px}
+  .nav .l{display:inline}
+  .mark{font-size:17px}
+}
+
+/* ---------- desktop ---------- */
+@media (min-width:900px){
+  body{padding:14px}
+  .sheet{padding:16px 26px 20px}
+  .top{padding-bottom:12px}
+  .nav{gap:30px}
+  .nav a{font-size:13px}
+  .nav a small{font-size:10.5px}
+  .mark small{font-size:11px}
+
+  .main{display:grid;grid-template-columns:minmax(320px,.78fr) 2.3fr;gap:0 40px;padding-top:18px}
+  .copy{display:flex;flex-direction:column;justify-content:space-between;min-height:0;gap:20px}
+  .right{display:flex;flex-direction:column;min-height:0;gap:16px}
+  .intro,.row,.cut,.tb{order:0}
+
+  .eyebrow{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--line-2);margin-bottom:16px;
+    padding-bottom:8px;border-bottom:1px solid var(--line-3)}
+  h1{font-size:clamp(40px,4.4vw,66px);line-height:1;letter-spacing:-.01em}
+  .cta-wrap{margin-top:28px;gap:14px}
+  .cta{min-height:48px;padding:0 20px;font-size:12.5px}
+  .hand{font-size:17px}
+  .hand svg{width:44px;height:26px}
+
+  .cut{font-size:11px}
+  .cut caption{font-size:11px;padding-bottom:5px}
+  .cut th{font-size:9.5px}
+  .cut th,.cut td{padding:4px 8px}
+
+  .row{display:flex;align-items:flex-end;gap:18px;padding-right:46px}
+  .v{flex:1 1 0;display:flex}
+  .v-b{flex:1.28 1 0;height:90%}
+  .v-a{height:76%;padding:0}
+  .v-c{height:100%;padding:0;position:relative}
+  .v-a .frame,.v-c .frame{min-height:0}
+  .dim-h{height:18px;margin-bottom:8px;font-size:11px}
+  .cap{font-size:10.5px;margin-top:12px;gap:9px}
+  .cap em{display:inline}
+  .co{width:24px;height:24px;font-size:12px}
+  .co::before{height:44px}
+  .co::after{bottom:calc(100% + 44px)}
+
+  .dim-v{display:block;position:absolute;right:-40px;width:20px;
+    top:calc(18px + 8px);bottom:calc(24px + 12px)}
+  .dim-v::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line)}
+  .dim-v span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(180deg);writing-mode:vertical-rl;
+    background:var(--bp);padding:6px 0;font:500 11px var(--f-mono);letter-spacing:.05em;z-index:1}
+  .dim-v i{position:absolute;left:-30px;right:0;height:1px;background:var(--line);opacity:.6}
+  .dim-v i.t{top:0}.dim-v i.b{bottom:0}
+  .dim-v i::after{content:"";position:absolute;left:30px;margin-left:-3px;border:3px solid transparent;margin-top:-1px}
+  .dim-v i.t::after{top:0;border-bottom:9px solid var(--line);border-top:0}
+  .dim-v i.b::after{bottom:0;border-top:9px solid var(--line);border-bottom:0;margin-bottom:-1px}
+
+  .note-a{display:block;position:absolute;left:4px;top:4%;max-width:200px}
+  .note-a svg{display:block;width:60px;height:46px;margin:4px 0 0 36px;overflow:visible}
+
+  .tb{width:min(100%,600px);align-self:flex-end;grid-template-columns:104px 1fr}
+  .tb-logo{padding:8px}
+  .tb-logo img{height:84px}
+  .tb-brand{padding:9px 16px;gap:5px}
+  .tb-brand b{font-size:26px}
+  .tb-brand span{font-size:12px}
+  .tb-f{grid-template-columns:1.25fr .7fr 1fr 1.05fr .55fr}
+  .tb-f div,.tb-f div:nth-child(n){grid-column:auto;grid-row:auto;padding:4px 9px 5px}
+  .tb-f dt{font-size:8.5px}
+  .tb-f dd{font-size:11.5px}
+}
+
+@media (min-width:900px) and (max-height:720px){
+  h1{font-size:clamp(34px,4vw,52px)}
+  .cta-wrap{margin-top:18px}
+  .eyebrow{margin-bottom:10px}
+  .tb-logo img{height:64px}
+  .tb{grid-template-columns:84px 1fr}
+  .tb-brand b{font-size:21px}
+  .cut th,.cut td{padding:3px 8px}
+  .co::before{height:34px}
+  .co::after{bottom:calc(100% + 34px)}
+}
+
+@media (prefers-reduced-motion:reduce){.cta{transition:none}}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="top">
+    <a class="mark" href="#" aria-label="AstroHout, home">AstroHout<small>/ tekening 02</small></a>
+    <nav aria-label="Hoofdmenu">
+      <ul class="nav">
+        <li><a href="#werk">→ Werk <small>[<span class="l">blad </span>2]</small></a></li>
+        <li><a href="#werkwijze">→ Werkwijze <small>[<span class="l">blad </span>3]</small></a></li>
+        <li><a href="#over">→ Over <small>[<span class="l">blad </span>4]</small></a></li>
+        <li><a href="#contact">→ Contact <small>[<span class="l">blad </span>5]</small></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="main">
+    <div class="copy">
+      <div class="intro">
+        <div class="eyebrow">Maatwerk uit eigen werkplaats · NL</div>
+        <h1>Meubels op maat, <em>met de hand gemaakt.</em></h1>
+        <div class="cta-wrap">
+          <a class="cta" href="#contact">Vraag een ontwerp aan <span aria-hidden="true">→</span></a>
+          <span class="hand" aria-hidden="true">
+            <svg viewBox="0 0 44 26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M42 20 C 30 24, 14 20, 5 8"/><path d="M4 15 L5 7 L12 10"/></svg>
+            vrijblijvend
+          </span>
+        </div>
+      </div>
+
+      <table class="cut">
+        <caption>SNIJLIJST <span>maten in mm</span></caption>
+        <thead><tr><th>Onderdeel</th><th>Aantal</th><th>L × B × D</th><th>Houtsoort</th></tr></thead>
+        <tbody>
+          <tr><td>A · Plank</td><td>1</td><td>600×200×25</td><td>eiken</td></tr>
+          <tr><td>B · Hoofdbord</td><td>1</td><td>1800×950×40</td><td>noten</td></tr>
+          <tr><td>C · Spijl</td><td>12</td><td>1100×60×30</td><td>lariks</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="right">
+      <div class="row">
+        <div class="hand note-a" aria-hidden="true">
+          massief eiken, handgeolied
+          <svg viewBox="0 0 60 46" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 C 4 20, 18 34, 46 40"/><path d="M38 33 L47 40 L37 45"/></svg>
+        </div>
+
+        <figure class="v v-a" style="margin:0">
+          <div class="dim-h"><i class="l"></i><span>600</span><i class="r"></i></div>
+          <div class="frame"><img src="../portfolio/borrelplank1.jpg" alt="Handgemaakte borrelplank"></div>
+          <figcaption class="cap"><span class="co">A</span>AANZICHT A<em>borrelplank</em></figcaption>
+        </figure>
+
+        <figure class="v v-b" style="margin:0">
+          <div class="dim-h"><i class="l"></i><span>1800</span><i class="r"></i></div>
+          <div class="frame"><img src="../portfolio/bed5.jpg" alt="Massief houten bed op maat"></div>
+          <figcaption class="cap"><span class="co">B</span>AANZICHT B<em>bed</em></figcaption>
+        </figure>
+
+        <figure class="v v-c" style="margin:0">
+          <div class="dim-h"><i class="l"></i><span>1200</span><i class="r"></i></div>
+          <div class="frame"><img src="../portfolio/hek2.jpg" alt="Houten tuinpoort"></div>
+          <figcaption class="cap"><span class="co">C</span>AANZICHT C<em>poort</em></figcaption>
+          <div class="dim-v" aria-hidden="true"><i class="t"></i><span>1000</span><i class="b"></i></div>
+        </figure>
+      </div>
+
+      <aside class="tb" aria-label="Tekeningblok">
+        <div class="tb-logo"><img src="../logo/base-logo.svg" alt=""></div>
+        <div class="tb-brand"><b>AstroHout</b><span>Meubels op maat, met de hand gemaakt.</span></div>
+        <dl class="tb-f">
+          <div><dt>Tekening nr.</dt><dd>AH-02-017</dd></div>
+          <div><dt>Schaal</dt><dd>1:10</dd></div>
+          <div><dt>Getekend</dt><dd>AstroHout</dd></div>
+          <div><dt>Datum</dt><dd>01-10-2026</dd></div>
+          <div><dt>Blad</dt><dd>1/1</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</div>
+</body>
+</html>

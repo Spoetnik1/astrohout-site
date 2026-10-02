@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AstroHout Headers</title>
+<style>
+  :root { --bg:#1A1714; --fg:#F7F7F5; --accent:#C8560A; }
+  * { box-sizing:border-box; margin:0; }
+  body { background:var(--bg); color:var(--fg); font:14px/1.4 system-ui, sans-serif; }
+  .variant { padding:24px 16px 40px; }
+  .label { display:flex; gap:12px; align-items:baseline; margin-bottom:10px; }
+  .label b { color:var(--accent); font-size:20px; }
+  .label a { color:var(--fg); opacity:.6; margin-left:auto; }
+  iframe { width:100%; height:90vh; border:0; background:#fff; display:block; }
+</style>
+</head>
+<body>
+<!-- One entry per variant: [number, file, name] -->
+<script>
+  const variants = [
+    ["9",  "09-workbench.html",     "Workbench top-down"],
+    ["11", "11-measuring-tape.html","Measuring tape"],
+    ["19", "19-nasa-standards.html","NASA graphics standards"],
+    ["2",  "02-shop-drawing.html",  "Cut list / shop drawing"],
+    ["25", "25-brutalist.html",     "Brutalist raw"],
+    ["26", "26-swiss-warm.html",    "Swiss grid, but warm"],
+    ["30", "30-bauhaus.html",       "Bauhaus workshop"],
+  ];
+  for (const [n, file, name] of variants) {
+    document.body.insertAdjacentHTML("beforeend",
+      `<section class="variant"><div class="label"><b>#${n}</b><span>${name}</span><a href="${file}" target="_blank">open ↗</a></div><iframe src="${file}" loading="lazy"></iframe></section>`);
+  }
+</script>
+</body>
+</html>
