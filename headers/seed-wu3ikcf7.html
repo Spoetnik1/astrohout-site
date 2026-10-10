@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AstroHout – Meubels en houtwerk op maat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4EDE2; --ink:#1E1A17; --red:#D2381E; --cedar:#A9663C;
+    /* golden ratio scale from 16px */
+    --s0:16px; --s1:26px; --s2:42px; --s3:68px; --s4:110px;
+    --margin:5vw; --gutter:24px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif; font-size:var(--s0); line-height:1.4;
+    overflow-x:hidden;
+  }
+  .header{
+    position:relative; height:100vh; height:100svh; min-height:560px;
+    padding:var(--gutter) var(--margin);
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    grid-template-rows:repeat(4,minmax(0,1fr)) auto;
+    gap:var(--gutter);
+    overflow:hidden;
+  }
+  /* grain line pattern: wavy 1px lines, irregular 6-14px spacing, cedar @ ~20% */
+  .header::before{
+    content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='360' height='96' viewBox='0 0 360 96'><g fill='none' stroke='%23A9663C' stroke-width='1' stroke-opacity='0.2'><path d='M0 5 Q45 1 90 5 T180 5 T270 5 T360 5'/><path d='M0 15 Q60 20 120 15 T240 15 T360 15'/><path d='M0 23 Q45 19 90 23 T180 23 T270 23 T360 23'/><path d='M0 37 Q60 42 120 37 T240 37 T360 37'/><path d='M0 45 Q90 40 180 45 T360 45'/><path d='M0 56 Q45 61 90 56 T180 56 T270 56 T360 56'/><path d='M0 66 Q60 62 120 66 T240 66 T360 66'/><path d='M0 74 Q90 79 180 74 T360 74'/><path d='M0 87 Q45 83 90 87 T180 87 T270 87 T360 87'/></g></svg>");
+    background-size:360px 96px;
+  }
+  .header > *{position:relative; z-index:1}
+
+  .wordmark{grid-column:1; grid-row:1; font-family:'Instrument Serif',serif; font-size:var(--s2); line-height:1.05; letter-spacing:-.01em; align-self:start}
+  .wordmark em{font-style:italic}
+  nav{grid-column:4; grid-row:1; align-self:start; justify-self:end; display:flex; flex-direction:column; gap:4px; text-align:right; font-size:var(--s0)}
+  nav a{color:var(--ink); text-decoration:none; border-bottom:1px solid transparent; align-self:flex-end}
+  nav a:hover{border-bottom-color:var(--ink)}
+  .label{font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--cedar)}
+  nav .label{margin-bottom:4px}
+
+  h1{
+    grid-column:1 / span 3; grid-row:2 / span 2; align-self:center;
+    font-family:'Instrument Serif',serif; font-weight:400;
+    font-size:var(--s3); line-height:1.05; letter-spacing:-.015em;
+  }
+  h1 em{font-style:italic; color:var(--red)}
+
+  .images{
+    grid-column:4; grid-row:2 / span 3;
+    display:grid; grid-template-rows:repeat(3,minmax(0,1fr)); gap:var(--gutter);
+    min-height:0;
+  }
+  .ph{position:relative; min-height:0; background:var(--bg); outline:1px solid var(--ink); outline-offset:-1px; overflow:hidden}
+  .ph img,.ph canvas{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
+  .ph img{filter:grayscale(1) contrast(1.6)}
+  .ph.done img{visibility:hidden}
+  .ph .cap{position:absolute; left:0; bottom:0; z-index:2; background:var(--bg); color:var(--cedar); font-size:11px; letter-spacing:.08em; text-transform:uppercase; padding:3px 8px 2px 0; line-height:1.2}
+
+  .intro{grid-column:1 / span 2; grid-row:4; align-self:end; max-width:46ch}
+  .intro .rule{width:56px; height:3px; background:var(--red); margin-bottom:16px}
+  .intro p{font-size:var(--s0); line-height:1.4}
+
+  .cta{
+    grid-column:3; grid-row:4; align-self:end; justify-self:start;
+    display:flex; flex-direction:column; justify-content:space-between;
+    width:100%; height:100%; max-height:130px;
+    background:var(--red); color:var(--bg); text-decoration:none; padding:16px;
+    font-family:'Instrument Serif',serif; font-size:var(--s1); line-height:1.1;
+    position:relative; z-index:1;
+  }
+  .cta small{font-family:'Inter',sans-serif; font-size:12px; letter-spacing:.08em; text-transform:uppercase}
+  .cta span.arrow{align-self:flex-end}
+  .cta:hover{background:var(--ink)}
+
+  .foot{
+    grid-column:1 / -1; grid-row:5;
+    display:flex; justify-content:space-between; align-items:flex-end;
+    font-size:12px; line-height:24px; color:var(--cedar); letter-spacing:.04em;
+    border-top:1px solid var(--ink); padding-top:6px; margin-top:-4px;
+  }
+  .foot .seed{font-variant-numeric:tabular-nums}
+  .foot img{height:24px; width:auto; filter:invert(0); display:block; margin-bottom:0; opacity:.95}
+  .foot .mark{display:flex; align-items:flex-end; gap:12px}
+
+  @media (max-width:760px){
+    :root{--gutter:16px; --s3:56px; --s2:42px}
+    .header{min-height:600px; grid-template-rows:auto auto 1fr auto auto auto; padding-top:16px; padding-bottom:12px}
+    .wordmark{grid-column:1 / span 2; grid-row:1; font-size:34px}
+    nav{grid-column:3 / span 2; grid-row:1; flex-direction:row; gap:16px; font-size:14px; justify-content:flex-end; align-items:baseline}
+    nav .label{display:none}
+    h1{grid-column:1 / -1; grid-row:2; align-self:start; font-size:52px; margin-top:8px}
+    .images{grid-column:1 / -1; grid-row:3; grid-template-rows:none; grid-template-columns:repeat(3,minmax(0,1fr)); min-height:110px}
+    .intro{grid-column:1 / -1; grid-row:4; max-width:none}
+    .intro .rule{margin-bottom:10px}
+    .intro p{font-size:15px; line-height:1.35}
+    .cta{grid-column:1 / -1; grid-row:5; max-height:none; height:auto; flex-direction:row; align-items:center; padding:12px 16px; font-size:24px}
+    .cta small{display:none}
+    .foot{grid-row:6}
+    .ph .cap{font-size:10px; padding-right:6px}
+  }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="wordmark">Astro<em>Hout</em></div>
+
+  <nav aria-label="Hoofdmenu">
+    <span class="label">Menu</span>
+    <a href="#werk">Werk</a>
+    <a href="#werkwijze">Werkwijze</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <h1>Meubels van hout, op <em>maat</em> uit eigen werkplaats.</h1>
+
+  <div class="images">
+    <figure class="ph"><img src="../portfolio/borrelplank1.jpg" alt="Borrelplank van hout" data-pos="50% 55%"><span class="cap">01 Borrelplank</span></figure>
+    <figure class="ph"><img src="../portfolio/bed2.jpg" alt="Houten bed" data-pos="50% 60%"><span class="cap">02 Bed</span></figure>
+    <figure class="ph"><img src="../portfolio/single_room1.jpg" alt="Maatwerk in een slaapkamer" data-pos="50% 50%"><span class="cap">03 Kamer</span></figure>
+  </div>
+
+  <div class="intro">
+    <div class="rule"></div>
+    <p>Ik ontwerp en bouw tafels, bedden, kasten en kleine meubelstukken, één voor één, met aandacht voor het hout en de plek waar het komt te staan.</p>
+  </div>
+
+  <a class="cta" href="#contact"><small>Nieuw project?</small><span>Vraag een offerte <span class="arrow">&rarr;</span></span></a>
+
+  <div class="foot">
+    <span class="seed">seed wu3ikcf7</span>
+    <span class="mark"><span>Handgemaakt in Nederland</span><img src="../logo/base-logo.svg" alt="AstroHout astronaut"></span>
+  </div>
+</header>
+
+<script>
+(function(){
+  var BG=[244,237,226], INK=[30,26,23], PITCH=6;
+  function halftone(fig){
+    var img=fig.querySelector('img'); if(!img.naturalWidth) return;
+    var w=fig.clientWidth, h=fig.clientHeight; if(!w||!h) return;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var c=fig.querySelector('canvas'); if(!c){c=document.createElement('canvas'); fig.insertBefore(c,img.nextSibling);}
+    c.width=Math.round(w*dpr); c.height=Math.round(h*dpr);
+    // draw cover-cropped source at CSS size
+    var s=document.createElement('canvas'); s.width=w; s.height=h;
+    var sx=s.getContext('2d',{willReadFrequently:true});
+    var pos=(img.dataset.pos||'50% 50%').split(' ').map(function(v){return parseFloat(v)/100});
+    var sc=Math.max(w/img.naturalWidth,h/img.naturalHeight);
+    var dw=img.naturalWidth*sc, dh=img.naturalHeight*sc;
+    sx.drawImage(img,(w-dw)*pos[0],(h-dh)*pos[1],dw,dh);
+    var d=sx.getImageData(0,0,w,h).data;
+    var ctx=c.getContext('2d'); ctx.scale(dpr,dpr);
+    ctx.fillStyle='rgb('+BG+')'; ctx.fillRect(0,0,w,h);
+    ctx.fillStyle='rgb('+INK+')';
+    var cs=Math.SQRT1_2, n=Math.ceil((w+h)/PITCH)+2, cx=w/2, cy=h/2;
+    for(var i=-n;i<=n;i++){
+      for(var j=-n;j<=n;j++){
+        var x=cx+(i*cs-j*cs)*PITCH, y=cy+(i*cs+j*cs)*PITCH;
+        if(x<-PITCH||y<-PITCH||x>w+PITCH||y>h+PITCH) continue;
+        // average luminance over a small neighbourhood
+        var L=0,k=0;
+        for(var dy=-2;dy<=2;dy+=2)for(var dx=-2;dx<=2;dx+=2){
+          var px=Math.round(x+dx), py=Math.round(y+dy);
+          if(px<0||py<0||px>=w||py>=h) continue;
+          var o=(py*w+px)*4; L+=(0.299*d[o]+0.587*d[o+1]+0.114*d[o+2])/255; k++;
+        }
+        if(!k) continue; L/=k;
+        L=Math.min(1,Math.max(0,(L-0.5)*1.5+0.5));
+        var dark=1-L; if(dark<0.04) continue;
+        var r=PITCH*0.78*Math.sqrt(dark)*0.95;
+        ctx.beginPath(); ctx.arc(x,y,r,0,6.2832); ctx.fill();
+      }
+    }
+    fig.classList.add('done');
+  }
+  function run(){
+    document.querySelectorAll('.ph').forEach(function(f){
+      var img=f.querySelector('img');
+      var go=function(){try{halftone(f)}catch(e){}};
+      if(img.complete) go(); else img.addEventListener('load',go);
+    });
+  }
+  var t; window.addEventListener('resize',function(){clearTimeout(t); t=setTimeout(run,120)});
+  run();
+})();
+</script>
+</body>
+</html>

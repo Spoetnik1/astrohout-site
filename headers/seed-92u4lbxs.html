@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AstroHout | Meubelmakerij</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,600,100&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#5B1F14;
+    --ink:#F6E8D6;
+    --brass:#F0B95B;
+    --sec:#8C3A25;
+    --m:16px;      /* margin */
+    --g:8px;       /* gutter / cell padding */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);overflow-x:hidden}
+  body{font-family:'Work Sans',system-ui,sans-serif;font-weight:400;padding:var(--m);min-height:100vh;min-height:100svh}
+  a{color:inherit;text-decoration:none}
+
+  .label{font-size:12px;line-height:1.35;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+  .label16{font-size:16px;line-height:1.3;letter-spacing:.1em;text-transform:uppercase;font-weight:400}
+
+  header{
+    height:calc(100vh - 2*var(--m));
+    height:calc(100svh - 2*var(--m));
+    min-height:560px;
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    grid-template-rows:repeat(4,minmax(0,1fr));
+    border-top:1px solid var(--brass);   /* the key rule */
+    border-left:1px solid var(--sec);
+  }
+  .cell{
+    position:relative;
+    padding:var(--g);
+    border-right:1px solid var(--sec);
+    border-bottom:1px solid var(--sec);
+    min-width:0;min-height:0;
+    overflow:hidden;
+  }
+
+  /* placement: desktop */
+  .c-logo{grid-column:1;grid-row:1;padding:0;display:flex;flex-direction:column;justify-content:space-between}
+  .c-name{grid-column:2;grid-row:1}
+  .c-tag{grid-column:3;grid-row:1}
+  .c-nav{grid-column:4;grid-row:1}
+  .c-head{grid-column:1 / span 3;grid-row:2 / span 2;display:flex;flex-direction:column;justify-content:space-between}
+  .p1{grid-column:4;grid-row:2}
+  .p2{grid-column:4;grid-row:3}
+  .p3{grid-column:4;grid-row:4}
+  .c-intro{grid-column:1 / span 2;grid-row:4;display:flex;flex-direction:column;justify-content:space-between}
+  .c-cta{grid-column:3;grid-row:4;background:var(--brass);color:var(--bg);display:flex;flex-direction:column;justify-content:space-between}
+
+  /* logo: brass mask */
+  .mark{
+    display:block;height:48px;aspect-ratio:1000/1335;
+    background:var(--brass);
+    -webkit-mask:url("../logo/base-logo.svg") left top/contain no-repeat;
+            mask:url("../logo/base-logo.svg") left top/contain no-repeat;
+  }
+  .c-logo .label{padding:var(--g);color:var(--brass)}
+
+  .brass{color:var(--brass)}
+  .num{color:var(--brass);font-variant-numeric:tabular-nums}
+
+  .c-name .label16{display:block}
+  .c-name .label{display:block;margin-top:4px;opacity:.85}
+
+  nav ul{list-style:none;display:flex;flex-direction:column;height:100%;justify-content:space-between}
+  nav li{display:flex;justify-content:space-between;gap:6px}
+  nav a{border-bottom:1px solid transparent}
+  nav a:hover{border-bottom-color:var(--brass);color:var(--brass)}
+
+  /* the one giant element */
+  .wordmark{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:600;
+    font-variation-settings:'opsz' 144,'SOFT' 100;
+    font-size:max(120px,min(22vw,23.5vh));
+    line-height:.8;
+    letter-spacing:-.04em;
+    color:var(--ink);
+    margin:0;
+    white-space:nowrap;
+  }
+  .wordmark span{display:block}
+  .wordmark span+span{color:var(--brass)}
+  .c-head .top{display:flex;justify-content:space-between;gap:var(--g)}
+
+  /* photos */
+  .photo{padding:0}
+  .photo img,.photo canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .photo img{object-fit:cover;filter:grayscale(1) contrast(1.6)}
+  .photo canvas{image-rendering:pixelated}
+  .photo figcaption{
+    position:absolute;left:0;bottom:0;z-index:2;
+    background:var(--bg);color:var(--ink);padding:3px 8px 3px 8px;
+    border-top:1px solid var(--sec);border-right:1px solid var(--sec);
+  }
+  .photo figcaption b{color:var(--brass);font-weight:500;margin-right:.6em}
+
+  .c-intro p{max-width:46ch}
+  .c-cta a{display:flex;flex-direction:column;justify-content:space-between;height:100%}
+  .c-cta .arrow{font-family:'Fraunces',serif;font-variation-settings:'opsz' 144,'SOFT' 100;font-weight:600;font-size:16px;letter-spacing:.1em;text-transform:uppercase}
+  .c-cta:hover{background:var(--ink)}
+
+  .seed{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);opacity:.7}
+
+  /* phone / narrow */
+  @media (max-width:760px){
+    header{
+      grid-template-rows:auto auto minmax(0,1fr) minmax(0,.72fr);
+      min-height:640px;
+    }
+    .c-logo{grid-column:1;grid-row:1}
+    .c-name{grid-column:2 / span 2;grid-row:1}
+    .c-tag{display:none}
+    .c-nav{grid-column:4;grid-row:1}
+    .c-head{grid-column:1 / span 4;grid-row:2}
+    .p1{grid-column:1 / span 2;grid-row:3}
+    .p2{grid-column:3 / span 2;grid-row:3}
+    .p3{grid-column:1;grid-row:4}
+    .c-intro{grid-column:2 / span 2;grid-row:4}
+    .c-cta{grid-column:4;grid-row:4}
+    .c-intro .label16{font-size:12px}
+    .c-name .label16{font-size:12px}
+    .c-name .label{font-size:11px}
+    .c-cta .arrow{font-size:12px}
+    .c-cta .label{display:none}
+    .c-cta a{justify-content:flex-end}
+    .c-intro > .label{display:none}
+    .c-intro p{font-size:11px;line-height:1.3}
+    nav .num{display:none}
+    .c-head .top .label:last-child{display:none}
+  }
+  @media (max-width:420px){
+    .label{letter-spacing:.08em}
+    .c-nav.cell{padding:6px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="cell c-logo">
+    <a href="#" class="mark" aria-label="AstroHout"></a>
+    <span class="label">Nr. 01</span>
+  </div>
+
+  <div class="cell c-name">
+    <span class="label16">AstroHout</span>
+    <span class="label">Meubelmakerij</span>
+  </div>
+
+  <div class="cell c-tag">
+    <span class="label">Maatwerk in massief hout, met de hand gemaakt in eigen werkplaats</span>
+  </div>
+
+  <nav class="cell c-nav" aria-label="Hoofdmenu">
+    <ul class="label">
+      <li><a href="#werk">Werk</a><span class="num">01</span></li>
+      <li><a href="#over">Over</a><span class="num">02</span></li>
+      <li><a href="#prijzen">Prijzen</a><span class="num">03</span></li>
+      <li><a href="#contact">Contact</a><span class="num">04</span></li>
+    </ul>
+  </nav>
+
+  <div class="cell c-head">
+    <div class="top label">
+      <span class="brass">Hout &amp; meubels</span>
+      <span>Op maat gemaakt</span>
+    </div>
+    <h1 class="wordmark" aria-label="AstroHout"><span>Astro</span><span>Hout</span></h1>
+  </div>
+
+  <figure class="cell photo p1">
+    <img src="../portfolio/borrelplank1.jpg" alt="Borrelplank van hout" data-ht>
+    <canvas></canvas>
+    <figcaption class="label"><b>01</b>Borrelplank</figcaption>
+  </figure>
+  <figure class="cell photo p2">
+    <img src="../portfolio/bed2.jpg" alt="Houten bed" data-ht>
+    <canvas></canvas>
+    <figcaption class="label"><b>02</b>Bed</figcaption>
+  </figure>
+  <figure class="cell photo p3">
+    <img src="../portfolio/single_room1.jpg" alt="Houten inrichting van een kamer" data-ht>
+    <canvas></canvas>
+    <figcaption class="label"><b>03</b>Kamer</figcaption>
+  </figure>
+
+  <div class="cell c-intro">
+    <span class="num label">Over ons</span>
+    <p class="label16">Eén man, één werkplaats. Meubels, kasten en bedden uit massief hout, ontworpen en gebouwd naar uw maat.</p>
+    <span class="seed">Seed 92u4lbxs</span>
+  </div>
+
+  <div class="cell c-cta">
+    <a href="#contact">
+      <span class="label">Gratis advies</span>
+      <span class="arrow">Vraag een offerte &rarr;</span>
+    </a>
+  </div>
+</header>
+
+<script>
+/* Coarse 1-bit halftone: dots at 45 degrees, ~6px pitch, ivory on mahogany */
+(function(){
+  var BG='#5B1F14', INK='#F6E8D6', PITCH=6;
+  function draw(fig){
+    var img=fig.querySelector('img'), cv=fig.querySelector('canvas');
+    if(!img.complete||!img.naturalWidth) return;
+    var dpr=Math.min(window.devicePixelRatio||1,2);
+    var w=fig.clientWidth, h=fig.clientHeight;
+    if(!w||!h) return;
+    cv.width=Math.round(w*dpr); cv.height=Math.round(h*dpr);
+    var ctx=cv.getContext('2d');
+    // sample source at CSS-pixel resolution, object-fit: cover
+    var s=document.createElement('canvas'); s.width=w; s.height=h;
+    var sc=s.getContext('2d',{willReadFrequently:true});
+    var r=Math.max(w/img.naturalWidth,h/img.naturalHeight);
+    var dw=img.naturalWidth*r, dh=img.naturalHeight*r;
+    sc.drawImage(img,(w-dw)/2,(h-dh)/2,dw,dh);
+    var data=sc.getImageData(0,0,w,h).data;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.fillStyle=BG; ctx.fillRect(0,0,w,h);
+    ctx.fillStyle=INK;
+    var cos=Math.SQRT1_2, sin=Math.SQRT1_2, span=Math.ceil(Math.hypot(w,h)/PITCH)+2;
+    var cx=w/2, cy=h/2;
+    for(var i=-span;i<=span;i++){
+      for(var j=-span;j<=span;j++){
+        var u=i*PITCH, v=j*PITCH;
+        var x=cx+u*cos-v*sin, y=cy+u*sin+v*cos;
+        if(x<-PITCH||y<-PITCH||x>w+PITCH||y>h+PITCH) continue;
+        // average luminance in a small neighbourhood
+        var sum=0,n=0;
+        for(var a=-2;a<=2;a+=2){for(var b=-2;b<=2;b+=2){
+          var px=Math.round(x+a), py=Math.round(y+b);
+          if(px<0||py<0||px>=w||py>=h) continue;
+          var k=(py*w+px)*4;
+          sum+=(0.2126*data[k]+0.7152*data[k+1]+0.0722*data[k+2])/255; n++;
+        }}
+        if(!n) continue;
+        var l=sum/n;
+        l=Math.pow(Math.min(1,Math.max(0,(l-0.05)*1.3)),1.5);   // contrast
+        var rad=PITCH*0.78*Math.sqrt(l);
+        if(rad<0.6) continue;
+        ctx.beginPath(); ctx.arc(x,y,rad,0,Math.PI*2); ctx.fill();
+      }
+    }
+    img.style.visibility='hidden';
+  }
+  function all(){document.querySelectorAll('figure.photo').forEach(draw)}
+  function init(){
+    document.querySelectorAll('figure.photo img').forEach(function(im){
+      if(im.complete) all(); else im.addEventListener('load',all);
+    });
+    all();
+  }
+  var t;
+  window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(all,120)});
+  if(document.readyState==='complete') init(); else window.addEventListener('load',init);
+})();
+</script>
+</body>
+</html>

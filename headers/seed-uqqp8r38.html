@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AstroHout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&family=Unbounded:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bone:#E9E6DF;
+    --ink:#2A2724;
+    --walnut:#8A5A33;
+    --ash:#B9B2A5;
+    --m:16px;   /* margin */
+    --g:8px;    /* gutter */
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bone);color:var(--ink);overflow-x:hidden}
+  body{font-family:'Manrope',sans-serif;font-weight:500}
+
+  .label,nav a,.intro,.cta,.cap,.seed{
+    font-family:'Manrope',sans-serif;font-weight:500;
+    font-size:12px;line-height:1.35;letter-spacing:.1em;text-transform:uppercase;
+  }
+  .intro{font-size:16px;font-weight:500;line-height:1.3}
+
+  header{
+    position:relative;height:100vh;height:100svh;min-height:560px;
+    display:grid;grid-template-columns:1fr 1fr;overflow:hidden;
+    background:var(--bone);
+  }
+
+  /* grain line pattern: wavy 1px lines, irregular spacing 6-14px */
+  .grain{
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='120' viewBox='0 0 240 120' fill='none' stroke='%232A2724' stroke-width='1' stroke-opacity='.16'><g id='l'><path d='M0 6Q60 3 120 6T240 6'/><path d='M0 18Q60 15 120 18T240 18'/><path d='M0 30Q60 27 120 30T240 30'/><path d='M0 40Q60 37 120 40T240 40'/><path d='M0 54Q60 51 120 54T240 54'/><path d='M0 62Q60 59 120 62T240 62'/><path d='M0 76Q60 73 120 76T240 76'/><path d='M0 84Q60 81 120 84T240 84'/><path d='M0 98Q60 95 120 98T240 98'/><path d='M0 108Q60 105 120 108T240 108'/></g></svg>");
+  }
+  .grain-light{
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='120' viewBox='0 0 240 120' fill='none' stroke='%23B9B2A5' stroke-width='1' stroke-opacity='.3'><path d='M0 9Q60 6 120 9T240 9'/><path d='M0 17Q60 14 120 17T240 17'/><path d='M0 31Q60 28 120 31T240 31'/><path d='M0 39Q60 36 120 39T240 39'/><path d='M0 51Q60 48 120 51T240 51'/><path d='M0 65Q60 62 120 65T240 65'/><path d='M0 73Q60 70 120 73T240 73'/><path d='M0 87Q60 84 120 87T240 87'/><path d='M0 95Q60 92 120 95T240 95'/><path d='M0 111Q60 108 120 111T240 111'/></svg>");
+  }
+
+  /* ---------- LEFT HALF ---------- */
+  .left{
+    position:relative;background-color:var(--ash);
+    padding:var(--m);
+    display:flex;flex-direction:column;gap:var(--m);
+    min-width:0;
+  }
+  nav{display:flex;flex-wrap:wrap;gap:6px var(--m);border-bottom:1px solid var(--ink);padding-bottom:8px}
+  nav a{color:var(--ink);text-decoration:none;opacity:.62}
+  nav a.on{opacity:1;border-bottom:1px solid var(--walnut);color:var(--ink)}
+  nav a:hover{opacity:1}
+
+  .row{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--g)}
+  .intro{grid-column:1 / span 4;margin:0}
+  .side{grid-column:5 / span 2;display:flex;flex-direction:column;gap:var(--g)}
+  .cta{
+    display:inline-block;background:var(--ink);color:var(--bone);text-decoration:none;
+    padding:10px 12px;border:1px solid var(--ink);align-self:flex-start;
+  }
+  .cta:hover{background:var(--walnut);border-color:var(--walnut)}
+  .cta b{color:var(--ash);font-weight:500}
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--g)}
+  .facts div{border:1px solid var(--ink);padding:6px 8px}
+  .seed{opacity:.75}
+
+  h1.word{
+    position:absolute;left:var(--m);bottom:var(--m);margin:0;z-index:5;
+    font-family:'Unbounded',sans-serif;font-weight:700;letter-spacing:-.04em;
+    font-size:max(22vw,120px);line-height:.8;white-space:nowrap;
+    pointer-events:none;
+  }
+  h1.word span{color:var(--walnut)}
+
+  /* ---------- RIGHT HALF ---------- */
+  .right{
+    position:relative;padding:var(--m);min-width:0;
+    display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(7,1fr);gap:var(--g);
+  }
+  .cell{position:relative;border:1px solid var(--ash);min-width:0;min-height:0;overflow:hidden}
+  .cell svg{position:absolute;inset:0;width:100%;height:100%}
+  svg *{vector-effect:non-scaling-stroke}
+  svg .s{fill:none;stroke:var(--ink);stroke-width:1}
+  svg .a{fill:none;stroke:var(--walnut);stroke-width:1}
+  svg .d{stroke-dasharray:4 3}
+  svg .dc{stroke-dasharray:10 3 2 3}
+  svg text{font-family:'Manrope',sans-serif;font-size:12px;font-weight:500;fill:var(--ink);letter-spacing:.04em}
+  svg text.w{fill:var(--walnut)}
+  .tag{position:absolute;left:0;top:0;z-index:2;background:var(--bone);padding:2px 6px 2px 5px;white-space:nowrap;font-size:11px}
+
+  .c-table{grid-column:1 / span 3;grid-row:1 / span 2}
+  .c-chair{grid-column:4 / span 2;grid-row:1 / span 2}
+  .c-mt{grid-column:1 / span 5;grid-row:3 / span 3}
+  .c-title{grid-column:1 / span 2;grid-row:6 / span 2;padding:8px;display:flex;flex-direction:column;justify-content:space-between}
+  .c-dove{grid-column:3 / span 3;grid-row:6 / span 2}
+  .c-logo{grid-column:6;grid-row:1;border-color:transparent}
+  .ph{grid-column:6;padding:0;border:1px solid var(--ink)}
+  .ph.p1{grid-row:2 / span 2}
+  .ph.p2{grid-row:4 / span 2}
+  .ph.p3{grid-row:6 / span 2}
+  .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.35) contrast(1.02)}
+  .cap{position:absolute;left:0;bottom:0;background:var(--bone);color:var(--ink);padding:2px 5px;z-index:2;font-size:12px;letter-spacing:.08em}
+
+  /* ---------- LOGO STAMP ---------- */
+  .stamp{
+    position:absolute;top:var(--m);right:var(--m);z-index:8;
+    width:76px;height:76px;border:1px solid var(--ink);border-radius:50%;
+    background:var(--bone);display:grid;place-items:center;
+  }
+  .stamp img{height:56px;width:auto;display:block}
+
+  /* ---------- PHONE ---------- */
+  @media (max-width:760px){
+    header{grid-template-columns:1fr;grid-template-rows:auto 1fr;min-height:0;height:100svh}
+    .left{padding:12px var(--m) var(--m);gap:10px;justify-content:flex-start}
+    nav{padding-right:88px;min-height:52px;align-content:flex-start}
+    .row{grid-template-columns:1fr;gap:10px}
+    .intro{grid-column:1;font-size:12px;letter-spacing:.1em;padding-right:80px}
+    .side{grid-column:1;flex-direction:row;align-items:center;flex-wrap:wrap;gap:8px}
+    .facts{display:none}
+    h1.word{position:static;font-size:28vw;margin-top:2px}
+    .right{padding:0 var(--m) var(--m);grid-template-columns:repeat(6,1fr);grid-template-rows:1fr 1fr 1fr}
+    .c-table{grid-column:1 / span 3;grid-row:1}
+    .c-chair{grid-column:4 / span 3;grid-row:1}
+    .c-mt{grid-column:1 / span 4;grid-row:2}
+    .c-dove{grid-column:5 / span 2;grid-row:2}
+    .c-title{display:none}
+    .c-logo{display:none}
+    .ph{grid-column:auto}
+    .ph.p1{grid-column:1 / span 2;grid-row:3}
+    .ph.p2{grid-column:3 / span 2;grid-row:3}
+    .ph.p3{grid-column:5 / span 2;grid-row:3}
+    .cap{font-size:12px;padding:1px 4px;letter-spacing:.04em}
+    .stamp{width:68px;height:68px}
+    .stamp img{height:50px}
+  }
+</style>
+</head>
+<body>
+<header>
+
+  <!-- LEFT 50% : ash block -->
+  <section class="left grain">
+    <nav aria-label="Hoofdmenu">
+      <a class="on" href="#">Werk</a>
+      <a href="#">Meubels</a>
+      <a href="#">Op maat</a>
+      <a href="#">Over</a>
+      <a href="#">Contact</a>
+    </nav>
+
+    <div class="row">
+      <p class="intro">Meubels &amp; houtwerk, met de hand gemaakt in massief hout. Uit één werkplaats, precies op maat.</p>
+      <div class="side">
+        <a class="cta" href="#">Vraag een offerte <b>&rarr;</b></a>
+        <span class="seed">Seed uqqp8r38</span>
+      </div>
+    </div>
+
+    <div class="facts">
+      <div class="label">Massief eiken, es &amp; noten</div>
+      <div class="label">Eigen ontwerp, eigen werkbank</div>
+      <div class="label">Gemaakt in Nederland</div>
+    </div>
+
+    <h1 class="word">Astro<br><span>Hout</span></h1>
+  </section>
+
+  <!-- RIGHT 50% : blueprint drawings -->
+  <section class="right grain-light" aria-label="Technische tekeningen">
+
+    <div class="cell c-logo"></div>
+
+    <!-- table: plan + front + side elevation -->
+    <div class="cell c-table">
+      <span class="tag label">Blad 01 &middot; Tafel</span>
+      <svg viewBox="0 0 300 190" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <!-- plan -->
+        <rect class="s" x="24" y="42" width="140" height="70"/>
+        <rect class="s d" x="28" y="46" width="9" height="9"/>
+        <rect class="s d" x="151" y="46" width="9" height="9"/>
+        <rect class="s d" x="28" y="99" width="9" height="9"/>
+        <rect class="s d" x="151" y="99" width="9" height="9"/>
+        <path class="a dc" d="M20 77H170"/><path class="a dc" d="M94 38V116"/>
+        <path class="s" d="M24 34H164M24 31V37M164 31V37"/>
+        <text x="74" y="29">1800</text>
+        <path class="s" d="M174 42V112M171 42H177M171 112H177"/>
+        <text x="180" y="81">900</text>
+        <!-- front elevation -->
+        <rect class="s" x="24" y="132" width="140" height="6"/>
+        <rect class="s" x="30" y="138" width="8" height="46"/>
+        <rect class="s" x="150" y="138" width="8" height="46"/>
+        <path class="s" d="M38 138V146H150V138"/>
+        <path class="s" d="M24 188H164"/>
+        <!-- side elevation -->
+        <rect class="s" x="208" y="132" width="70" height="6"/>
+        <rect class="s" x="213" y="138" width="8" height="46"/>
+        <rect class="s" x="265" y="138" width="8" height="46"/>
+        <path class="s" d="M221 138V146H265V138"/>
+        <path class="a" d="M290 132V184M287 132H293M287 184H293"/>
+        <text x="236" y="127" class="w">720</text>
+        <text x="208" y="160" style="font-size:12px">70</text>
+      </svg>
+    </div>
+
+    <!-- chair side elevation -->
+    <div class="cell c-chair">
+      <span class="tag label">Blad 02 &middot; Stoel</span>
+      <svg viewBox="0 0 190 190" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <path class="s" d="M60 24L66 24L74 96H66Z"/>
+        <path class="s" d="M62 40H128M60 58H122"/>
+        <rect class="s" x="128" y="38" width="3" height="20"/>
+        <rect class="s" x="56" y="96" width="82" height="9"/>
+        <rect class="s" x="128" y="105" width="8" height="75"/>
+        <rect class="s" x="62" y="105" width="8" height="75"/>
+        <path class="s" d="M70 144H128M70 150H128"/>
+        <path class="s" d="M44 180H150"/>
+        <path class="a" d="M30 96V180M27 96H33M27 180H33"/>
+        <text x="4" y="142" class="w">450</text>
+        <path class="s" d="M168 24V180M165 24H171M165 180H171"/>
+        <text x="146" y="20">900</text>
+        <path class="s" d="M56 114H138M56 111V117M138 111V117"/>
+        <text x="86" y="130" style="display:none">420</text>
+      </svg>
+    </div>
+
+    <!-- mortise & tenon -->
+    <div class="cell c-mt">
+      <span class="tag label">Blad 03 &middot; Pen en gat</span>
+      <svg viewBox="0 0 500 270" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <!-- rail -->
+        <rect class="s" x="24" y="96" width="170" height="90"/>
+        <path class="s" d="M194 111H254V171H194"/>
+        <path class="s d" d="M194 96V186"/>
+        <path class="s d" d="M24 111H194M24 171H194"/>
+        <!-- post -->
+        <rect class="s" x="310" y="30" width="90" height="220"/>
+        <rect class="s" x="325" y="111" width="60" height="60"/>
+        <path class="s d" d="M325 111L310 96M385 111L400 96M325 171L310 186M385 171L400 186" style="display:none"/>
+        <!-- centre + projection lines -->
+        <path class="a dc" d="M10 141H430"/>
+        <path class="a dc" d="M355 20V260"/>
+        <path class="a d" d="M254 111H325M254 171H325"/>
+        <!-- dimensions -->
+        <path class="s" d="M24 206H194M24 203V209M194 203V209"/>
+        <text x="94" y="222">170</text>
+        <path class="s" d="M194 206H254M194 203V209M254 203V209"/>
+        <text x="206" y="222" class="w">60</text>
+        <path class="s" d="M10 96V186M7 96H13M7 186H13"/>
+        <text x="14" y="72" style="display:none">90</text>
+        <path class="a" d="M276 111V171M273 111H279M273 171H279"/>
+        <text x="282" y="145" class="w">60</text>
+        <path class="s" d="M310 266H400M310 263V269M400 263V269"/>
+        <text x="342" y="260" style="display:none">90</text>
+        <path class="s" d="M420 30V250M417 30H423M417 250H423"/>
+        <text x="426" y="144">220</text>
+        <text x="136" y="148" class="w" style="display:none">35</text>
+        <!-- section A-A -->
+        <rect class="s" x="446" y="196" width="44" height="44"/>
+        <rect class="s d" x="454" y="206" width="28" height="24"/>
+        <text x="448" y="190">A-A</text>
+      </svg>
+    </div>
+
+    <!-- dovetail -->
+    <div class="cell c-dove">
+      <span class="tag label">Blad 04 &middot; Zwaluwstaart</span>
+      <svg viewBox="0 0 300 190" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+        <rect class="s" x="20" y="40" width="260" height="120"/>
+        <path class="s" d="M120 40V55L160 49V75L120 69V93L160 87V113L120 107V131L160 125V151L120 145V160"/>
+        <path class="s d" d="M20 70H120M20 130H120"/>
+        <path class="a dc" d="M10 100H290"/>
+        <path class="s" d="M120 178H160M120 175V181M160 175V181"/>
+        <text x="128" y="172" style="display:none">40</text>
+        <text x="166" y="182">40</text>
+        <path class="s" d="M292 40V160M289 40H295M289 160H295"/>
+        <text x="236" y="32" class="w">1:6</text>
+        <text x="24" y="32">18</text>
+      </svg>
+    </div>
+
+    <!-- photos: secondary -->
+    <figure class="cell ph p1" style="margin:0">
+      <img src="../portfolio/borrelplank1.jpg" alt="Borrelplank van massief hout" loading="eager">
+      <figcaption class="cap">Plank</figcaption>
+    </figure>
+    <figure class="cell ph p2" style="margin:0">
+      <img src="../portfolio/bed2.jpg" alt="Houten bed" loading="eager">
+      <figcaption class="cap">Bed</figcaption>
+    </figure>
+    <figure class="cell ph p3" style="margin:0">
+      <img src="../portfolio/single_room1.jpg" alt="Kamer met houten meubels" loading="eager">
+      <figcaption class="cap">Kamer</figcaption>
+    </figure>
+  </section>
+
+  <!-- Logo stamp, top right corner -->
+  <div class="stamp"><img src="../logo/base-logo.svg" alt="AstroHout astronaut"></div>
+
+</header>
+</body>
+</html>
