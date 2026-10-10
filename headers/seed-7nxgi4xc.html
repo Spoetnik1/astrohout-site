@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AstroHout – Meubels van echt hout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@144,600,100&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#121110; --text:#D9D4CB; --accent:#C8A27A; --panel:#3A3631;
+  --m:16px; --g:8px; --spine:72px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{font:400 15px/20px "Work Sans",system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+
+.hero{
+  position:relative;height:100vh;height:100svh;min-height:560px;
+  padding:var(--m);
+}
+.frame{
+  position:relative;height:100%;
+  display:grid;gap:var(--g);
+  grid-template-columns:var(--spine) repeat(11,minmax(0,1fr));
+  grid-template-rows:minmax(0,1fr) auto;
+}
+
+/* registration marks: L-shaped, 14px, 1px, offset 12px outside the content box */
+.mark{position:absolute;width:14px;height:14px;border:0 solid var(--text);pointer-events:none}
+.mark.tl{top:-12px;left:-12px;border-top-width:1px;border-left-width:1px}
+.mark.tr{top:-12px;right:-12px;border-top-width:1px;border-right-width:1px}
+.mark.bl{bottom:-12px;left:-12px;border-bottom-width:1px;border-left-width:1px}
+.mark.br{bottom:-12px;right:-12px;border-bottom-width:1px;border-right-width:1px}
+.cross{position:absolute;top:-12px;left:50%;width:11px;height:11px;transform:translateX(-50%);pointer-events:none}
+.cross::before,.cross::after{content:"";position:absolute;background:var(--text)}
+.cross::before{left:5px;top:0;width:1px;height:11px}
+.cross::after{top:5px;left:0;height:1px;width:11px}
+
+/* spine */
+.spine{
+  grid-column:1;grid-row:1 / 3;
+  display:flex;flex-direction:column;gap:var(--m);
+  min-height:0;
+}
+.logo{display:block;height:48px;flex:none}
+.logo img{display:block;height:48px;width:auto;filter:invert(1);opacity:.88}
+.spine-text{
+  flex:1;min-height:0;
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  display:flex;flex-direction:row;gap:var(--g);
+  /* in vertical-rl the lines stack right->left; after the 180deg turn: left->right */
+}
+.wordmark{
+  font-family:"Fraunces",serif;font-weight:600;
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+  font-size:15px;line-height:20px;letter-spacing:-.01em;
+  color:var(--text);white-space:nowrap;
+}
+.wordmark b{color:var(--accent);font-weight:600}
+nav.menu{display:flex;flex-direction:row;gap:var(--m);white-space:nowrap}
+nav.menu a{font-weight:500;color:var(--text);position:relative}
+nav.menu a:hover{color:var(--accent)}
+.spine-col{display:flex;gap:var(--m);align-items:flex-start;width:20px;flex:none}
+.spine-col.nav{border-left:0}
+.spine-label{color:var(--accent);font-weight:500;white-space:nowrap}
+
+/* headline */
+.headline{
+  grid-column:2 / 10;grid-row:1;
+  font-family:"Fraunces",serif;font-weight:600;
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+  font-size:clamp(80px,14vw,220px);line-height:.9;letter-spacing:-.03em;
+  color:var(--text);
+  min-width:0;align-self:start;
+  margin-top:-.07em;
+}
+.headline span{display:block;white-space:nowrap}
+.headline em{font-style:normal;color:var(--accent)}
+
+/* right-hand panels (row 1, cols 10-12) */
+.side{
+  grid-column:10 / 13;grid-row:1;
+  display:grid;gap:var(--g);grid-template-rows:minmax(0,1fr) auto;
+  min-height:0;
+}
+.panel{background:var(--panel);padding:var(--g) 12px 12px;min-height:0;overflow:hidden}
+.panel h2{font-weight:500;font-size:15px;line-height:20px;color:var(--accent);
+  border-bottom:1px solid var(--accent);padding-bottom:var(--g);margin-bottom:var(--g);
+  display:flex;justify-content:space-between}
+.panel ul{list-style:none}
+.panel li{display:flex;justify-content:space-between;border-bottom:1px solid rgba(217,212,203,.18);padding:6px 0}
+.panel li span:last-child{color:var(--accent)}
+.cta{
+  background:var(--accent);color:var(--bg);padding:12px;
+  display:flex;flex-direction:column;justify-content:space-between;min-height:120px;
+  font-weight:500;
+}
+.cta strong{
+  font-family:"Fraunces",serif;font-weight:600;
+  font-variation-settings:"opsz" 144,"SOFT" 100;
+  font-size:28px;line-height:28px;letter-spacing:-.02em;
+}
+.cta .go{display:flex;justify-content:space-between;border-top:1px solid var(--bg);padding-top:var(--g);margin-top:var(--g)}
+.cta:hover{background:var(--text)}
+
+/* filler blocks (dense packing) */
+.note{
+  grid-column:8 / 10;grid-row:1;align-self:start;height:150px;
+  border:1px solid var(--accent);padding:var(--g) 12px 12px;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.note span{color:var(--accent);font-weight:500}
+.note q{quotes:none;font-family:"Fraunces",serif;font-weight:600;font-variation-settings:"opsz" 144,"SOFT" 100;
+  font-size:24px;line-height:26px;letter-spacing:-.02em}
+.steps{
+  grid-column:6 / 10;grid-row:1;align-self:end;height:176px;
+  background:var(--panel);padding:var(--g) 12px 12px;
+  display:flex;flex-direction:column;
+}
+.steps h2{font-weight:500;font-size:15px;line-height:20px;color:var(--accent);border-bottom:1px solid var(--accent);padding-bottom:var(--g);display:flex;justify-content:space-between}
+.steps ol{list-style:none;flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:var(--g);margin-top:var(--g)}
+.steps li{border-left:1px solid rgba(217,212,203,.3);padding-left:var(--g);display:flex;flex-direction:column;justify-content:space-between}
+.steps li b{font-family:"Fraunces",serif;font-weight:600;font-variation-settings:"opsz" 144,"SOFT" 100;font-size:40px;line-height:40px;color:var(--accent);letter-spacing:-.03em}
+
+/* row 2 */
+.intro{grid-column:2 / 6;grid-row:2;align-self:end;display:flex;flex-direction:column;gap:var(--g);
+  border-top:1px solid var(--accent);padding-top:var(--g)}
+.intro p{max-width:46ch}
+.intro .k{color:var(--accent);font-weight:500}
+.facts{grid-column:6 / 8;grid-row:2;align-self:stretch;background:var(--panel);padding:var(--g) 12px 12px;
+  display:flex;flex-direction:column;justify-content:space-between;min-height:0;overflow:hidden}
+.facts div{border-bottom:1px solid rgba(217,212,203,.18);padding-bottom:6px}
+.facts div:last-child{border:0;padding:0}
+.facts b{display:block;font-family:"Fraunces",serif;font-weight:600;font-variation-settings:"opsz" 144,"SOFT" 100;
+  font-size:20px;line-height:22px;color:var(--accent)}
+.facts small{font-size:15px;line-height:20px;color:var(--text)}
+.seed{font-size:11px;line-height:14px;letter-spacing:.06em;color:var(--text);opacity:.7}
+.seed code{font-family:inherit;color:var(--accent)}
+
+/* hard-cropped squares: 3 squares, 0 gap, 1:1 */
+.strip{
+  grid-column:8 / 13;grid-row:2;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+}
+.sq{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--panel)}
+.sq img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:0}
+.sq figcaption{
+  position:absolute;left:0;bottom:0;background:var(--bg);color:var(--text);
+  font-size:13px;line-height:16px;font-weight:500;padding:3px 8px 3px 6px;
+}
+.sq figcaption i{font-style:normal;color:var(--accent)}
+
+/* ---------- phone ---------- */
+@media (max-width:760px){
+  :root{--spine:40px}
+  .hero{height:auto;min-height:100svh;padding:var(--m)}
+  .frame{
+    height:auto;min-height:calc(100svh - 2*var(--m));
+    grid-template-columns:var(--spine) minmax(0,1fr);
+    grid-template-rows:auto;
+  }
+  .spine{grid-row:1 / 8}
+  .spine-text{gap:var(--g)}
+  .headline{grid-column:2;grid-row:1;font-size:80px;margin-top:-.06em}
+  .strip{grid-column:2;grid-row:2}
+  .intro{grid-column:2;grid-row:3;align-self:start}
+  .side{grid-column:2;grid-row:4;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .panel,.note,.steps{display:none}
+  .cta{min-height:0;grid-column:1 / 3}
+  .cta strong{font-size:22px;line-height:24px}
+  .facts{grid-column:2;grid-row:5;flex-direction:row;gap:var(--g);padding:var(--g)}
+  .facts div{border:0;padding:0;flex:1}
+  .facts b{font-size:17px;line-height:20px}
+  .facts small{font-size:13px;line-height:16px}
+  .sq figcaption{font-size:11px;line-height:14px;padding:2px 5px}
+}
+@media (max-width:760px){ .headline span{white-space:normal} }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="frame">
+    <i class="mark tl"></i><i class="mark tr"></i><i class="mark bl"></i><i class="mark br"></i><i class="cross"></i>
+
+    <div class="spine">
+      <a class="logo" href="#" aria-label="AstroHout"><img src="../logo/base-logo.svg" alt="AstroHout astronaut"></a>
+      <div class="spine-text">
+        <a class="wordmark" href="#">Astro<b>Hout</b></a>
+        <nav class="menu" aria-label="Hoofdmenu">
+          <a href="#werk">Werk</a>
+          <a href="#meubels">Meubels</a>
+          <a href="#maatwerk">Maatwerk</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    <h1 class="headline"><span>Meubels</span><span>van <em>echt</em></span><span>hout.</span></h1>
+
+    <div class="note">
+      <span>Op maat</span>
+      <q>Elk stuk een uniek exemplaar.</q>
+    </div>
+
+    <div class="steps">
+      <h2><span>Van schets tot olie</span><span>4 stappen</span></h2>
+      <ol>
+        <li><b>01</b><span>Schets &amp; ontwerp</span></li>
+        <li><b>02</b><span>Zagen &amp; planen</span></li>
+        <li><b>03</b><span>Verbinden</span></li>
+        <li><b>04</b><span>Oliën &amp; leveren</span></li>
+      </ol>
+    </div>
+
+    <aside class="side">
+      <div class="panel">
+        <h2><span>Wat ik maak</span><span>01–05</span></h2>
+        <ul>
+          <li><span>Eettafels</span><span>eik</span></li>
+          <li><span>Bedden</span><span>es</span></li>
+          <li><span>Borrelplanken</span><span>noot</span></li>
+          <li><span>Kasten</span><span>mdf-vrij</span></li>
+          <li><span>Maatwerk</span><span>alles</span></li>
+        </ul>
+      </div>
+      <a class="cta" href="#contact">
+        <strong>Vraag een vrijblijvende offerte</strong>
+        <span class="go"><span>Reactie binnen 2 dagen</span><span>&rarr;</span></span>
+      </a>
+    </aside>
+
+    <div class="intro">
+      <p><span class="k">Eén man, één werkplaats.</span> AstroHout maakt tafels, bedden en kleine houten dingen op maat, met de hand en uit massief hout dat blijft meegaan.</p>
+      <p class="seed">seed <code>7nxgi4xc</code></p>
+    </div>
+
+    <div class="facts">
+      <div><b>4–8 wk</b><small>levertijd</small></div>
+      <div><b>100%</b><small>massief hout</small></div>
+    </div>
+
+    <div class="strip">
+      <figure class="sq"><img src="../portfolio/borrelplank1.jpg" alt="Borrelplank van hout"><figcaption><i>01</i> Borrelplank</figcaption></figure>
+      <figure class="sq"><img src="../portfolio/bed2.jpg" alt="Houten bed"><figcaption><i>02</i> Bed</figcaption></figure>
+      <figure class="sq"><img src="../portfolio/single_room1.jpg" alt="Houten inrichting van een slaapkamer"><figcaption><i>03</i> Slaapkamer</figcaption></figure>
+    </div>
+  </div>
+</header>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AstroHout — seed jc0rlr3e</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&family=Unbounded:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EFEBE4; --text:#24282B; --accent:#6F8795; --oak:#C7B79F;
+  --side:max(48px,12vw);
+  --vpad:min(96px,7vh);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;font-weight:400;overflow-x:hidden}
+.lbl{font-size:12px;line-height:1.5;text-transform:uppercase;letter-spacing:.1em;font-weight:500}
+.hd{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;background:var(--bg)}
+.hero{position:absolute;left:0;top:0;width:100vw;height:70vh;object-fit:cover;object-position:60% 55%;display:block}
+.frame{position:relative;z-index:1;height:100%;padding:var(--vpad) var(--side);display:flex;flex-direction:column}
+.mast{background:var(--bg);display:flex;justify-content:space-between;gap:16px;padding:10px 16px 9px;border-bottom:4px double var(--oak)}
+.mast span:last-child{opacity:.7}
+.tbl{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);column-gap:0}
+.cell{min-width:0;min-height:0;padding:0 16px;display:flex;flex-direction:column}
+.c1,.c2{background:var(--bg);border-right:1px solid var(--oak);padding-top:20px;padding-bottom:20px}
+.c3{padding:0;border-left:0}
+.c1 nav{display:flex;flex-direction:column}
+.c1 nav a{color:var(--text);text-decoration:none;padding:10px 0;border-bottom:1px solid var(--oak);display:flex;justify-content:space-between}
+.c1 nav a:first-child{border-top:1px solid var(--oak)}
+.c1 nav a:hover{color:var(--accent)}
+.c1 .meta{margin-top:auto;opacity:.7}
+.c2 h1{font-family:'Unbounded',sans-serif;font-weight:700;font-size:16px;line-height:1.35;letter-spacing:0;text-transform:uppercase;margin-bottom:16px}
+.c2 p{opacity:.85;padding-top:14px;border-top:1px solid var(--oak)}
+.cta{margin-top:auto;display:flex;justify-content:space-between;background:var(--accent);color:var(--text);text-decoration:none;padding:12px 14px;border:1px solid var(--text)}
+.cta:hover{background:var(--text);color:var(--bg)}
+.c3 .win{flex:1;min-height:0}
+.c3 .pane{background:var(--bg);border-left:1px solid var(--oak);padding:12px 16px 14px}
+.thumbs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.thumbs img{width:100%;height:clamp(70px,16vh,150px);object-fit:cover;display:block;border-right:0}
+.cap{margin-top:10px;display:flex;justify-content:space-between;gap:8px;border-top:1px solid var(--oak);padding-top:8px}
+.cap b{font-weight:500}
+.lockup{background:var(--bg);border-top:1px solid var(--oak);display:flex;flex-direction:column;align-items:center;padding:14px 0 0;overflow:hidden}
+.lockup img{height:min(96px,13vh);width:auto;display:block;margin-bottom:16px}
+.word{font-family:'Unbounded',sans-serif;font-weight:700;font-size:min(12.4vw,20vh);line-height:.8;letter-spacing:-.04em;text-align:center;white-space:nowrap;padding-bottom:.08em;margin-top:.04em}
+.seed{text-transform:none!important;position:absolute;z-index:2;right:12px;bottom:6px;font-size:10px;letter-spacing:.1em;opacity:.7}
+@media (max-width:760px){
+  :root{--vpad:20px}
+  .hero{height:70svh}
+  .frame{padding-left:48px;padding-right:48px}
+  .mast{padding:8px 10px 7px}
+  .mast span:last-child{display:none}
+  .tbl{display:flex;flex-direction:column}
+  .c2{order:1;border-right:0;padding:12px 10px;border-bottom:1px solid var(--oak)}
+  .c1{order:2;border-right:0;padding:0 10px;border-bottom:1px solid var(--oak)}
+  .c3{order:3;flex:1;min-height:0}
+  .c1 nav{flex-direction:row;flex-wrap:wrap;column-gap:14px}
+  .c1 nav a{border:0!important;padding:8px 0}
+  .c1 .meta{display:none}
+  .c2 p{display:none}
+  .c2 h1{margin-bottom:12px}
+  .cta{margin-top:0}
+  .c3 .pane{padding:8px 10px 8px}
+  .thumbs{gap:8px}
+  .thumbs img{height:clamp(44px,9svh,90px)}
+  .lockup img{height:min(64px,10svh);margin-bottom:10px}
+  .lockup{padding-top:8px}
+  .word{font-size:min(11.6vw,10svh)}
+  .cap{display:none}
+  .c1 nav a span:last-child{display:none}
+  .seed{right:auto;left:50%;transform:translateX(-50%);bottom:4px}
+}
+</style>
+</head>
+<body>
+<header class="hd">
+  <img class="hero" src="../portfolio/single_room1.jpg" alt="Op maat gemaakt multiplex slaapbankje met kasten">
+  <div class="frame">
+    <div class="mast lbl"><span>Nederland, ambachtelijk meubelmaker</span><span>Werkplaats &middot; Nr. 01</span></div>
+    <div class="tbl">
+      <div class="cell c1">
+        <nav class="lbl" aria-label="Hoofdmenu">
+          <a href="#werk"><span>Werk</span><span>01</span></a>
+          <a href="#meubels"><span>Meubels op maat</span><span>02</span></a>
+          <a href="#over"><span>Over mij</span><span>03</span></a>
+          <a href="#contact"><span>Contact</span><span>04</span></a>
+        </nav>
+        <p class="meta lbl">Massief hout.<br>Eén maker.</p>
+      </div>
+      <div class="cell c2">
+        <h1>Meubels met beide voeten van de grond</h1>
+        <p class="lbl">Ik ontwerp en bouw meubels op maat in mijn eigen werkplaats, met geduld en een vleugje ruimtevaart.</p>
+        <a class="cta lbl" href="#contact"><span>Vraag een offerte</span><span>&rarr;</span></a>
+      </div>
+      <div class="cell c3">
+        <div class="win"></div>
+        <div class="pane">
+          <div class="thumbs">
+            <img src="../portfolio/borrelplank1.jpg" alt="Borrelplank met inleg">
+            <img src="../portfolio/bed2.jpg" alt="Bedhoofdeinde van massief hout">
+          </div>
+          <div class="cap lbl"><span><b>Fig. 1&ndash;3</b> Borrelplank, bed, slaapkamer</span><span>2026</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="lockup">
+      <img src="../logo/base-logo.svg" alt="">
+      <div class="word">AstroHout</div>
+    </div>
+  </div>
+  <div class="seed lbl">seed jc0rlr3e</div>
+</header>
+</body>
+</html>

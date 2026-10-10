@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AstroHout – Meubels en houtwerk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4EDE2; --ink:#1E1A17; --accent:#D2381E; --cedar:#A9663C;
+  --spine:72px; --margin:32px; --gutter:24px;
+  --s0:16px; --s1:20px; --s2:25px; --s3:31px; --s4:39px; --s5:49px; --s6:61px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font-family:Inter,system-ui,sans-serif;font-size:var(--s0);line-height:1.45;overflow-x:hidden}
+.bebas{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.02em}
+
+header{
+  position:relative;
+  height:100vh; height:100svh; min-height:600px;
+  border-top:8px solid var(--ink);
+  padding:0 var(--margin) 24px;
+  display:grid;
+  grid-template-columns:var(--spine) repeat(11,minmax(0,1fr));
+  column-gap:var(--gutter);
+  grid-template-rows:calc(40vh - 8px) auto auto minmax(0,1fr);
+  overflow:hidden;
+}
+
+/* ---- spine ---- */
+.spine{
+  grid-column:1; grid-row:1 / -1;
+  display:flex; flex-direction:column; justify-content:space-between; align-items:center;
+  padding:16px 0 0;
+}
+.rot{writing-mode:vertical-rl; transform:rotate(180deg); white-space:nowrap}
+nav.rot{font-size:var(--s0); display:flex; gap:20px; line-height:1}
+nav a{color:var(--ink);text-decoration:none}
+nav a:hover{color:var(--accent)}
+.lockup{text-decoration:none; color:var(--ink); display:flex; flex-direction:column; align-items:center; gap:16px}
+.lockup img{height:96px; width:auto; display:block}
+.wordmark{font-size:var(--s4); line-height:1; color:var(--ink); text-decoration:none}
+
+/* ---- headline ---- */
+.bar{grid-column:2 / 10; grid-row:2; align-self:end; width:48px; height:12px; background:var(--accent); margin-bottom:16px}
+h1{
+  grid-column:2 / 10; grid-row:3; margin:0;
+  font-size:var(--s6); line-height:1.1;
+}
+h1 em{font-style:normal; color:var(--accent)}
+
+.intro{grid-column:2 / 6; grid-row:4; padding-top:20px; display:flex; flex-direction:column; align-items:flex-start; gap:20px; min-height:0}
+.intro p{margin:0; font-size:var(--s1); font-weight:400; line-height:1.45}
+.intro p b{font-weight:500}
+.cta{
+  display:inline-flex; align-items:center; gap:12px;
+  background:var(--ink); color:var(--bg); text-decoration:none;
+  font-size:var(--s1); padding:10px 20px 8px;
+}
+.cta:hover{background:var(--cedar)}
+
+/* ---- imagery ---- */
+.figure{
+  grid-column:8 / 13; grid-row:3 / 5; margin:0; padding-top:4px;
+  display:flex; flex-direction:column; min-height:0; gap:12px;
+}
+.figure .draw{flex:1 1 auto; min-height:0; width:100%}
+.figure svg{width:100%; height:100%; display:block}
+.figure svg text{font-family:Inter,sans-serif; font-size:13px; fill:var(--ink)}
+.figure svg .acc{stroke:var(--accent); fill:none}
+.figure svg .acct{fill:var(--accent)}
+.figure svg .ln{stroke:var(--ink); fill:none; stroke-width:1}
+.figure svg .cd{fill:var(--cedar)}
+.figure svg .bgf{fill:var(--bg)}
+.meta{display:flex; align-items:flex-end; justify-content:space-between; gap:12px}
+.cap{font-size:13px; line-height:1.3; color:var(--cedar); font-weight:500; letter-spacing:.02em}
+.thumbs{display:flex; gap:8px; flex:none}
+.thumbs img{width:48px; height:64px; object-fit:cover; display:block}
+
+.seed{position:absolute; right:var(--margin); bottom:6px; font-size:11px; line-height:1; color:var(--cedar); letter-spacing:.04em}
+
+/* ---- phone ---- */
+@media (max-width:760px){
+  :root{--spine:48px; --margin:16px; --gutter:12px}
+  header{min-height:560px; padding-bottom:20px; grid-template-rows:calc(15vh - 8px) auto auto auto minmax(0,1fr)}
+  nav.rot{font-size:var(--s0); gap:14px}
+  .spine{padding-top:10px}
+  .lockup{gap:16px}
+  .lockup img{height:72px}
+  .wordmark{font-size:var(--s4)}
+  .bar{grid-column:2 / 13; width:48px}
+  h1{grid-column:2 / 13; font-size:var(--s4); line-height:1.1}
+  .intro{grid-column:2 / 13; grid-row:4; padding-top:12px; gap:12px}
+  .intro p{font-size:16px; line-height:1.4}
+  .cta{font-size:var(--s0); padding:8px 16px 6px}
+  .figure{grid-column:2 / 13; grid-row:5; padding-top:12px; gap:8px}
+  .thumbs img{width:36px; height:48px}
+  .thumbs{gap:6px}
+  .seed{right:var(--margin); bottom:4px}
+}
+@media (max-width:760px) and (max-height:700px){
+  .intro p{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <aside class="spine">
+    <nav class="rot bebas" aria-label="Hoofdmenu">
+      <a href="#werk">Werk</a>
+      <a href="#over">Over mij</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="lockup" href="#" aria-label="AstroHout">
+      <img src="../logo/base-logo.svg" alt="">
+      <span class="wordmark rot bebas">AstroHout</span>
+    </a>
+  </aside>
+
+  <div class="bar"></div>
+  <h1 class="bebas">Meubels met karakter,<br>gemaakt om te <em>blijven</em></h1>
+
+  <div class="intro">
+    <p>Ik ben Astro: <b>één man, één werkplaats</b>. Ik maak tafels, bedden en kasten van massief hout, op maat en met de hand.</p>
+    <a class="cta bebas" href="#contact">Vraag een offerte &rarr;</a>
+  </div>
+
+  <figure class="figure">
+    <div class="draw">
+      <svg viewBox="0 0 500 320" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Technische tekening van een zwaluwstaartverbinding">
+        <!-- tail board -->
+        <path class="ln" d="M20,40 H180 V82 L230,72 V128 L180,118 V182 L230,172 V228 L180,218 V260 H20 Z"/>
+        <!-- pin board -->
+        <path class="ln" d="M450,40 H290 V82 L340,72 V128 L290,118 V182 L340,172 V228 L290,218 V260 H450 Z"/>
+        <!-- grain hints -->
+        <path class="ln" d="M20,70 H150 M20,100 H150 M20,130 H150 M20,160 H150 M20,190 H150 M20,220 H150" stroke-dasharray="1 7"/>
+        <path class="ln" d="M370,70 H450 M370,100 H450 M370,130 H450 M370,160 H450 M370,190 H450 M370,220 H450" stroke-dasharray="1 7"/>
+        <!-- assembly guides -->
+        <g class="acc" stroke-width="1" stroke-dasharray="5 4">
+          <path d="M230,72 H340 M230,128 H340 M230,172 H340 M230,228 H340"/>
+        </g>
+        <path class="acc" d="M262,100 l-8,-4 v8 z M308,200 l8,-4 v8 z" fill="#D2381E"/>
+        <!-- centre lines -->
+        <path class="ln" d="M14,100 H236 M14,200 H236 M284,100 H456 M284,200 H456" stroke-dasharray="14 3 2 3" opacity=".55"/>
+        <!-- dimensions: overall -->
+        <path class="ln" d="M20,268 V292 M450,268 V292 M20,284 H450"/>
+        <rect class="bgf" x="209" y="274" width="42" height="18"/>
+        <text x="230" y="288" text-anchor="middle">450</text>
+        <!-- height -->
+        <path class="ln" d="M456,40 H482 M456,260 H482 M474,40 V260"/>
+        <rect class="bgf" x="462" y="140" width="24" height="18"/>
+        <text x="474" y="154" text-anchor="middle">220</text>
+        <!-- tail dims -->
+        <text x="188" y="60" text-anchor="middle">56</text>
+        <path class="ln" d="M230,64 V54 M230,57 H196"/>
+        <text x="150" y="112" text-anchor="end">36</text>
+        <path class="ln" d="M180,82 H160 M180,118 H160 M168,82 V118" />
+        <text x="348" y="152" >50</text>
+        <path class="ln" d="M290,148 V162 M340,148 V162 M290,155 H340" />
+        <text x="236" y="203" class="acct" style="fill:#D2381E">1:6</text>
+        <!-- titles -->
+        <text x="20" y="22" class="cd" style="fill:#A9663C">A</text>
+        <text x="290" y="22" style="fill:#A9663C">B</text>
+        <text x="20" y="314" style="fill:#A9663C">ZWALUWSTAART &#183; VOORAANZICHT &#183; MM</text>
+      </svg>
+    </div>
+    <div class="meta">
+      <span class="cap">FIG. 01<br>Zwaluwstaartverbinding, 1:6</span>
+      <span class="thumbs" aria-label="Recent werk">
+        <img src="../portfolio/borrelplank1.jpg" alt="Borrelplank" loading="lazy">
+        <img src="../portfolio/bed2.jpg" alt="Bed" loading="lazy">
+        <img src="../portfolio/single_room1.jpg" alt="Eenpersoonskamer met maatwerk meubels" loading="lazy">
+      </span>
+    </div>
+  </figure>
+
+  <span class="seed">SEED 6yobedbf</span>
+</header>
+</body>
+</html>
