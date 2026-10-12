@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home · current site</title>
+<meta name="description" content="AstroHout: meubels en interieurwerk op maat, met de hand gemaakt door één maker.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#292929;          /* body text */
+    --ink-soft:#575757;     /* headings, paragraphs */
+    --nav:rgba(0,0,0,.79);
+    --line:#e6e6e6;
+    --bg:#fff;
+    --gut:clamp(16px,3vw,40px);
+    --hh:85px;              /* header height */
+    --max:1440px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--bg) url(drawings-wallpaper.svg) 0 0/1100px auto repeat;  /* workshop drawings as wallpaper */
+    color:var(--ink);
+    font-family:'Montserrat',sans-serif;font-weight:400;font-size:15px;line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut);}
+
+  /* ===== header ===== */
+  .top{position:fixed;inset:0 0 auto;z-index:20;background:#EADCC4;
+    box-shadow:0 1px 0 rgba(43,29,20,.10),0 4px 14px rgba(43,29,20,.16);}  /* soft shade under the plank */
+  .grain{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block;}
+  .top .wrap{height:var(--hh);display:flex;align-items:center;justify-content:space-between;}
+  .brand{display:flex;align-items:center;gap:10px;color:var(--nav);}
+  .top .brand{gap:12px;}
+  .brand img{height:34px;width:auto;aspect-ratio:1000/1335;opacity:.85;}
+  .brand span{font-family:'Montserrat',sans-serif;font-weight:600;font-size:28px;letter-spacing:-.02em;line-height:1;}
+  .top .brand img{height:54px;}
+  .top .brand span{font-family:'Montserrat',sans-serif;font-weight:600;font-size:24px;letter-spacing:-.02em;}
+  .nav{display:flex;gap:clamp(28px,3.6vw,52px);margin-right:clamp(0px,2.5vw,40px);}
+  .nav a{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--nav);line-height:1;}
+  .nav a[aria-current]{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;}
+  .nav a:hover{opacity:.6;}
+  .burger{display:none;background:none;border:0;cursor:pointer;width:32px;height:32px;position:relative;}
+  .burger i{position:absolute;left:4px;right:4px;height:1px;background:var(--ink);transition:transform .3s,top .3s;}
+  .burger i:first-child{top:12px;}
+  .burger i:last-child{top:20px;}
+  .burger[aria-expanded="true"] i:first-child{top:16px;transform:rotate(45deg);}
+  .burger[aria-expanded="true"] i:last-child{top:16px;transform:rotate(-45deg);}
+
+  /* ===== spine: vertical wordmark in the lower-left (from header seed 6yobedbf) ===== */
+  :root{--spine:72px;}
+  body{padding-left:var(--spine);}
+  .top{padding-left:var(--spine);}
+  .spine{
+    position:fixed;left:0;top:var(--hh);bottom:0;z-index:10;width:var(--spine);
+    display:flex;justify-content:center;align-items:flex-end;padding-bottom:28px;
+  }
+  .lockup{display:flex;flex-direction:column;align-items:center;gap:16px;color:var(--ink);}
+  .lockup:hover{opacity:.6;}
+  .lockup img{height:64px;width:auto;aspect-ratio:1000/1335;}
+  .lockup span{
+    writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;
+    font-family:'Bebas Neue',Impact,sans-serif;text-transform:uppercase;letter-spacing:.02em;
+    font-size:39px;line-height:1;
+  }
+
+  /* ===== hero slideshow ===== */
+  main{padding-top:calc(var(--hh) + 28px);}  /* breathing room under the navbar */
+  .slides{position:relative;aspect-ratio:3/2;overflow:hidden;background:#f2f2f2;}
+  .slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease-in-out;}
+  .slides img.on{opacity:1;}
+
+  /* ===== intro ===== */
+  .intro{text-align:center;padding:64px 0 96px;}
+  h1{
+    font-family:'Montserrat',sans-serif;font-weight:500;color:var(--ink-soft);
+    font-size:clamp(30px,3.6vw,40px);line-height:1.5;letter-spacing:-.02em;
+  }
+  .intro p{font-size:14px;letter-spacing:.01em;color:var(--ink-soft);margin-top:4px;}
+  /* ===== call to action + button variants (click one to put it in the main spot) ===== */
+  .cta-spot{margin-top:48px;}
+  .b{
+    display:inline-flex;align-items:center;gap:12px;min-height:50px;padding:0 26px;
+    font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    transition:background .2s,color .2s,box-shadow .2s,transform .2s;
+  }
+  .b .arrow{width:16px;height:16px;flex:none;transition:transform .2s;}
+  .b:hover .arrow{transform:translateX(4px);}
+  .b-dark{background:#2B1D14;color:#F7F0E4;}                     /* A: walnut solid */
+  .b-dark:hover{background:#5A3D28;}
+  .b-oak{background:#EADCC4;color:var(--nav);                    /* B: oak plank, matches the navbar */
+    box-shadow:0 1px 0 rgba(43,29,20,.10),0 4px 14px rgba(43,29,20,.16);}
+  .b-oak:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(43,29,20,.10),0 8px 20px rgba(43,29,20,.22);}
+  .b-pill{background:var(--bg);color:var(--ink);border:1.5px solid var(--ink);border-radius:999px;}  /* C: rounded outline */
+  .b-pill:hover{background:var(--ink);color:#fff;}
+  .b-accent{background:#C8560A;color:#fff;}                      /* D: burnt orange from swiss warm */
+  .b-accent:hover{background:#A84608;}
+  .b-split{padding:0;gap:0;background:var(--bg);color:var(--ink);border:1px solid var(--ink);}  /* E: label + arrow block */
+  .b-split span{padding:0 22px;}
+  .b-split i{align-self:stretch;display:grid;place-items:center;width:50px;background:var(--ink);color:#fff;}
+  .b-split:hover i{background:#C8560A;}
+  .b-link{min-height:0;padding:0 0 6px;color:var(--ink);border-bottom:1.5px solid var(--ink);}  /* F: text link */
+  .b-link:hover{color:#C8560A;border-color:#C8560A;}
+  .b-outline{                                                    /* G: the original outline button */
+    min-height:52px;background:var(--bg);color:var(--ink);border:1px solid #000;
+    font-family:'Montserrat',sans-serif;font-weight:500;font-size:15px;letter-spacing:.06em;
+  }
+  .b-outline:hover{background:#000;color:#fff;}
+  .b-wood{position:relative;isolation:isolate;overflow:hidden;color:var(--nav);   /* H: navbar oak grain, walnut sweep on hover */
+    box-shadow:0 1px 0 rgba(43,29,20,.10),0 4px 14px rgba(43,29,20,.16);
+    transition:color .35s,box-shadow .35s,transform .35s;}
+  .b-wood .b-grain{position:absolute;inset:0;width:100%;height:100%;z-index:-1;}
+  .b-wood::after{
+    content:"";position:absolute;inset:0;z-index:-1;background:rgba(43,29,20,.9);
+    transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.65,0,.35,1);
+  }
+  .b-wood:hover::after,.b-wood:focus-visible::after{transform:scaleX(1);}
+  .b-wood:hover,.b-wood:focus-visible{color:#F7F0E4;transform:translateY(-2px);box-shadow:0 1px 0 rgba(43,29,20,.10),0 10px 24px rgba(43,29,20,.28);}
+
+  .intro .alts-hint{margin-top:112px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:500;letter-spacing:.08em;color:var(--ink-soft);}  /* .intro p would otherwise win */
+  .alts{display:flex;flex-wrap:wrap;justify-content:center;gap:32px 40px;margin-top:20px;}
+  .alt{display:flex;flex-direction:column;align-items:center;gap:12px;}
+  .alt small{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);}
+  .alt.on small{color:#C8560A;}
+  .alt.on small::after{content:" ✓";}
+  @media (min-width:861px){
+    .intro{padding:120px 0 150px;}
+  }
+
+
+  /* ===== footer ===== */
+  footer{border-top:1px solid var(--line);padding:40px 0 32px;font-size:13px;background:var(--bg);}
+  footer{margin-left:calc(-1 * var(--spine));padding-left:var(--spine);}  /* white runs under the spine too */
+  .foot{display:grid;grid-template-columns:1fr auto auto auto;gap:24px 48px;align-items:start;}
+  .foot .brand span{font-size:25px;}
+  .foot .brand img{height:28px;}
+  .social{display:flex;gap:14px;padding-top:4px;}
+  .social svg{width:16px;height:16px;fill:var(--ink);}
+  .social a:hover{opacity:.6;}
+  .foot address{font-style:normal;line-height:2;}
+  .sitemap{display:grid;grid-template-columns:repeat(2,minmax(0,190px));gap:0 24px;margin-top:40px;line-height:2.1;}
+  .sitemap a{display:block;text-transform:lowercase;}
+  .sitemap a:hover,.legal a:hover,.foot address a:hover{text-decoration:underline;}
+  .legal{margin-top:48px;text-align:center;font-size:11px;}
+  .legal nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 10px;}
+  .legal p{margin-top:16px;}
+
+  /* ===== small screens ===== */
+  @media (max-width:860px){
+    .intro .alts-hint{margin-top:80px;}
+    main{padding-top:calc(var(--hh) + 18px);}
+    :root{--spine:44px;}
+    .spine{padding-bottom:20px;}
+    .lockup{gap:12px;}
+    .lockup img{height:44px;}
+    .lockup span{font-size:28px;}
+    :root{--hh:68px;}
+    .top .brand img{height:42px;}
+    .top .brand span{font-size:20px;}
+    .burger{display:block;}
+    .nav{
+      position:fixed;inset:var(--hh) 0 0;background:var(--bg);
+      flex-direction:column;align-items:center;justify-content:center;gap:28px;
+      opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;
+    }
+    .nav.open{opacity:1;visibility:visible;}
+    .nav{margin-right:0;}
+    .nav a{font-size:20px;}
+    .slides{aspect-ratio:4/5;}
+    .intro{padding:72px 0 96px;}
+    .foot{grid-template-columns:1fr;}
+    .sitemap{grid-template-columns:1fr 1fr;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .slides img,.nav,.burger i,.b,.b .arrow,.b-wood::after{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<aside class="spine">
+  <a class="lockup" href="astrohout-reijngoud-swissfooter.html" aria-label="AstroHout home">
+    <img src="logo/base-logo.svg" alt="">
+    <span>AstroHout</span>
+  </a>
+</aside>
+
+<header class="top">
+  <!-- generated oak grain: stretched noise folded into bands, tinted oak → teak -->
+  <svg class="grain" aria-hidden="true">
+    <filter id="wood" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.0011 0.028" numOctaves="3" seed="11"/>
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0 0 .12 .55 .12 0 0 .1 .4 .1 0 0 .12 .55 .12 0 0 .1 .4 .1 0 0 .12 .55 .12 0"/>
+      </feComponentTransfer>
+      <feColorMatrix type="matrix" values="-.094 0 0 0 .918  -.141 0 0 0 .863  -.196 0 0 0 .769  0 0 0 0 1"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#wood)"/>
+  </svg>
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="AstroHout home">
+      <img src="logo/base-logo.svg" alt="">
+      <span>astrohout</span>
+    </a>
+    <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><i></i><i></i></button>
+    <nav class="nav" id="nav">
+      <a href="#" aria-current="page">Home</a>
+      <a href="astrohout-reijngoud-portfolio.html">Portfolio</a>
+      <a href="#">Wat ik maak</a>
+      <a href="#">Over</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="slides" aria-label="Projecten van AstroHout">
+      <img class="on" src="portfolio/web/bed8.jpg" alt="Zolderslaapkamer met bed van massief hout en ingebouwde kasten">
+      <img src="portfolio/web/keuken1.jpg" alt="Keuken op maat met groene kasten en houten werkblad" loading="lazy">
+      <img src="portfolio/web/schappen1.jpg" alt="Inbouwkasten met open schappen onder een schuin dak" loading="lazy">
+      <img src="portfolio/web/hek1.jpg" alt="Traphek met spijlen van natuurlijk gevormde takken" loading="lazy">
+    </div>
+
+    <section class="intro">
+      <h1>Interieur op maat</h1>
+      <p>Kasten, keukens, binnen- en buitenwerk.</p>
+      <div class="cta-spot"><a class="b b-dark" id="main-btn" href="astrohout-reijngoud-portfolio.html">Bekijk het werk <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+      <p class="alts-hint">Klik op een variant om hem bovenaan te zetten</p>
+      <div class="alts" aria-label="Knopvarianten">
+        <div class="alt on" data-v="A"><small>A · Walnoot</small><a class="b b-dark" href="astrohout-reijngoud-portfolio.html">Bekijk het werk <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+        <div class="alt" data-v="B"><small>B · Eiken plank</small><a class="b b-oak" href="astrohout-reijngoud-portfolio.html">Bekijk het werk</a></div>
+        <div class="alt" data-v="C"><small>C · Rond</small><a class="b b-pill" href="astrohout-reijngoud-portfolio.html">Bekijk het werk</a></div>
+        <div class="alt" data-v="D"><small>D · Oranje</small><a class="b b-accent" href="astrohout-reijngoud-portfolio.html">Bekijk het werk <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+        <div class="alt" data-v="E"><small>E · Met pijlblok</small><a class="b b-split" href="astrohout-reijngoud-portfolio.html"><span>Bekijk het werk</span><i><svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></i></a></div>
+        <div class="alt" data-v="F"><small>F · Tekstlink</small><a class="b b-link" href="astrohout-reijngoud-portfolio.html">Bekijk het werk <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+        <div class="alt" data-v="G"><small>G · Origineel</small><a class="b b-outline" href="astrohout-reijngoud-portfolio.html">Bekijk het werk</a></div>
+        <div class="alt" data-v="H"><small>H · Houtnerf</small><a class="b b-wood" href="astrohout-reijngoud-portfolio.html"><svg class="b-grain" aria-hidden="true"><rect width="100%" height="100%" filter="url(#wood)"/></svg>Bekijk het werk <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="astrohout-reijngoud-swissfooter.html" aria-label="AstroHout home">
+        <img src="logo/base-logo.svg" alt="">
+        <span>astrohout</span>
+      </a>
+      <div class="social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2M12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.1 1.4C1.3 2.7.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.2.6 2.9.3.8.7 1.5 1.4 2.1.7.7 1.3 1.1 2.1 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.2-.3 2.9-.6.8-.3 1.5-.7 2.1-1.4.7-.7 1.1-1.3 1.4-2.1.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.2-.6-2.9-.3-.8-.7-1.5-1.4-2.1C21.3 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg></a>
+        <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24"><path d="M12 0a12 12 0 0 0-4.4 23.2c-.1-.9-.2-2.4 0-3.4l1.4-6s-.4-.7-.4-1.8c0-1.7 1-2.9 2.2-2.9 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.1 0 3.8-2.2 3.8-5.5 0-2.9-2.1-4.9-5-4.9-3.4 0-5.4 2.6-5.4 5.2 0 1 .4 2.1.9 2.7.1.1.1.2.1.3l-.3 1.4c-.1.2-.2.3-.4.2-1.5-.7-2.4-2.9-2.4-4.6 0-3.8 2.7-7.2 7.9-7.2 4.1 0 7.3 2.9 7.3 6.9 0 4.1-2.6 7.4-6.2 7.4-1.2 0-2.4-.6-2.7-1.4l-.8 2.8c-.3 1-1 2.3-1.5 3.1A12 12 0 1 0 12 0z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.1 2.1 2.1 0 0 1 0 4.1zm1.8 13.1H3.6V9h3.6v11.5zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg></a>
+      </div>
+      <address><a href="#">info@astrohout.nl</a><br><a href="#">@astrohout</a></address>
+      <address>Werkplaats<br>Nederland</address>
+    </div>
+
+    <div class="sitemap">
+      <nav aria-label="Menu">
+        <a href="astrohout-reijngoud-swissfooter.html">Home</a>
+        <a href="astrohout-reijngoud-portfolio.html">Portfolio</a>
+        <a href="#">Wat ik maak</a>
+        <a href="#">Over</a>
+        <a href="#">Contact</a>
+      </nav>
+      <nav aria-label="Specialismen">
+        <a href="#">Kasten op maat</a>
+        <a href="#">Bedden</a>
+        <a href="#">Keukens</a>
+        <a href="#">Trappen en hekken</a>
+      </nav>
+    </div>
+
+    <div class="legal">
+      <nav aria-label="Juridisch">
+        <a href="#">algemene voorwaarden</a><span>·</span>
+        <a href="#">cookieverklaring</a><span>·</span>
+        <a href="#">privacyverklaring</a>
+      </nav>
+      <p>© <span id="y">2026</span> AstroHout</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const burger=document.querySelector('.burger'),nav=document.getElementById('nav');
+  burger.addEventListener('click',()=>{
+    const open=nav.classList.toggle('open');
+    burger.setAttribute('aria-expanded',open);
+    document.body.style.overflow=open?'hidden':'';
+  });
+
+  // crossfading hero slideshow
+  const slides=[...document.querySelectorAll('.slides img')];
+  let i=0;
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    setInterval(()=>{
+      slides[i].classList.remove('on');
+      i=(i+1)%slides.length;
+      slides[i].classList.add('on');
+    },4500);
+  }
+
+  // button variants: clicking one puts it in the main spot (temporary, for comparing)
+  const mainBtn=document.getElementById('main-btn');
+  const variants=[...document.querySelectorAll('.alt')];
+  function pick(alt){
+    const a=alt.querySelector('a');
+    mainBtn.className=a.className;
+    mainBtn.innerHTML=a.innerHTML;
+    variants.forEach(v=>v.classList.toggle('on',v===alt));
+    try{localStorage.setItem('astrohout-button-v2',alt.dataset.v);}catch(e){}
+  }
+  variants.forEach(alt=>alt.querySelector('a').addEventListener('click',e=>{e.preventDefault();pick(alt);}));
+  try{
+    const saved=variants.find(v=>v.dataset.v===localStorage.getItem('astrohout-button-v2'));
+    if(saved) pick(saved);
+  }catch(e){}
+
+  document.getElementById('y').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swiss warm</title>
+<meta name="description" content="AstroHout: meubels en interieurwerk op maat, met de hand gemaakt door één maker.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --oak:#EFE6D8;        /* oiled oak ground */
+    --oak-deep:#E4D8C5;
+    --walnut:#2B1D14;     /* text */
+    --walnut-soft:#6B5848;
+    --teak:#C9A27A;       /* mid-tone block */
+    --accent:#C8560A;     /* burnt orange */
+    --gut:16px;
+    --gap:8px;
+    --hh:64px;            /* header height */
+    --max:1440px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--oak);color:var(--walnut);
+    font-family:'Archivo',sans-serif;font-size:16px;line-height:1.45;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  section[id]{scroll-margin-top:var(--hh);}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut);position:relative;}
+  .g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);}
+  .label{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);}
+
+  /* faint column guides, fixed behind the transparent sections */
+  .guides{
+    position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);
+    width:min(100%,var(--max));padding:0 var(--gut);pointer-events:none;z-index:0;
+  }
+  .guides span{background:rgba(43,29,20,.03);border-inline:1px solid rgba(43,29,20,.055);}
+  main,header,footer{position:relative;z-index:1;}
+
+  /* ===== header ===== */
+  .top{position:sticky;top:0;z-index:20;background:var(--oak);}
+  .top .wrap{height:var(--hh);align-items:center;border-bottom:2px solid var(--walnut);}
+  .brand{grid-column:1/9;display:flex;align-items:center;gap:10px;}
+  .brand img{height:38px;width:auto;aspect-ratio:1000/1335;}
+  .brand b{font-weight:800;font-size:20px;letter-spacing:-.03em;}
+  .nav a{font-size:13px;font-weight:600;display:flex;gap:6px;align-items:baseline;}
+  .nav a i{font-style:normal;color:var(--accent);font-weight:800;font-size:10px;}
+  .nav a:hover{color:var(--accent);}
+  .top .nav{display:none;}
+  .top-cta{display:none;}
+  .menu-btn{
+    grid-column:9/13;justify-self:end;background:none;border:2px solid var(--walnut);
+    font:800 12px 'Archivo',sans-serif;letter-spacing:.06em;text-transform:uppercase;
+    padding:8px 12px;color:var(--walnut);cursor:pointer;
+  }
+  .menu{display:none;flex-direction:column;border-bottom:2px solid var(--walnut);background:var(--oak);}
+  .menu.open{display:flex;}
+  .menu a{padding:14px 0;border-bottom:1px solid rgba(43,29,20,.15);font-size:20px;font-weight:800;letter-spacing:-.02em;}
+  .menu a:last-child{border-bottom:0;color:var(--accent);}
+  .menu a i{color:var(--accent);font-style:normal;font-size:12px;margin-right:10px;}
+
+  /* ===== hero ===== */
+  .hero{
+    margin-top:12px;row-gap:var(--gap);
+    grid-template-rows:auto 150px 150px auto auto;
+  }
+  h1{
+    grid-column:1/-1;grid-row:1;
+    font-weight:900;font-size:min(15.2vw,96px);
+    line-height:.88;letter-spacing:-.045em;
+  }
+  h1 em{font-style:normal;color:var(--accent);}
+  h1 span{display:block;}
+
+  .ph{position:relative;overflow:hidden;background:var(--teak);min-height:0;}
+  .ph img{width:100%;height:100%;object-fit:cover;filter:sepia(.18) saturate(.95) contrast(1.02);transition:transform .5s ease;}
+  .ph figcaption{
+    position:absolute;left:0;bottom:0;background:var(--oak);color:var(--walnut);
+    font-size:11px;font-weight:600;padding:5px 9px 4px 6px;
+    display:flex;gap:6px;letter-spacing:.02em;
+  }
+  .ph figcaption i{font-style:normal;color:var(--accent);font-weight:800;}
+
+  .p-bed{grid-column:1/8;grid-row:2/4;}
+  .p-hek{grid-column:8/13;grid-row:2;}
+  .p-bor{grid-column:8/13;grid-row:3;}
+  .tag{grid-column:1/-1;grid-row:4;margin-top:4px;}
+  .tag p{font-size:17px;font-weight:700;line-height:1.25;letter-spacing:-.01em;}
+  .tag small{display:block;margin-top:6px;font-size:13px;line-height:1.45;color:var(--walnut-soft);font-weight:500;}
+  .tag small b{display:block;color:var(--accent);font-weight:800;font-size:10px;letter-spacing:.06em;text-transform:uppercase;}
+  .cta{
+    background:var(--accent);color:var(--oak);
+    display:flex;justify-content:space-between;align-items:center;gap:16px;
+    padding:14px;font-weight:800;font-size:17px;letter-spacing:-.02em;
+    transition:background .2s;
+  }
+  .cta:hover{background:var(--walnut);}
+  .cta svg{width:22px;height:22px;flex:none;}
+  .hero .cta{grid-column:1/-1;grid-row:5;margin-top:4px;}
+
+  /* ===== facts strip ===== */
+  .facts{margin-top:48px;row-gap:24px;}
+  .fact{grid-column:span 6;border-top:2px solid var(--walnut);padding-top:10px;}
+  .fact b{display:block;font-weight:800;font-size:18px;letter-spacing:-.02em;margin-top:4px;}
+  .fact span{display:block;font-size:13px;color:var(--walnut-soft);margin-top:2px;max-width:30ch;}
+
+  /* ===== sections ===== */
+  .sec{padding:72px 0 0;}
+  .shead{border-top:2px solid var(--walnut);padding-top:12px;margin-bottom:28px;row-gap:14px;}
+  .shead .label{grid-column:1/-1;}
+  .shead h2{
+    grid-column:1/-1;font-weight:900;letter-spacing:-.045em;line-height:.9;
+    font-size:clamp(42px,6.6vw,108px);
+  }
+  .shead h2 em{font-style:normal;color:var(--accent);}
+  .shead .note{grid-column:1/-1;font-size:15px;color:var(--walnut-soft);max-width:40ch;}
+  .shead .note a{color:var(--walnut);font-weight:800;border-bottom:2px solid var(--accent);}
+
+  /* 01 werk: project mosaic */
+  .works{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap);}
+  .work{aspect-ratio:3/4;}
+  .work:first-child{grid-column:1/-1;aspect-ratio:4/3;}
+  .work:hover img{transform:scale(1.035);}
+  .work:hover figcaption{background:var(--accent);color:var(--oak);}
+  .work:hover figcaption i{color:var(--oak);}
+  .work figcaption span{font-weight:500;opacity:.75;}
+
+  /* 01.1 uitgelicht */
+  .feat{row-gap:var(--gap);}
+  .feat-main{grid-column:1/-1;aspect-ratio:4/3;}
+  .feat-side{grid-column:1/-1;display:flex;flex-direction:column;gap:20px;padding-top:12px;}
+  .feat-side h3{font-weight:900;font-size:clamp(30px,3.2vw,48px);letter-spacing:-.04em;line-height:.95;}
+  .feat-side p{font-size:16px;color:var(--walnut-soft);max-width:42ch;}
+  .spec{border-top:2px solid var(--walnut);}
+  .spec div{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid rgba(43,29,20,.18);font-size:14px;}
+  .spec dt{font-weight:800;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);padding-top:2px;}
+  .spec dd{font-weight:600;}
+  .feat-details{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);}
+  .feat-details .ph{aspect-ratio:3/4;}
+
+  /* 02 werkwijze: teak band */
+  .band{background:var(--teak);margin-top:72px;padding:20px 0 64px;}
+  .band .sec{padding-top:0;}
+  .band .shead{border-top-color:var(--walnut);}
+  .band .label{color:var(--walnut);}
+  .band .shead .note{color:var(--walnut);}
+  .steps{row-gap:32px;}
+  .step{grid-column:span 12;border-top:2px solid var(--walnut);padding-top:10px;}
+  .step-n{display:block;font-weight:900;font-size:clamp(64px,7.4vw,124px);line-height:.82;letter-spacing:-.06em;margin:6px 0 18px;}
+  .step h3{font-weight:800;font-size:20px;letter-spacing:-.02em;margin-bottom:6px;}
+  .step p{font-size:15px;max-width:34ch;}
+
+  /* 03 over */
+  .about{row-gap:28px;}
+  .about-ph{grid-column:1/-1;aspect-ratio:4/5;}
+  .about-txt{grid-column:1/-1;}
+  .statement{font-weight:800;font-size:clamp(30px,3.6vw,56px);line-height:1.02;letter-spacing:-.035em;}
+  .statement em{font-style:normal;color:var(--accent);}
+  .about-txt p:not(.statement){margin-top:24px;font-size:17px;color:var(--walnut-soft);max-width:48ch;}
+  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);margin-top:36px;}
+  .trio div{border-top:2px solid var(--walnut);padding-top:8px;}
+  .trio b{display:block;font-size:22px;font-weight:900;letter-spacing:-.03em;}
+  .trio span{font-size:12px;color:var(--walnut-soft);font-weight:600;}
+
+  /* 04 contact: walnut block */
+  .dark{background:var(--walnut);color:var(--oak);margin-top:80px;padding:20px 0 56px;}
+  .dark .sec{padding-top:0;}
+  .dark .shead{border-top-color:var(--oak);}
+  .dark .shead .note{color:rgba(239,230,216,.7);}
+  .contact{row-gap:40px;}
+  .cinfo{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:20px var(--gap);align-content:start;}
+  .cinfo div{border-top:1px solid rgba(239,230,216,.3);padding-top:8px;font-size:15px;}
+  .cinfo .label{display:block;margin-bottom:2px;}
+  form{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:22px var(--gap);}
+  .field{grid-column:1/-1;}
+  .field.half{grid-column:span 1;}
+  label{display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teak);margin-bottom:6px;}
+  input,textarea,select{
+    width:100%;background:transparent;border:0;border-bottom:2px solid rgba(239,230,216,.45);
+    padding:8px 0;font:500 17px 'Archivo',sans-serif;color:var(--oak);outline:none;border-radius:0;
+  }
+  select option{color:var(--walnut);}
+  input:focus,textarea:focus,select:focus{border-bottom-color:var(--accent);}
+  textarea{resize:vertical;min-height:110px;}
+  button.cta{grid-column:1/-1;border:0;cursor:pointer;font-family:'Archivo',sans-serif;text-align:left;width:100%;}
+  button.cta:hover{background:var(--oak);color:var(--walnut);}
+  .form-note{grid-column:1/-1;font-size:13px;color:var(--teak);min-height:1em;}
+
+  /* ===== footer ===== */
+  footer{padding:40px 0 0;overflow:hidden;}
+  .foot{row-gap:28px;padding-bottom:28px;}
+  .foot-col{grid-column:span 6;font-size:14px;}
+  .foot-col .label{display:block;margin-bottom:8px;}
+  .foot-col a{display:block;font-weight:600;padding:2px 0;}
+  .foot-col a:hover{color:var(--accent);}
+  .foot-brand{grid-column:1/-1;display:flex;align-items:flex-end;gap:14px;}
+  .foot-brand img{height:64px;width:auto;aspect-ratio:1000/1335;}
+  .foot-brand p{font-size:13px;color:var(--walnut-soft);max-width:28ch;}
+  .giant{
+    font-weight:900;letter-spacing:-.06em;line-height:.78;white-space:nowrap;
+    font-size:min(calc((100vw - 2 * var(--gut)) / 5.35),257px);margin-left:-.04em;
+    border-top:2px solid var(--walnut);padding-top:.08em;
+  }
+  .giant em{font-style:normal;color:var(--accent);}
+  .legal{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:11px;font-weight:600;color:var(--walnut-soft);padding:14px 0 18px;}
+
+  /* ===== tablet ===== */
+  @media(min-width:640px){
+    .works{grid-template-columns:repeat(3,minmax(0,1fr));}
+    .fact{grid-column:span 3;}
+    .step{grid-column:span 6;}
+    .foot-col{grid-column:span 3;}
+  }
+
+  /* ===== desktop ===== */
+  @media(min-width:900px){
+    :root{--gut:32px;--gap:16px;--hh:84px;}
+    .brand{grid-column:1/5;}
+    .brand img{height:50px;}
+    .brand b{font-size:26px;}
+    .menu-btn,.menu,.menu.open{display:none;}
+    .top .nav{display:contents;}
+    .top .nav a:nth-child(1){grid-column:5/7;}
+    .top .nav a:nth-child(2){grid-column:7/9;}
+    .top .nav a:nth-child(3){grid-column:9/10;}
+    .top .nav a:nth-child(4){grid-column:10/11;}
+    .top-cta{
+      display:block;grid-column:11/13;justify-self:end;
+      font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
+      border:2px solid var(--walnut);padding:9px 12px;transition:background .2s,color .2s;
+    }
+    .top-cta:hover{background:var(--walnut);color:var(--oak);}
+
+    .hero{
+      margin-top:var(--gap);
+      height:calc(100svh - var(--hh) - var(--gap) * 2);min-height:540px;max-height:960px;
+      grid-template-rows:repeat(6,minmax(0,1fr));
+    }
+    h1{grid-column:1/9;grid-row:1/4;font-size:min(9.4vw,18.5svh,136px);line-height:.86;margin-top:-.04em;}
+    .p-bed{grid-column:9/13;grid-row:1/6;}
+    .p-hek{grid-column:7/9;grid-row:4/7;}
+    .p-bor{grid-column:5/7;grid-row:4/7;}
+    .tag{
+      grid-column:1/5;grid-row:4/7;margin:0;
+      display:flex;flex-direction:column;justify-content:space-between;
+      background:var(--teak);padding:14px 16px 16px;
+    }
+    .tag p{font-size:clamp(18px,1.9vw,28px);font-weight:800;letter-spacing:-.025em;line-height:1.08;}
+    .tag small{font-size:12px;color:var(--walnut);max-width:32ch;}
+    .hero .cta{grid-column:9/13;grid-row:6/7;margin:0;font-size:clamp(17px,1.7vw,24px);padding:0 18px;}
+    .hero .cta svg{width:30px;height:30px;}
+
+    .facts{margin-top:var(--gap);}
+
+    .sec{padding-top:120px;}
+    .shead{margin-bottom:40px;row-gap:18px;}
+    .shead .label{grid-column:1/4;grid-row:1;}
+    .shead .note{grid-column:9/13;grid-row:1/3;align-self:end;justify-self:end;text-align:right;}
+    .shead h2{grid-column:1/9;grid-row:2;}
+
+    .works{
+      grid-template-columns:repeat(12,minmax(0,1fr));
+      grid-auto-rows:clamp(96px,9.4vw,140px);
+      grid-template-areas:
+        "a a a a a b b b b c c c"
+        "a a a a a b b b b c c c"
+        "a a a a a b b b b d d d"
+        "e e e f f f g g g d d d"
+        "e e e f f f g g g h h h"
+        "e e e f f f g g g h h h";
+    }
+    .work,.work:first-child{aspect-ratio:auto;grid-column:auto;}
+    .work:nth-child(1){grid-area:a;}
+    .work:nth-child(2){grid-area:b;}
+    .work:nth-child(3){grid-area:c;}
+    .work:nth-child(4){grid-area:d;}
+    .work:nth-child(5){grid-area:e;}
+    .work:nth-child(6){grid-area:f;}
+    .work:nth-child(7){grid-area:g;}
+    .work:nth-child(8){grid-area:h;}
+
+    .feat-main{grid-column:1/9;aspect-ratio:auto;min-height:clamp(420px,44vw,640px);}
+    .feat-side{grid-column:9/13;padding-top:0;justify-content:space-between;}
+
+    .band{margin-top:120px;padding:24px 0 96px;}
+    .step{grid-column:span 3;}
+
+    .about-ph{grid-column:1/6;aspect-ratio:4/5;}
+    .about-txt{grid-column:7/13;align-self:center;}
+
+    .dark{margin-top:120px;padding:24px 0 96px;}
+    .cinfo{grid-column:1/6;grid-template-columns:1fr 1fr;}
+    form{grid-column:7/13;}
+
+    footer{padding-top:64px;}
+    .foot-brand{grid-column:1/5;}
+    .foot-col{grid-column:span 2;}
+    .foot-col:nth-of-type(2){grid-column:7/9;}
+  }
+  @media(min-width:900px) and (max-height:640px){
+    h1{font-size:min(9vw,17svh);}
+  }
+  @media(max-width:380px){
+    .brand img{height:34px;}
+    .brand b{font-size:18px;}
+  }
+</style>
+</head>
+<body>
+<div class="guides g" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<header class="top">
+  <div class="wrap g">
+    <a class="brand" href="#"><img src="logo/base-logo.svg" alt=""><b>AstroHout</b></a>
+    <nav class="nav" aria-label="Hoofdmenu">
+      <a href="#werk"><i>01</i>Werk</a>
+      <a href="#werkwijze"><i>02</i>Werkwijze</a>
+      <a href="#over"><i>03</i>Over</a>
+      <a href="#contact"><i>04</i>Contact</a>
+    </nav>
+    <a class="top-cta" href="#contact">Offerte aanvragen</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="menu">Menu</button>
+  </div>
+  <nav class="menu wrap" id="menu" aria-label="Hoofdmenu mobiel">
+    <a href="#werk"><i>01</i>Werk</a>
+    <a href="#werkwijze"><i>02</i>Werkwijze</a>
+    <a href="#over"><i>03</i>Over</a>
+    <a href="#contact"><i>04</i>Contact</a>
+    <a href="#contact">Vraag een ontwerp aan →</a>
+  </nav>
+</header>
+
+<main>
+  <!-- hero -->
+  <div class="wrap">
+    <section class="hero g">
+      <h1><span>Meubels</span><span>op maat,</span><span><em>met de hand</em></span></h1>
+      <figure class="ph p-bed"><img src="portfolio/web/bed5.jpg" alt="Hoek van een massief houten bedframe"><figcaption><i>01</i>Bedframe</figcaption></figure>
+      <figure class="ph p-hek"><img src="portfolio/web/hek2.jpg" alt="Trapbalustrade met staanders van ongeschilde takken"><figcaption><i>02</i>Balustrade</figcaption></figure>
+      <figure class="ph p-bor"><img src="portfolio/web/borrelplank1.jpg" alt="Borrelplank met ingelegd hout"><figcaption><i>03</i>Borrelplank</figcaption></figure>
+      <div class="tag">
+        <p>Meubels en interieurwerk op maat, gemaakt door één maker.</p>
+        <small><b>Werkplaats</b>Ontwerp, bouw en montage in eigen hand. Hout dat eerlijk veroudert.</small>
+      </div>
+      <a class="cta" href="#contact">Vraag een ontwerp aan
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"><path d="M5 19L19 5M8 5h11v11"/></svg>
+      </a>
+    </section>
+
+    <div class="facts g">
+      <div class="fact"><span class="label">01</span><b>Eén maker</b><span>Je spreekt met wie het ook bouwt.</span></div>
+      <div class="fact"><span class="label">02</span><b>Massief hout</b><span>Geen plaatmateriaal waar het niet hoort.</span></div>
+      <div class="fact"><span class="label">03</span><b>Op maat</b><span>Ontworpen voor jouw ruimte, niet voor een catalogus.</span></div>
+      <div class="fact"><span class="label">04</span><b>Tot en met montage</b><span>Geleverd en geplaatst, klaar voor gebruik.</span></div>
+    </div>
+  </div>
+
+  <!-- 01 werk -->
+  <section class="sec" id="werk">
+    <div class="wrap">
+      <div class="shead g">
+        <span class="label">01 — Werk</span>
+        <h2>Geselecteerd <em>werk</em></h2>
+        <p class="note">Bedden, kasten, keukens en buitenmeubels. Elk stuk één keer gemaakt.</p>
+      </div>
+      <div class="works g">
+        <figure class="ph work"><img src="portfolio/web/bed3.jpg" alt="Bedframe met smeedijzeren sluiting" loading="lazy" style="object-position:center 85%"><figcaption><i>01</i>Bedframe <span>· massief hout</span></figcaption></figure>
+        <figure class="ph work"><img src="portfolio/web/hek1.jpg" alt="Trapbalustrade van takken in stalen frame" loading="lazy"><figcaption><i>02</i>Balustrade <span>· staal &amp; takken</span></figcaption></figure>
+        <figure class="ph work"><img src="portfolio/web/badkamer.jpg" alt="Badkamer met houten wastafelmeubel en spiegelkast" loading="lazy"><figcaption><i>03</i>Badkamer</figcaption></figure>
+        <figure class="ph work"><img src="portfolio/web/keuken1.jpg" alt="Groene keuken onder een schuin dak" loading="lazy"><figcaption><i>04</i>Keuken</figcaption></figure>
+        <figure class="ph work"><img src="portfolio/web/buitenstoel1.jpg" alt="Twee houten tuinstoelen in het gras" loading="lazy"><figcaption><i>05</i>Tuinstoelen</figcaption></figure>
+        <figure class="ph work"><img src="portfolio/web/schappen1.jpg" alt="Inbouwkast met open schappen onder een schuin dak" loading="lazy"><figcaption><i>06</i>Inbouwkast</figcaption></figure>
+        <figure class="ph work"><img src="portfolio/web/borrelplank2.jpg" alt="Twee borrelplanken met inlegwerk" loading="lazy"><figcaption><i>07</i>Borrelplanken</figcaption></figure>
+        <figure class="ph work"><img src="portfolio/web/single_room2.jpg" alt="Kastenwand van multiplex in een smalle kamer" loading="lazy"><figcaption><i>08</i>Kastenwand</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01.1 uitgelicht -->
+  <section class="sec" id="uitgelicht">
+    <div class="wrap">
+      <div class="shead g">
+        <span class="label">01.1 — Uitgelicht</span>
+        <h2>Een bed dat <em>zweeft</em></h2>
+        <p class="note">Eén project in detail: van ruimte onder het schuine dak tot de sluiting aan het voeteneind.</p>
+      </div>
+      <div class="feat g">
+        <figure class="ph feat-main"><img src="portfolio/web/bed8.jpg" alt="Slaapkamer onder een houten kap met zwevend bedframe" loading="lazy"><figcaption><i>N°01</i>Zolderslaapkamer</figcaption></figure>
+        <div class="feat-side">
+          <div>
+            <h3>Zwevend bedframe</h3>
+            <p style="margin-top:12px">Een bedframe dat los van de vloer lijkt te staan, met zichtbare houtnerf en een smeedijzeren sluiting als enige ornament.</p>
+          </div>
+          <dl class="spec">
+            <div><dt>Type</dt><dd>Bedframe op maat</dd></div>
+            <div><dt>Materiaal</dt><dd>Massief hout</dd></div>
+            <div><dt>Detail</dt><dd>Smeedijzeren sluiting</dd></div>
+            <div><dt>Ruimte</dt><dd>Zolder met schuin dak</dd></div>
+          </dl>
+          <div class="feat-details">
+            <figure class="ph"><img src="portfolio/web/bed6.jpg" alt="Detail van de houtnerf op de hoek van het bed" loading="lazy"></figure>
+            <figure class="ph"><img src="portfolio/web/bed2.jpg" alt="Detail van de smeedijzeren sluiting" loading="lazy"></figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 werkwijze -->
+  <div class="band">
+    <section class="sec" id="werkwijze">
+      <div class="wrap">
+        <div class="shead g">
+          <span class="label">02 — Werkwijze</span>
+          <h2>Van schets tot meubel</h2>
+          <p class="note">Vier stappen, steeds met dezelfde persoon.</p>
+        </div>
+        <div class="steps g">
+          <div class="step"><span class="step-n">01</span><h3>Gesprek</h3><p>We bespreken ruimte, gebruik en budget, het liefst ter plekke met een meetlint erbij.</p></div>
+          <div class="step"><span class="step-n">02</span><h3>Ontwerp</h3><p>Een schets en tekening met maten, houtsoort en verbindingen. Pas als het klopt, begint de bouw.</p></div>
+          <div class="step"><span class="step-n">03</span><h3>Werkplaats</h3><p>Zagen, verbinden en afwerken met de hand, in de eigen werkplaats.</p></div>
+          <div class="step"><span class="step-n">04</span><h3>Plaatsing</h3><p>Geleverd en gemonteerd bij jou thuis, tot het laatste schroefje.</p></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 03 over -->
+  <section class="sec" id="over">
+    <div class="wrap">
+      <div class="shead g">
+        <span class="label">03 — Over</span>
+        <h2>Eén persoon, <em>elk detail</em></h2>
+      </div>
+      <div class="about g">
+        <figure class="ph about-ph"><img src="portfolio/web/borrelplank3.jpg" alt="Close-up van inlegwerk in een borrelplank" loading="lazy"></figure>
+        <div class="about-txt">
+          <p class="statement">Geen team, geen tussenlagen: <em>alleen de maker.</em></p>
+          <p>Elk ontwerp, elke tekening en elke zaagsnede komt van dezelfde handen. Je werkt rechtstreeks met mij, van de eerste schets tot de montage, of het nu om één plank gaat of een complete kamer.</p>
+          <div class="trio">
+            <div><b>Ontwerp</b><span>zelf getekend</span></div>
+            <div><b>Bouw</b><span>zelf gemaakt</span></div>
+            <div><b>Montage</b><span>zelf geplaatst</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 contact -->
+  <div class="dark">
+    <section class="sec" id="contact">
+      <div class="wrap">
+        <div class="shead g">
+          <span class="label">04 — Contact</span>
+          <h2>Vertel over je <em>project</em></h2>
+          <p class="note">Een idee, een schets of alleen een lege hoek: alles is een goed begin.</p>
+        </div>
+        <div class="contact g">
+          <div class="cinfo">
+            <div><span class="label">E-mail</span>info@astrohout.nl</div>
+            <div><span class="label">Instagram</span>@astrohout</div>
+            <div><span class="label">Werkplaats</span>Nederland</div>
+            <div><span class="label">Reactie</span>Binnen een paar werkdagen</div>
+          </div>
+          <form id="form">
+            <div class="field half"><label for="f-naam">Naam</label><input id="f-naam" type="text" autocomplete="name"></div>
+            <div class="field half"><label for="f-mail">E-mail</label><input id="f-mail" type="email" autocomplete="email"></div>
+            <div class="field"><label for="f-type">Soort project</label>
+              <select id="f-type">
+                <option>Meubel op maat</option>
+                <option>Keuken of badkamer</option>
+                <option>Kast of inbouw</option>
+                <option>Buitenmeubel</option>
+                <option>Iets anders</option>
+              </select>
+            </div>
+            <div class="field"><label for="f-msg">Bericht</label><textarea id="f-msg"></textarea></div>
+            <button class="cta" type="submit">Verstuur je aanvraag
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"><path d="M5 19L19 5M8 5h11v11"/></svg>
+            </button>
+            <p class="form-note" id="form-note" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot g">
+      <div class="foot-brand"><img src="logo/base-logo.svg" alt=""><p>Meubels en interieurwerk op maat, met de hand gemaakt.</p></div>
+      <div class="foot-col"><span class="label">Menu</span><a href="#werk">Werk</a><a href="#werkwijze">Werkwijze</a><a href="#over">Over</a><a href="#contact">Contact</a></div>
+      <div class="foot-col"><span class="label">Contact</span><a href="#contact">info@astrohout.nl</a><a href="#contact">@astrohout</a></div>
+      <div class="foot-col"><span class="label">Werkplaats</span><span>Nederland</span></div>
+    </div>
+    <div class="giant" aria-hidden="true">Astro<em>Hout</em></div>
+    <div class="legal"><span>© <span id="y">2026</span> AstroHout</span><span>Ontworpen op een 12-koloms grid</span></div>
+  </div>
+</footer>
+
+<script>
+  const btn=document.querySelector('.menu-btn'),menu=document.getElementById('menu');
+  btn.addEventListener('click',()=>{const o=menu.classList.toggle('open');btn.setAttribute('aria-expanded',o);btn.textContent=o?'Sluit':'Menu';});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');btn.setAttribute('aria-expanded',false);btn.textContent='Menu';}));
+  document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();document.getElementById('form-note').textContent='Dit is een ontwerp: het formulier verstuurt nog niets.';});
+  document.getElementById('y').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
