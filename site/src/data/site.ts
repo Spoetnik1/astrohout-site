@@ -28,7 +28,8 @@ export const bedrijf = {
 
 export const contact = {
   email: 'info@astrohout.nl',
-  instagram: { handle: '@astrohout', href: '#' },
-  pinterest: '#',
-  linkedin: '#',
+  instagram: { handle: '@astro.hout', href: 'https://www.instagram.com/astro.hout/' },
+  // empty hides the icon in the footer; fill in a URL to show it again
+  pinterest: '',
+  linkedin: '',
 };
