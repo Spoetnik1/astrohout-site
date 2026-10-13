@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Werkwijze · ladekast</title>
+<meta name="description" content="Zo werkt AstroHout: van eerste gesprek en schets tot het meubel bij jou thuis staat, en wanneer je wat betaalt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#292929;          /* body text */
+    --ink-soft:#575757;     /* headings, paragraphs */
+    --nav:rgba(0,0,0,.79);
+    --line:#e6e6e6;
+    --bg:#fff;
+    --box:#F7F3EC;          /* the werkwijze box, warm take on Reijngoud's grey */
+    --pencil:#8A5A33;
+    --rust:#C8560A;
+    --walnut:#2B1D14;
+    --carcass:#3A281B;      /* cabinet frame */
+    --gut:clamp(16px,3vw,40px);
+    --hh:85px;              /* header height */
+    --max:1440px;
+    --ease:cubic-bezier(.2,.8,.2,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--bg) url(../drawings-wallpaper.svg) 0 0/1100px auto repeat;  /* workshop drawings as wallpaper */
+    color:var(--ink);
+    font-family:'Montserrat',sans-serif;font-weight:400;font-size:15px;line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  button{font:inherit;color:inherit;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut);}
+  .narrow{max-width:1120px;margin:0 auto;padding:0 var(--gut);}
+
+  /* ===== header ===== */
+  .top{position:fixed;inset:0 0 auto;z-index:20;background:#EADCC4;
+    box-shadow:0 1px 0 rgba(43,29,20,.10),0 4px 14px rgba(43,29,20,.16);}  /* soft shade under the plank */
+  .grain{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block;}
+  .top .wrap{height:var(--hh);display:flex;align-items:center;justify-content:space-between;}
+  .brand{display:flex;align-items:center;gap:10px;color:var(--nav);}
+  .top .brand{gap:12px;}
+  .brand img{height:34px;width:auto;aspect-ratio:1000/1335;opacity:.85;}
+  .brand span{font-family:'Montserrat',sans-serif;font-weight:600;font-size:28px;letter-spacing:-.02em;line-height:1;}
+  .top .brand img{height:54px;}
+  .top .brand span{font-size:24px;}
+  .nav{display:flex;gap:clamp(28px,3.6vw,52px);margin-right:clamp(0px,2.5vw,40px);}
+  .nav a{font-size:14px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--nav);line-height:1;}
+  .nav a[aria-current]{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;}
+  .nav a:hover{opacity:.6;}
+  .burger{display:none;background:none;border:0;cursor:pointer;width:32px;height:32px;position:relative;}
+  .burger i{position:absolute;left:4px;right:4px;height:1px;background:var(--ink);transition:transform .3s,top .3s;}
+  .burger i:first-child{top:12px;}
+  .burger i:last-child{top:20px;}
+  .burger[aria-expanded="true"] i:first-child{top:16px;transform:rotate(45deg);}
+  .burger[aria-expanded="true"] i:last-child{top:16px;transform:rotate(-45deg);}
+
+  main{padding-top:calc(var(--hh) + 28px);}
+  h1,h2,h3{font-family:'Montserrat',sans-serif;font-weight:500;color:var(--ink-soft);letter-spacing:-.02em;}
+
+  /* ===== page head ===== */
+  .phead{padding-bottom:48px;}
+  h1{font-size:clamp(44px,6vw,72px);line-height:1;}
+  .lead{font-size:15px;line-height:1.9;max-width:52ch;margin-top:18px;}
+
+  /* ===== werkwijze box ===== */
+  .box{background:var(--box);padding:clamp(28px,5vw,64px);}
+  .box-title{text-align:center;font-size:clamp(28px,3.4vw,38px);line-height:1.3;}
+  .box-sub{text-align:center;font-size:13px;margin:8px auto clamp(36px,5vw,56px);max-width:46ch;}
+  .layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:clamp(32px,5vw,64px);align-items:start;}
+
+  /* --- the cabinet --- */
+  .cabinet{position:relative;background:var(--carcass);padding:0 12px 2px;box-shadow:0 22px 40px rgba(43,29,20,.22);}
+  .cab-top{height:18px;margin:0 -12px 12px;background:#4a3324;box-shadow:0 3px 0 rgba(0,0,0,.25);}
+  .feet{display:flex;justify-content:space-between;padding:0 22px;}
+  .feet i{width:16px;height:26px;background:var(--walnut);}
+  .drawer{display:flex;flex-direction:column-reverse;margin-bottom:10px;}   /* the open tray shows above its front, as seen from above */
+  .front{
+    position:relative;z-index:1;width:100%;min-height:92px;padding:14px;border:0;cursor:pointer;overflow:hidden;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+    background:#C9A273;
+    box-shadow:inset 0 0 0 1px rgba(43,29,20,.3),inset 0 -3px 0 rgba(43,29,20,.14);
+    transition:transform .5s var(--ease),box-shadow .5s var(--ease);
+  }
+  .front .fg{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block;}
+  .front:hover{box-shadow:inset 0 0 0 1px rgba(43,29,20,.3),inset 0 -3px 0 rgba(43,29,20,.14),0 6px 14px rgba(0,0,0,.25);}
+  .front:focus-visible{outline:2px solid #F7F0E4;outline-offset:-6px;}
+  .drawer.open .front{transform:scale(1.02);box-shadow:inset 0 0 0 1px rgba(43,29,20,.3),0 16px 26px rgba(0,0,0,.4);}
+  .plate{   /* brass card holder with the step on a paper card */
+    display:flex;align-items:center;gap:10px;padding:6px 16px;background:#F7F0E4;
+    border:2px solid #9C7A44;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.25);
+    font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--carcass);line-height:1.3;
+  }
+  .plate b{font-size:14px;letter-spacing:0;}
+  .handle{width:96px;height:11px;border-radius:6px;background:linear-gradient(#4a3324,#1d130c);box-shadow:0 3px 4px rgba(0,0,0,.35);}
+
+  .inside{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease);}
+  .inside > div{overflow:hidden;visibility:hidden;transition:visibility 0s .55s;}
+  .drawer.open .inside{grid-template-rows:1fr;}
+  .drawer.open .inside > div{visibility:visible;transition:none;}
+  .tray{
+    margin:0 10px;padding:26px 26px 22px;
+    background:#EFDDBF;border-left:9px solid #C29B69;border-right:9px solid #C29B69;
+    box-shadow:inset 0 14px 16px -10px rgba(43,29,20,.5);
+    clip-path:polygon(2.5% 0,97.5% 0,100% 100%,0 100%);   /* slight perspective: the back is further away */
+    display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 22px;align-items:start;
+  }
+  .slip{background:#FFFDF8;padding:18px 20px;box-shadow:0 2px 6px rgba(43,29,20,.18);transform:rotate(-.6deg);}
+  .slip h3{font-size:18px;line-height:1.3;margin-bottom:8px;letter-spacing:-.01em;}
+  .slip p{font-size:13.5px;line-height:1.95;}
+  .things{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding-top:4px;}
+  .thing{background:#fff;padding:5px 10px;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);
+    box-shadow:0 1px 3px rgba(43,29,20,.18);white-space:nowrap;}
+  .thing:nth-child(2){transform:rotate(2deg);}
+  .thing:nth-child(3){transform:rotate(-1.5deg);}
+  .tag{   /* hanging price tag */
+    position:relative;margin-top:6px;padding:7px 12px 7px 22px;background:#F7F0E4;color:var(--rust);
+    border:1px solid #d9b98c;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;
+    clip-path:polygon(10px 0,100% 0,100% 100%,10px 100%,0 50%);transform:rotate(-3deg);
+  }
+  .tag::before{content:"";position:absolute;left:9px;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:#EFDDBF;box-shadow:inset 0 0 0 1px #c29b69;}
+
+  /* --- the receipt --- */
+  .rc-wrap{position:sticky;top:calc(var(--hh) + 28px);filter:drop-shadow(0 10px 16px rgba(43,29,20,.16));}
+  .receipt{
+    --zz:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) 50%/14px 100%;
+    -webkit-mask:var(--zz);mask:var(--zz);   /* torn zigzag bottom edge */
+    background:#fff;padding:26px 22px 40px;transform:rotate(1deg);
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.6;color:#3b3530;
+  }
+  .rc-head{text-align:center;padding-bottom:14px;border-bottom:1px dashed #b9ab98;}
+  .rc-head b{display:block;font-weight:600;letter-spacing:.24em;font-size:13px;}
+  .rc-head span{font-size:11px;color:#8c8178;}
+  .receipt h3{font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#3b3530;margin:16px 0 8px;}
+  .rc-lines{list-style:none;}
+  .rc-lines button{width:100%;display:flex;align-items:baseline;gap:6px;padding:6px 6px;background:none;border:0;cursor:pointer;text-align:left;font-family:inherit;font-size:inherit;transition:background .25s;}
+  .rc-lines button:hover{background:#FBF6EE;}
+  .rc-lines i{flex:1;border-bottom:1px dotted #a99d91;transform:translateY(-4px);}
+  .rc-lines b{font-weight:600;}
+  .rc-lines small{display:block;font-size:10.5px;color:#8c8178;padding:0 6px 4px 22px;margin-top:-4px;}
+  .rc-lines li.on button{background:#F6E7CC;}
+  .rc-lines li.on button span::before{content:"▸ ";color:var(--rust);}
+  .rc-total{display:flex;justify-content:space-between;margin-top:12px;padding:10px 6px 0;border-top:1px dashed #b9ab98;font-weight:600;}
+  .rc-foot{margin-top:14px;font-size:10.5px;color:#8c8178;line-height:1.6;}
+
+  /* ===== closing call to action ===== */
+  .more{position:relative;padding:120px 0 140px;}
+  .more-txt{max-width:520px;}
+  h2{font-size:clamp(26px,3vw,32px);line-height:1.6;}
+  .more p{font-size:14px;line-height:2.1;max-width:34ch;margin-top:12px;}
+  .more p a{border-bottom:1px solid currentColor;}
+  .btn{
+    display:inline-flex;align-items:center;gap:12px;margin-top:36px;min-height:50px;padding:0 26px;
+    background:#2B1D14;color:#F7F0E4;
+    font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;transition:background .2s;
+  }
+  .btn:hover{background:#5A3D28;}
+  .btn .arrow{width:16px;height:16px;flex:none;transition:transform .2s;}
+  .btn:hover .arrow{transform:translateX(4px);}
+
+  /* ===== footer ===== */
+  footer{border-top:1px solid var(--line);padding:40px 0 32px;font-size:13px;background:var(--bg);}
+  .foot{display:grid;grid-template-columns:1fr auto auto auto;gap:24px 48px;align-items:start;}
+  .foot .brand span{font-size:25px;}
+  .foot .brand img{height:28px;}
+  .social{display:flex;gap:14px;padding-top:4px;}
+  .social svg{width:16px;height:16px;fill:var(--ink);}
+  .social a:hover{opacity:.6;}
+  .foot address{font-style:normal;line-height:2;}
+  .sitemap{display:grid;grid-template-columns:repeat(2,minmax(0,190px));gap:0 24px;margin-top:40px;line-height:2.1;}
+  .sitemap a{display:block;text-transform:lowercase;}
+  .sitemap a:hover,.legal a:hover,.foot address a:hover{text-decoration:underline;}
+  .legal{margin-top:48px;text-align:center;font-size:11px;}
+  .legal nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 10px;}
+  .legal p{margin-top:16px;}
+
+  /* ===== small screens ===== */
+  @media (max-width:860px){
+    :root{--hh:68px;}
+    main{padding-top:calc(var(--hh) + 18px);}
+    .top .brand img{height:42px;}
+    .top .brand span{font-size:20px;}
+    .burger{display:block;}
+    .nav{
+      position:fixed;inset:var(--hh) 0 0;background:var(--bg);margin-right:0;
+      flex-direction:column;align-items:center;justify-content:center;gap:28px;
+      opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;
+    }
+    .nav.open{opacity:1;visibility:visible;}
+    .nav a{font-size:20px;}
+    .phead{padding-bottom:32px;}
+    .box{padding:28px 16px 36px;margin:0 calc(var(--gut) * -1);}   /* box runs edge to edge on phones */
+    .layout{grid-template-columns:1fr;}
+    .cabinet{padding:0 8px 2px;}
+    .cab-top{margin:0 -8px 8px;}
+    .drawer{margin-bottom:8px;}
+    .front{min-height:80px;}
+    .tray{margin:0 4px;padding:20px 14px 18px;grid-template-columns:1fr;border-width:6px;}
+    .things{flex-direction:row;flex-wrap:wrap;}
+    .rc-wrap{position:static;max-width:380px;margin:0 auto;}
+    .more{padding:72px 0 96px;}
+    .foot{grid-template-columns:1fr;}
+    .sitemap{grid-template-columns:1fr 1fr;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .front,.inside,.inside > div,.rc-lines button,.nav,.burger i,.btn,.btn .arrow{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <!-- generated oak grain: stretched noise folded into bands, tinted oak → teak -->
+  <svg class="grain" aria-hidden="true">
+    <filter id="wood" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.0011 0.028" numOctaves="3" seed="11"/>
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0 0 .12 .55 .12 0 0 .1 .4 .1 0 0 .12 .55 .12 0 0 .1 .4 .1 0 0 .12 .55 .12 0"/>
+      </feComponentTransfer>
+      <feColorMatrix type="matrix" values="-.094 0 0 0 .918  -.141 0 0 0 .863  -.196 0 0 0 .769  0 0 0 0 1"/>
+    </filter>
+    <!-- same grain, tinted darker for the drawer fronts -->
+    <filter id="wood2" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.0016 0.05" numOctaves="3" seed="4"/>
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0 0 .12 .55 .12 0 0 .1 .4 .1 0 0 .12 .55 .12 0 0 .1 .4 .1 0 0 .12 .55 .12 0"/>
+      </feComponentTransfer>
+      <feColorMatrix type="matrix" values="-.29 0 0 0 .824  -.36 0 0 0 .682  -.33 0 0 0 .494  0 0 0 0 1"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#wood)"/>
+  </svg>
+  <div class="wrap">
+    <a class="brand" href="../astrohout-reijngoud-swissfooter.html" aria-label="AstroHout home">
+      <img src="../logo/base-logo.svg" alt="">
+      <span>astrohout</span>
+    </a>
+    <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><i></i><i></i></button>
+    <nav class="nav" id="nav">
+      <a href="../astrohout-reijngoud-swissfooter.html">Home</a>
+      <a href="../astrohout-reijngoud-portfolio.html">Portfolio</a>
+      <a href="astrohout-werkwijze-ladekast.html" aria-current="page">Werkwijze</a>
+      <a href="#">Over</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="narrow phead">
+    <h1>Werkwijze</h1>
+    <p class="lead">Van het eerste gesprek tot het moment dat je meubel staat. Zo verloopt een opdracht, en zo weet je vooraf wanneer je wat betaalt.</p>
+  </div>
+
+  <div class="narrow">
+    <section class="box" aria-labelledby="ww-title">
+      <h2 class="box-title" id="ww-title">Zes laden, zes stappen</h2>
+      <p class="box-sub">Trek een la open om te zien wat er in die stap gebeurt. Op het bonnetje zie je wanneer je betaalt.</p>
+
+      <div class="layout">
+        <div class="cab-col"><div class="cabinet">
+          <div class="cab-top"></div>
+
+          <div class="drawer">
+            <button class="front" type="button" aria-expanded="false" aria-controls="la1">
+              <svg class="fg" aria-hidden="true"><rect x="0" width="6000" height="100%" filter="url(#wood2)"/></svg>
+              <span class="plate"><b>1</b>Kennismaking</span><span class="handle"></span>
+            </button>
+            <div class="inside" id="la1" role="region" aria-label="Stap 1, Kennismaking"><div>
+              <div class="tray">
+                <div class="slip">
+                  <h3>Kennismaking</h3>
+                  <p>We beginnen met een gesprek, bij jou thuis of in de werkplaats. Je vertelt wat je voor ogen hebt: wat het meubel moet kunnen, welke sfeer je zoekt en welk hout je mooi vindt. Ik bekijk de ruimte, meet globaal op en denk mee.</p>
+                </div>
+                <div class="things">
+                  <span class="thing">Wensenlijst</span>
+                  <span class="thing">Globale maten</span>
+                  <span class="tag">Kosteloos</span>
+                </div>
+              </div>
+            </div></div>
+          </div>
+
+          <div class="drawer">
+            <button class="front" type="button" aria-expanded="false" aria-controls="la2">
+              <svg class="fg" aria-hidden="true"><rect x="-400" width="6000" height="100%" filter="url(#wood2)"/></svg>
+              <span class="plate"><b>2</b>Schets en prijs</span><span class="handle"></span>
+            </button>
+            <div class="inside" id="la2" role="region" aria-label="Stap 2, Schets en prijsindicatie"><div>
+              <div class="tray">
+                <div class="slip">
+                  <h3>Schets en prijsindicatie</h3>
+                  <p>Met wat we besproken hebben maak ik een eerste schets. Daarbij krijg je een prijsindicatie met een onder- en bovengrens. Waar je uitkomt hangt af van de keuzes die nog openstaan, zoals de houtsoort, het aantal laden en het soort grepen.</p>
+                </div>
+                <div class="things">
+                  <span class="thing">Eerste schets</span>
+                  <span class="thing">Prijs min – max</span>
+                  <span class="tag">Vrijblijvend</span>
+                </div>
+              </div>
+            </div></div>
+          </div>
+
+          <div class="drawer">
+            <button class="front" type="button" aria-expanded="false" aria-controls="la3">
+              <svg class="fg" aria-hidden="true"><rect x="-900" width="6000" height="100%" filter="url(#wood2)"/></svg>
+              <span class="plate"><b>3</b>Verfijning</span><span class="handle"></span>
+            </button>
+            <div class="inside" id="la3" role="region" aria-label="Stap 3, Verfijning"><div>
+              <div class="tray">
+                <div class="slip">
+                  <h3>Verfijning</h3>
+                  <p>Past de indicatie bij je budget, dan werken we het ontwerp samen verder uit. Je kiest het hout aan de hand van monsters en we bepalen details als verbindingen, grepen en afwerking. Als het nodig is plannen we nog een afspraak.</p>
+                </div>
+                <div class="things">
+                  <span class="thing">Houtmonsters</span>
+                  <span class="thing">Grepen en beslag</span>
+                  <span class="thing">Afwerking</span>
+                </div>
+              </div>
+            </div></div>
+          </div>
+
+          <div class="drawer">
+            <button class="front" type="button" aria-expanded="false" aria-controls="la4">
+              <svg class="fg" aria-hidden="true"><rect x="-1500" width="6000" height="100%" filter="url(#wood2)"/></svg>
+              <span class="plate"><b>4</b>Definitieve offerte</span><span class="handle"></span>
+            </button>
+            <div class="inside" id="la4" role="region" aria-label="Stap 4, Definitieve offerte"><div>
+              <div class="tray">
+                <div class="slip">
+                  <h3>Definitieve offerte</h3>
+                  <p>Je krijgt werktekeningen en een vaste prijs. Ga je akkoord, dan betaal je een aanbetaling. Daarmee bestel ik het hout en krijgt je meubel een vaste plek in de planning. Laat je het meubel uiteindelijk niet maken, dan reken ik alleen de uren voor de tekeningen.</p>
+                </div>
+                <div class="things">
+                  <span class="thing">Werktekeningen</span>
+                  <span class="thing">Vaste prijs</span>
+                  <span class="tag">Aanbetaling 40%</span>
+                </div>
+              </div>
+            </div></div>
+          </div>
+
+          <div class="drawer">
+            <button class="front" type="button" aria-expanded="false" aria-controls="la5">
+              <svg class="fg" aria-hidden="true"><rect x="-2200" width="6000" height="100%" filter="url(#wood2)"/></svg>
+              <span class="plate"><b>5</b>Bouwen</span><span class="handle"></span>
+            </button>
+            <div class="inside" id="la5" role="region" aria-label="Stap 5, Bouwen"><div>
+              <div class="tray">
+                <div class="slip">
+                  <h3>Bouwen</h3>
+                  <p>Je meubel wordt in de werkplaats gemaakt, met machines waar het kan en met de hand waar het moet. Gemiddeld duurt dat zes tot tien weken. Onderweg stuur ik foto's, zodat je ziet hoe het ontstaat.</p>
+                </div>
+                <div class="things">
+                  <span class="thing">6 – 10 weken</span>
+                  <span class="thing">Foto-updates</span>
+                </div>
+              </div>
+            </div></div>
+          </div>
+
+          <div class="drawer">
+            <button class="front" type="button" aria-expanded="false" aria-controls="la6">
+              <svg class="fg" aria-hidden="true"><rect x="-3000" width="6000" height="100%" filter="url(#wood2)"/></svg>
+              <span class="plate"><b>6</b>Plaatsing</span><span class="handle"></span>
+            </button>
+            <div class="inside" id="la6" role="region" aria-label="Stap 6, Plaatsing"><div>
+              <div class="tray">
+                <div class="slip">
+                  <h3>Plaatsing</h3>
+                  <p>Ik breng het meubel zelf en plaats het op de plek waarvoor het gemaakt is, strak tegen muur en vloer. Pas als alles goed staat en jij tevreden bent, betaal je het restbedrag.</p>
+                </div>
+                <div class="things">
+                  <span class="thing">Bezorgd en geplaatst</span>
+                  <span class="tag">Restbedrag 60%</span>
+                </div>
+              </div>
+            </div></div>
+          </div>
+        </div>
+        <div class="feet" aria-hidden="true"><i></i><i></i></div>
+        </div>
+
+        <div class="rc-wrap">
+          <aside class="receipt" aria-labelledby="rc-title">
+            <div class="rc-head"><b>ASTROHOUT</b><span>werkplaats · bon nr. 0001</span></div>
+            <h3 id="rc-title">Wanneer betaal je?</h3>
+            <ol class="rc-lines">
+              <li><button type="button"><span>1 Kennismaking</span><i></i><b>€ 0</b></button></li>
+              <li><button type="button"><span>2 Schets + prijs</span><i></i><b>€ 0</b></button></li>
+              <li><button type="button"><span>3 Verfijning</span><i></i><b>€ 0</b></button></li>
+              <li><button type="button"><span>4 Akkoord</span><i></i><b>40%</b></button><small>aanbetaling: hout en planning</small></li>
+              <li><button type="button"><span>5 Bouwen</span><i></i><b>–</b></button></li>
+              <li><button type="button"><span>6 Plaatsing</span><i></i><b>60%</b></button><small>restbedrag na oplevering</small></li>
+            </ol>
+            <div class="rc-total"><span>TOTAAL</span><span>100%</span></div>
+            <p class="rc-foot">* Tekenuren uit stap 4 betaal je alleen als je het meubel niet laat maken. Anders zijn ze in de prijs verrekend.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="narrow">
+    <section class="more">
+      <div class="more-txt">
+        <h2>Een idee voor jouw ruimte?</h2>
+        <p>Plan een kennismaking, dan begint het met een gesprek. Mail naar <a href="#">info@astrohout.nl</a>.</p>
+        <a class="btn" href="#">Neem contact op <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="../astrohout-reijngoud-swissfooter.html" aria-label="AstroHout home">
+        <img src="../logo/base-logo.svg" alt="">
+        <span>astrohout</span>
+      </a>
+      <div class="social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2M12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.1 1.4C1.3 2.7.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.2.6 2.9.3.8.7 1.5 1.4 2.1.7.7 1.3 1.1 2.1 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.2-.3 2.9-.6.8-.3 1.5-.7 2.1-1.4.7-.7 1.1-1.3 1.4-2.1.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.2-.6-2.9-.3-.8-.7-1.5-1.4-2.1C21.3 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg></a>
+        <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24"><path d="M12 0a12 12 0 0 0-4.4 23.2c-.1-.9-.2-2.4 0-3.4l1.4-6s-.4-.7-.4-1.8c0-1.7 1-2.9 2.2-2.9 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.1 0 3.8-2.2 3.8-5.5 0-2.9-2.1-4.9-5-4.9-3.4 0-5.4 2.6-5.4 5.2 0 1 .4 2.1.9 2.7.1.1.1.2.1.3l-.3 1.4c-.1.2-.2.3-.4.2-1.5-.7-2.4-2.9-2.4-4.6 0-3.8 2.7-7.2 7.9-7.2 4.1 0 7.3 2.9 7.3 6.9 0 4.1-2.6 7.4-6.2 7.4-1.2 0-2.4-.6-2.7-1.4l-.8 2.8c-.3 1-1 2.3-1.5 3.1A12 12 0 1 0 12 0z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.1 2.1 2.1 0 0 1 0 4.1zm1.8 13.1H3.6V9h3.6v11.5zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg></a>
+      </div>
+      <address><a href="#">info@astrohout.nl</a><br><a href="#">@astrohout</a></address>
+      <address>Werkplaats<br>Nederland</address>
+    </div>
+
+    <div class="sitemap">
+      <nav aria-label="Menu">
+        <a href="../astrohout-reijngoud-swissfooter.html">Home</a>
+        <a href="../astrohout-reijngoud-portfolio.html">Portfolio</a>
+        <a href="astrohout-werkwijze-ladekast.html">Werkwijze</a>
+        <a href="#">Over</a>
+        <a href="#">Contact</a>
+      </nav>
+      <nav aria-label="Specialismen">
+        <a href="#">Kasten op maat</a>
+        <a href="#">Bedden</a>
+        <a href="#">Keukens</a>
+        <a href="#">Trappen en hekken</a>
+      </nav>
+    </div>
+
+    <div class="legal">
+      <nav aria-label="Juridisch">
+        <a href="#">algemene voorwaarden</a><span>·</span>
+        <a href="#">cookieverklaring</a><span>·</span>
+        <a href="#">privacyverklaring</a>
+      </nav>
+      <p>© <span id="y">2026</span> AstroHout</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const burger=document.querySelector('.burger'),nav=document.getElementById('nav');
+  burger.addEventListener('click',()=>{
+    const open=nav.classList.toggle('open');
+    burger.setAttribute('aria-expanded',open);
+    document.body.style.overflow=open?'hidden':'';
+  });
+  document.getElementById('y').textContent=new Date().getFullYear();
+
+  // drawers: one open at a time; the matching receipt line lights up
+  const drawers=[...document.querySelectorAll('.drawer')],
+        lines=[...document.querySelectorAll('.rc-lines li')],
+        calm=matchMedia('(prefers-reduced-motion:reduce)');
+  function show(i){   // i = -1 closes all
+    drawers.forEach((d,k)=>{
+      d.classList.toggle('open',k===i);
+      d.querySelector('.front').setAttribute('aria-expanded',k===i);
+    });
+    lines.forEach((l,k)=>l.classList.toggle('on',k===i));
+  }
+  drawers.forEach((d,i)=>d.querySelector('.front').addEventListener('click',()=>{
+    show(d.classList.contains('open')?-1:i);
+  }));
+  lines.forEach((l,i)=>l.querySelector('button').addEventListener('click',()=>{
+    show(i);
+    const r=drawers[i].getBoundingClientRect();   // on phones the cabinet may be out of view
+    if(r.top<0||r.bottom>innerHeight)drawers[i].scrollIntoView({block:'center',behavior:calm.matches?'auto':'smooth'});
+  }));
+  show(0);
+</script>
+</body>
+</html>

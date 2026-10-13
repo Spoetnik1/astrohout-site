@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Algemene voorwaarden · AstroHout</title>
+<meta name="description" content="Algemene voorwaarden van AstroHout voor ontwerp, maatwerk meubels en plaatsing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#292929;          /* body text */
+    --ink-soft:#575757;     /* headings, paragraphs */
+    --nav:rgba(0,0,0,.79);
+    --line:#e6e6e6;
+    --bg:#fff;
+    --pencil:#8A5A33;
+    --rust:#C8560A;
+    --walnut:#2B1D14;
+    --gut:clamp(16px,3vw,40px);
+    --hh:85px;              /* header height */
+    --max:1440px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:   /* workshop drawings as wallpaper, softly veiled in the text column so text stays readable */
+      linear-gradient(90deg,rgba(255,255,255,0) calc(50% - 640px),rgba(255,255,255,.85) calc(50% - 520px),
+                      rgba(255,255,255,.85) calc(50% + 520px),rgba(255,255,255,0) calc(50% + 640px)),
+      var(--bg) url(drawings-wallpaper.svg) 0 0/1100px auto repeat;
+    color:var(--ink);
+    font-family:'Montserrat',sans-serif;font-weight:400;font-size:15px;line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  button,input,textarea{font:inherit;color:inherit;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut);}
+
+  /* ===== header ===== */
+  .top{position:fixed;inset:0 0 auto;z-index:20;background:#EADCC4;
+    box-shadow:0 1px 0 rgba(43,29,20,.10),0 4px 14px rgba(43,29,20,.16);}  /* soft shade under the plank */
+  .grain{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block;}
+  .top .wrap{height:var(--hh);display:flex;align-items:center;justify-content:space-between;}
+  .brand{display:flex;align-items:center;gap:10px;color:var(--nav);}
+  .top .brand{gap:12px;}
+  .brand img{height:34px;width:auto;aspect-ratio:1000/1335;opacity:.85;}
+  .brand span{font-family:'Montserrat',sans-serif;font-weight:600;font-size:28px;letter-spacing:-.02em;line-height:1;}
+  .top .brand img{height:54px;}
+  .top .brand span{font-size:24px;}
+  .nav{display:flex;gap:clamp(28px,3.6vw,52px);margin-right:clamp(0px,2.5vw,40px);}
+  .nav a{font-size:14px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--nav);line-height:1;}
+  .nav a[aria-current]{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;}
+  .nav a:hover{opacity:.6;}
+  .burger{display:none;background:none;border:0;cursor:pointer;width:32px;height:32px;position:relative;}
+  .burger i{position:absolute;left:4px;right:4px;height:1px;background:var(--ink);transition:transform .3s,top .3s;}
+  .burger i:first-child{top:12px;}
+  .burger i:last-child{top:20px;}
+  .burger[aria-expanded="true"] i:first-child{top:16px;transform:rotate(45deg);}
+  .burger[aria-expanded="true"] i:last-child{top:16px;transform:rotate(-45deg);}
+
+  /* ===== spine: vertical wordmark in the lower-left (from header seed 6yobedbf) ===== */
+  :root{--spine:72px;}
+  body{padding-left:var(--spine);}
+  .top{padding-left:var(--spine);}
+  .spine{
+    position:fixed;left:0;top:var(--hh);bottom:0;z-index:10;width:var(--spine);
+    display:flex;justify-content:center;align-items:flex-end;padding-bottom:28px;
+  }
+  .lockup{display:flex;flex-direction:column;align-items:center;gap:16px;color:var(--ink);}
+  .lockup:hover{opacity:.6;}
+  .lockup img{height:64px;width:auto;aspect-ratio:1000/1335;}
+  .lockup span{
+    writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;
+    font-family:'Bebas Neue',Impact,sans-serif;text-transform:uppercase;letter-spacing:.02em;
+    font-size:39px;line-height:1;
+  }
+
+  main{padding-top:calc(var(--hh) + 28px);}  /* breathing room under the navbar */
+  h1,h2,h3{font-family:'Montserrat',sans-serif;font-weight:500;color:var(--ink-soft);letter-spacing:-.02em;}
+
+  /* ===== legal page: index left, document right ===== */
+  .narrow{max-width:1120px;margin:0 auto;padding:0 var(--gut);}
+  .eyebrow{display:inline-block;padding:7px 14px 0 9px;border-top:1px solid;border-left:1px solid;
+    font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.4;color:var(--pencil);}
+  h1{font-size:clamp(34px,5.4vw,64px);line-height:1.05;margin-top:22px;hyphens:auto;overflow-wrap:break-word;}
+  .meta{margin-top:16px;font-size:12px;letter-spacing:.02em;color:var(--ink-soft);}
+  .legal-doc{display:grid;grid-template-columns:220px minmax(0,1fr);gap:clamp(32px,6vw,88px);align-items:start;
+    margin-top:clamp(40px,6vw,64px);padding-bottom:clamp(96px,12vw,140px);}
+  .toc{position:sticky;top:calc(var(--hh) + 28px);border-top:1px solid var(--ink);}
+  .toc a{display:block;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px;line-height:1.5;color:var(--ink-soft);transition:color .2s;}
+  .toc a:hover{color:var(--rust);}
+  .doc > p:first-child{margin-top:0;}
+  .doc h2{font-size:clamp(20px,2vw,24px);line-height:1.35;margin:48px 0 12px;scroll-margin-top:calc(var(--hh) + 24px);}
+  .doc h2:first-child{margin-top:0;}
+  .doc h2 small{display:block;margin-bottom:4px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--pencil);}
+  .doc p,.doc li{font-size:15px;line-height:1.95;max-width:68ch;}
+  .doc p + p{margin-top:12px;}
+  .doc ol,.doc ul{padding-left:1.4em;margin-top:8px;}
+  .doc li + li{margin-top:6px;}
+  .doc a{border-bottom:1px solid currentColor;}
+  .doc a:hover{color:var(--rust);}
+  .ph{padding:0 4px;background:#F6E7CC;color:var(--pencil);font-weight:600;white-space:nowrap;}   /* still to fill in */
+  .card{margin-top:12px;padding:16px 20px;border-left:2px solid var(--pencil);background:#fff;font-size:15px;line-height:1.9;}
+
+  /* ===== footer ===== */
+  footer{border-top:1px solid var(--line);padding:40px 0 32px;font-size:13px;background:var(--bg);position:relative;z-index:1;}
+  .foot{display:grid;grid-template-columns:1fr auto auto auto;gap:24px 48px;align-items:start;}
+  .foot .brand span{font-size:25px;}
+  .foot .brand img{height:28px;}
+  .social{display:flex;gap:14px;padding-top:4px;}
+  .social svg{width:16px;height:16px;fill:var(--ink);}
+  .social a:hover{opacity:.6;}
+  .foot address{font-style:normal;line-height:2;}
+  .sitemap{display:grid;grid-template-columns:repeat(2,minmax(0,190px));gap:0 24px;margin-top:40px;line-height:2.1;}
+  .sitemap a{display:block;text-transform:lowercase;}
+  .sitemap a:hover,.legal a:hover,.foot address a:hover{text-decoration:underline;}
+  .legal{margin-top:48px;text-align:center;font-size:11px;}
+  .legal nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 10px;}
+  .legal p{margin-top:16px;}
+
+  footer{margin-left:calc(-1 * var(--spine));padding-left:var(--spine);}  /* white runs under the spine too */
+
+  /* ===== small screens ===== */
+  @media (max-width:860px){
+    :root{--spine:44px;}
+    .spine{padding-bottom:20px;}
+    .lockup{gap:12px;}
+    .lockup img{height:44px;}
+    .lockup span{font-size:28px;}
+    :root{--hh:68px;}
+    .top .brand img{height:42px;}
+    .top .brand span{font-size:20px;}
+    .burger{display:block;}
+    .nav{
+      position:fixed;inset:var(--hh) 0 0;background:var(--bg);margin-right:0;
+      flex-direction:column;align-items:center;justify-content:center;gap:28px;
+      opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;
+    }
+    .nav.open{opacity:1;visibility:visible;}
+    .nav a{font-size:20px;}
+    main{padding-top:calc(var(--hh) + 18px);}
+    .legal-doc{grid-template-columns:1fr;gap:32px;}
+    .toc{position:static;}
+    .foot{grid-template-columns:1fr;}
+    .sitemap{grid-template-columns:1fr 1fr;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .nav,.burger i,.toc a{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<aside class="spine">
+  <a class="lockup" href="index.html" aria-label="AstroHout home">
+    <img src="logo/base-logo.svg" alt="">
+    <span>AstroHout</span>
+  </a>
+</aside>
+
+<header class="top">
+  <!-- generated oak grain: stretched noise folded into bands, tinted oak → teak -->
+  <svg class="grain" aria-hidden="true">
+    <filter id="wood" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.0011 0.028" numOctaves="3" seed="11"/>
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0 0 .12 .55 .12 0 0 .1 .4 .1 0 0 .12 .55 .12 0 0 .1 .4 .1 0 0 .12 .55 .12 0"/>
+      </feComponentTransfer>
+      <feColorMatrix type="matrix" values="-.094 0 0 0 .918  -.141 0 0 0 .863  -.196 0 0 0 .769  0 0 0 0 1"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#wood)"/>
+  </svg>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="AstroHout home">
+      <img src="logo/base-logo.svg" alt="">
+      <span>astrohout</span>
+    </a>
+    <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><i></i><i></i></button>
+    <nav class="nav" id="nav">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="werkwijze.html">Werkwijze</a>
+      <a href="over.html">Over</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="narrow">
+    <span class="eyebrow">Juridisch</span>
+    <h1>Algemene voorwaarden</h1>
+    <p class="meta">Versie 1.0 · laatst bijgewerkt <span class="ph">[datum]</span></p>
+
+    <div class="legal-doc">
+      <nav class="toc" aria-label="Inhoud">
+        <a href="#definities">1. Definities</a>
+        <a href="#toepasselijkheid">2. Toepasselijkheid</a>
+        <a href="#offertes">3. Prijsindicaties en offertes</a>
+        <a href="#overeenkomst">4. Totstandkoming van de overeenkomst</a>
+        <a href="#ontwerp">5. Ontwerp en intellectueel eigendom</a>
+        <a href="#prijzen">6. Prijzen en meerwerk</a>
+        <a href="#betaling">7. Betaling</a>
+        <a href="#levertijd">8. Uitvoering, levertijd en planning</a>
+        <a href="#plaatsing">9. Plaatsing en montage</a>
+        <a href="#hout">10. Hout als natuurproduct</a>
+        <a href="#annulering">11. Annulering en herroeping</a>
+        <a href="#klachten">12. Oplevering, klachten en garantie</a>
+        <a href="#aansprakelijkheid">13. Aansprakelijkheid</a>
+        <a href="#overmacht">14. Overmacht</a>
+        <a href="#eigendom">15. Eigendomsvoorbehoud</a>
+        <a href="#recht">16. Toepasselijk recht en geschillen</a>
+      </nav>
+      <article class="doc">
+        <p>Deze voorwaarden gelden voor elke opdracht van AstroHout. Ze zijn bedoeld om duidelijk te maken wat je van mij kunt verwachten, en wat ik van jou verwacht. Heb je een vraag? Mail gerust naar <a href="mailto:info@astrohout.nl">info@astrohout.nl</a>.</p>
+        <h2 id="definities"><small>Artikel 1</small>Definities</h2>
+        <p>In deze algemene voorwaarden wordt verstaan onder:</p>
+        <ul>
+          <li><strong>AstroHout</strong>: de onderneming AstroHout, ingeschreven bij de Kamer van Koophandel onder nummer <span class="ph">[KvK-nummer]</span>, gevestigd te <span class="ph">[adres, postcode en plaats]</span>.</li>
+          <li><strong>Opdrachtgever</strong>: iedere natuurlijke persoon of rechtspersoon die AstroHout een opdracht geeft of met AstroHout in gesprek is over een opdracht.</li>
+          <li><strong>Consument</strong>: een opdrachtgever die niet handelt in de uitoefening van een beroep of bedrijf.</li>
+          <li><strong>Opdracht</strong>: het ontwerpen, maken, leveren en/of plaatsen van meubels, interieurwerk of andere producten door AstroHout.</li>
+          <li><strong>Ontwerp</strong>: schetsen, tekeningen, werktekeningen, 3D-modellen en andere uitwerkingen die AstroHout voor een opdracht maakt.</li>
+        </ul>
+
+        <h2 id="toepasselijkheid"><small>Artikel 2</small>Toepasselijkheid</h2>
+        <ol>
+          <li>Deze voorwaarden gelden voor alle offertes, prijsindicaties, opdrachten en overeenkomsten van AstroHout.</li>
+          <li>Afwijkingen van deze voorwaarden gelden alleen als ze schriftelijk (ook per e-mail) zijn afgesproken.</li>
+          <li>Algemene voorwaarden van de opdrachtgever zijn niet van toepassing, tenzij AstroHout daar schriftelijk mee heeft ingestemd.</li>
+          <li>Is een bepaling in deze voorwaarden nietig of wordt die vernietigd, dan blijven de overige bepalingen gewoon van kracht.</li>
+        </ol>
+
+        <h2 id="offertes"><small>Artikel 3</small>Prijsindicaties en offertes</h2>
+        <ol>
+          <li>Een prijsindicatie geeft een onder- en bovengrens en is bedoeld als richtlijn. Een prijsindicatie is vrijblijvend en geen aanbod.</li>
+          <li>Een definitieve offerte bevat een omschrijving van het werk, de werktekeningen of een verwijzing daarnaar, de prijs en de verwachte doorlooptijd.</li>
+          <li>Een offerte is <span class="ph">[30]</span> dagen geldig, tenzij in de offerte anders staat.</li>
+          <li>Kennelijke vergissingen of fouten in een offerte binden AstroHout niet.</li>
+        </ol>
+
+        <h2 id="overeenkomst"><small>Artikel 4</small>Totstandkoming van de overeenkomst</h2>
+        <ol>
+          <li>De overeenkomst komt tot stand op het moment dat de opdrachtgever de definitieve offerte schriftelijk of per e-mail aanvaardt.</li>
+          <li>Wijzigingen na de totstandkoming van de overeenkomst worden alleen uitgevoerd als beide partijen daarmee schriftelijk instemmen. Eventuele gevolgen voor prijs en planning worden vooraf gemeld.</li>
+        </ol>
+
+        <h2 id="ontwerp"><small>Artikel 5</small>Ontwerp en intellectueel eigendom</h2>
+        <ol>
+          <li>Alle ontwerpen die AstroHout maakt blijven eigendom van AstroHout. Het auteursrecht en andere rechten van intellectueel eigendom berusten bij AstroHout.</li>
+          <li>De opdrachtgever mag ontwerpen van AstroHout niet zonder schriftelijke toestemming laten uitvoeren door derden, kopiëren of anderszins gebruiken buiten de opdracht.</li>
+          <li>Laat de opdrachtgever het meubel na het ontvangen van de definitieve offerte en werktekeningen niet door AstroHout maken, dan brengt AstroHout de bestede ontwerp- en tekenuren in rekening tegen het uurtarief uit de offerte. Wordt de opdracht wel aan AstroHout gegund, dan zijn deze uren in de prijs verrekend.</li>
+          <li>AstroHout mag foto's van gerealiseerd werk gebruiken voor de eigen website, sociale media en portfolio. Persoonlijke gegevens of herkenbare personen worden daarbij alleen getoond met toestemming van de opdrachtgever.</li>
+        </ol>
+
+        <h2 id="prijzen"><small>Artikel 6</small>Prijzen en meerwerk</h2>
+        <ol>
+          <li>Alle prijzen zijn in euro’s. Prijzen voor consumenten zijn inclusief btw; prijzen voor zakelijke opdrachtgevers zijn exclusief btw, tenzij anders vermeld.</li>
+          <li>Meerwerk is werk dat niet in de offerte is opgenomen, bijvoorbeeld door wijzigingen op verzoek van de opdrachtgever of door omstandigheden op locatie die bij het opmeten niet bekend waren. Meerwerk wordt vooraf besproken en alleen uitgevoerd na akkoord van de opdrachtgever.</li>
+          <li>Stijgen de prijzen van materialen na het sluiten van de overeenkomst aanzienlijk, dan mag AstroHout deze stijging doorberekenen. Bij een stijging van meer dan 10% binnen drie maanden na het sluiten van de overeenkomst mag een consument de overeenkomst ontbinden.</li>
+        </ol>
+
+        <h2 id="betaling"><small>Artikel 7</small>Betaling</h2>
+        <ol>
+          <li>Bij aanvaarding van de definitieve offerte betaalt de opdrachtgever een aanbetaling van <span class="ph">[40]</span>% van de totaalprijs. Met deze aanbetaling worden materialen besteld en wordt de opdracht ingepland.</li>
+          <li>Het restbedrag wordt gefactureerd na plaatsing of levering en moet binnen <span class="ph">[14]</span> dagen na de factuurdatum worden betaald.</li>
+          <li>Betalingen gaan naar het rekeningnummer dat op de factuur staat, onder vermelding van het factuurnummer.</li>
+          <li>Betaalt de opdrachtgever niet op tijd, dan stuurt AstroHout eerst een kosteloze betalingsherinnering met een termijn van 14 dagen. Wordt daarna nog niet betaald, dan is de opdrachtgever de wettelijke rente en redelijke incassokosten verschuldigd.</li>
+          <li>Zolang de aanbetaling niet is ontvangen, is AstroHout niet verplicht met de uitvoering te beginnen.</li>
+        </ol>
+
+        <h2 id="levertijd"><small>Artikel 8</small>Uitvoering, levertijd en planning</h2>
+        <ol>
+          <li>AstroHout voert de opdracht naar beste kunnen en vakmanschap uit.</li>
+          <li>Opgegeven doorlooptijden zijn een zo goed mogelijke inschatting en geen fatale termijnen. Dreigt een termijn te worden overschreden, dan laat AstroHout dat zo snel mogelijk weten en wordt in overleg een nieuwe planning gemaakt.</li>
+          <li>Overschrijding van de doorlooptijd geeft de opdrachtgever geen recht op schadevergoeding, tenzij de overschrijding onredelijk lang is en AstroHout eerst schriftelijk een redelijke termijn is gegeven om alsnog te leveren.</li>
+        </ol>
+
+        <h2 id="plaatsing"><small>Artikel 9</small>Plaatsing en montage</h2>
+        <ol>
+          <li>Als plaatsing onderdeel is van de opdracht, zorgt de opdrachtgever dat de ruimte op de afgesproken datum vrij, schoon en goed bereikbaar is, met elektriciteit en verlichting.</li>
+          <li>De opdrachtgever zorgt voor juiste informatie over de locatie, zoals de ligging van leidingen en kabels in muren en vloeren. AstroHout is niet aansprakelijk voor schade aan leidingen die niet vooraf zijn aangegeven.</li>
+          <li>Ontstaat er vertraging of meerwerk omdat de locatie niet gereed of bereikbaar is, dan mag AstroHout de extra kosten in rekening brengen.</li>
+        </ol>
+
+        <h2 id="hout"><small>Artikel 10</small>Hout als natuurproduct</h2>
+        <ol>
+          <li>Hout is een natuurproduct. Kleur, nerf, kwasten en structuur verschillen per plank en kunnen afwijken van monsters, foto’s of eerdere projecten. Zulke verschillen zijn geen gebrek.</li>
+          <li>Hout werkt onder invloed van temperatuur en luchtvochtigheid: het kan iets uitzetten, krimpen of kleine haarscheurtjes vertonen. AstroHout houdt hier bij het ontwerp zoveel mogelijk rekening mee. Normale werking van het hout is geen gebrek.</li>
+          <li>Hout verkleurt onder invloed van licht. Dit is een natuurlijk proces en geen gebrek.</li>
+          <li>De opdrachtgever volgt de onderhoudsadviezen van AstroHout op. Schade door verkeerd onderhoud, overmatig vocht of directe hittebronnen valt niet onder de garantie.</li>
+        </ol>
+
+        <h2 id="annulering"><small>Artikel 11</small>Annulering en herroeping</h2>
+        <ol>
+          <li>Meubels en interieurwerk van AstroHout worden op maat gemaakt volgens de specificaties van de opdrachtgever. Op grond van de wet geldt voor consumenten daarom geen herroepingsrecht (bedenktijd) voor maatwerk.</li>
+          <li>Annuleert de opdrachtgever de opdracht na de totstandkoming van de overeenkomst, dan vergoedt de opdrachtgever de kosten die AstroHout al heeft gemaakt, waaronder bestelde materialen, bestede uren en gederfde winst. Deze kosten kunnen worden verrekend met de aanbetaling.</li>
+        </ol>
+
+        <h2 id="klachten"><small>Artikel 12</small>Oplevering, klachten en garantie</h2>
+        <ol>
+          <li>De opdrachtgever controleert het werk bij oplevering. Zichtbare gebreken worden zo snel mogelijk gemeld, bij voorkeur bij de oplevering zelf.</li>
+          <li>Gebreken die later aan het licht komen meldt de opdrachtgever binnen twee maanden na ontdekking, met een duidelijke omschrijving en zo mogelijk foto’s.</li>
+          <li>AstroHout staat ervoor in dat het werk voldoet aan de overeenkomst en de eigenschappen heeft die de opdrachtgever redelijkerwijs mag verwachten. Daarnaast geeft AstroHout <span class="ph">[12]</span> maanden garantie op constructie en verbindingen.</li>
+          <li>Is een klacht terecht, dan herstelt of vervangt AstroHout het betreffende onderdeel binnen een redelijke termijn. Pas als herstel of vervanging niet mogelijk is, kan de opdrachtgever aanspraak maken op prijsvermindering.</li>
+          <li>De garantie vervalt als het gebrek is ontstaan door onjuist gebruik, verkeerd onderhoud, wijzigingen door derden of normale slijtage.</li>
+        </ol>
+
+        <h2 id="aansprakelijkheid"><small>Artikel 13</small>Aansprakelijkheid</h2>
+        <ol>
+          <li>De aansprakelijkheid van AstroHout is beperkt tot het bedrag dat in het betreffende geval door de verzekering wordt uitgekeerd, of, als de verzekering niet uitkeert, tot maximaal het factuurbedrag van de opdracht.</li>
+          <li>AstroHout is niet aansprakelijk voor indirecte schade, zoals gevolgschade, gederfde winst of gemiste besparingen.</li>
+          <li>Deze beperkingen gelden niet bij opzet of bewuste roekeloosheid van AstroHout, en doen niets af aan dwingende rechten van consumenten.</li>
+        </ol>
+
+        <h2 id="overmacht"><small>Artikel 14</small>Overmacht</h2>
+        <ol>
+          <li>Bij overmacht is AstroHout niet gehouden de verplichtingen na te komen zolang de overmacht duurt. Onder overmacht valt onder meer ziekte, extreme weersomstandigheden, brand, storingen en het niet of niet tijdig leveren door leveranciers.</li>
+          <li>Duurt de overmacht langer dan twee maanden, dan mogen beide partijen de overeenkomst ontbinden. Al geleverde prestaties worden dan naar verhouding afgerekend.</li>
+        </ol>
+
+        <h2 id="eigendom"><small>Artikel 15</small>Eigendomsvoorbehoud</h2>
+        <ol>
+          <li>Geleverde zaken blijven eigendom van AstroHout totdat de opdrachtgever alles wat hij op grond van de overeenkomst verschuldigd is volledig heeft betaald.</li>
+        </ol>
+
+        <h2 id="recht"><small>Artikel 16</small>Toepasselijk recht en geschillen</h2>
+        <ol>
+          <li>Op alle overeenkomsten met AstroHout is Nederlands recht van toepassing.</li>
+          <li>Komen we er samen niet uit, dan worden geschillen voorgelegd aan de bevoegde rechter in het arrondissement waar AstroHout is gevestigd. Een consument mag binnen een maand nadat AstroHout zich hierop heeft beroepen kiezen voor de rechter die volgens de wet bevoegd is.</li>
+        </ol>
+
+      </article>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="index.html" aria-label="AstroHout home">
+        <img src="logo/base-logo.svg" alt="">
+        <span>astrohout</span>
+      </a>
+      <div class="social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2M12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.1 1.4C1.3 2.7.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.2.6 2.9.3.8.7 1.5 1.4 2.1.7.7 1.3 1.1 2.1 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.2-.3 2.9-.6.8-.3 1.5-.7 2.1-1.4.7-.7 1.1-1.3 1.4-2.1.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.2-.6-2.9-.3-.8-.7-1.5-1.4-2.1C21.3 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg></a>
+        <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24"><path d="M12 0a12 12 0 0 0-4.4 23.2c-.1-.9-.2-2.4 0-3.4l1.4-6s-.4-.7-.4-1.8c0-1.7 1-2.9 2.2-2.9 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.1 0 3.8-2.2 3.8-5.5 0-2.9-2.1-4.9-5-4.9-3.4 0-5.4 2.6-5.4 5.2 0 1 .4 2.1.9 2.7.1.1.1.2.1.3l-.3 1.4c-.1.2-.2.3-.4.2-1.5-.7-2.4-2.9-2.4-4.6 0-3.8 2.7-7.2 7.9-7.2 4.1 0 7.3 2.9 7.3 6.9 0 4.1-2.6 7.4-6.2 7.4-1.2 0-2.4-.6-2.7-1.4l-.8 2.8c-.3 1-1 2.3-1.5 3.1A12 12 0 1 0 12 0z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.1 2.1 2.1 0 0 1 0 4.1zm1.8 13.1H3.6V9h3.6v11.5zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg></a>
+      </div>
+      <address><a href="mailto:info@astrohout.nl">info@astrohout.nl</a><br><a href="#">@astrohout</a></address>
+      <address>Werkplaats<br>Nederland</address>
+    </div>
+
+    <div class="sitemap">
+      <nav aria-label="Menu">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="werkwijze.html">Werkwijze</a>
+        <a href="over.html">Over</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <nav aria-label="Specialismen">
+        <a href="#">Kasten op maat</a>
+        <a href="#">Bedden</a>
+        <a href="#">Keukens</a>
+        <a href="#">Trappen en hekken</a>
+      </nav>
+    </div>
+
+    <div class="legal">
+      <nav aria-label="Juridisch">
+        <a href="algemene-voorwaarden.html">algemene voorwaarden</a><span>·</span>
+        <a href="privacyverklaring.html">privacyverklaring</a>
+      </nav>
+      <p>© <span id="y">2026</span> AstroHout</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const burger=document.querySelector('.burger'),nav=document.getElementById('nav');
+  burger.addEventListener('click',()=>{
+    const open=nav.classList.toggle('open');
+    burger.setAttribute('aria-expanded',open);
+    document.body.style.overflow=open?'hidden':'';
+  });
+  document.getElementById('y').textContent=new Date().getFullYear();
+
+</script>
+</body>
+</html>
