@@ -10,12 +10,13 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
+  image?: ImageMetadata;   // share picture; the attic bedroom when left out
 }
 
-const { title, description } = Astro.props;
+const { title, description, image = shareImage } = Astro.props;
 const canonical = new URL(cleanPath(Astro.url.pathname), Astro.site);
 // preview picture when the page is shared (WhatsApp, LinkedIn, ...)
-const og = await getImage({ src: shareImage, width: 1200, format: 'jpg' });
+const og = await getImage({ src: image, width: 1200, format: 'jpg' });
 ---
 <!DOCTYPE html>
 <html lang="nl">
