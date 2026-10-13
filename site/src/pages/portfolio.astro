@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Arrow from '../components/Arrow.astro';
+import { projecten } from '../data/projecten';
+import { contact } from '../data/site';
+---
+<BaseLayout
+  title="Portfolio · Astrohout"
+  description="Portfolio van Astrohout: bedden, kasten, keukens en ander meubelwerk op maat, met de hand gemaakt."
+>
+<main>
+  <div class="narrow phead">
+    <div class="ptitle">
+      <h1>Portfolio</h1>
+      <p>Een selectie van recente projecten</p>
+    </div>
+  </div>
+
+  <section class="narrow grid" aria-label="Projecten">
+    {projecten.map((p, i) => {
+      const letter = String.fromCharCode(65 + i);
+      return (
+        <a class="item" id={`p-${letter.toLowerCase()}`} href="#">
+          <h3>{letter} · {p.titel}</h3>
+          <Image
+            src={p.foto}
+            alt={p.alt}
+            widths={[600, 900, 1200]}
+            sizes="(max-width: 860px) calc(100vw - 76px), min(505px, calc(47vw - 51px))"
+            loading={i < 2 ? 'eager' : 'lazy'}
+          />
+        </a>
+      );
+    })}
+  </section>
+
+  <div class="narrow">
+    <section class="more">
+      <div class="more-txt">
+        <h2>Een idee voor jouw ruimte?</h2>
+        <p>Vertel wat je in gedachten hebt, dan denk ik mee over ontwerp, houtsoort en planning. Mail naar <a href={`mailto:${contact.email}`}>{contact.email}</a>.</p>
+        <a class="btn" href="/contact">Neem contact op <Arrow /></a>
+      </div>
+    </section>
+  </div>
+</main>
+</BaseLayout>
+
+<style is:global>
+  /* ===== page head ===== */
+  .phead{text-align:right;}   /* title in the top-right corner */
+  .narrow.phead{padding-bottom:48px;}  /* .narrow's padding shorthand would otherwise reset this */
+  h1{font-size:clamp(44px,6vw,72px);line-height:1;}
+  .phead p{font-size:14px;letter-spacing:.01em;margin-top:14px;}
+  .item{scroll-margin-top:calc(var(--hh) + 24px);}
+
+  /* ===== project grid: two square columns ===== */
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 30px;}
+  .item img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;background:#f2f2f2;transition:opacity .2s;}
+  .item:hover img{opacity:.8;}
+  .item h3{   /* letter · name label above the photo, same style as the button labels on home */
+    display:inline-block;margin-bottom:10px;padding:7px 14px 0 9px;background:var(--bg);
+    border-top:1px solid;border-left:1px solid;   /* half box: top + left line, follows the text colour */
+    font-size:11px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;line-height:1.4;color:var(--ink-soft);transition:color .2s;
+  }
+  .item:hover h3{color:var(--rust);}
+
+  /* ===== closing call to action ===== */
+  .more{position:relative;padding:120px 0 140px;}
+  .more-txt{position:relative;z-index:1;max-width:520px;}
+  h2{font-size:clamp(26px,3vw,32px);line-height:1.6;}
+  .more p{font-size:14px;line-height:2.1;max-width:34ch;margin-top:12px;}
+  .more p a{border-bottom:1px solid currentColor;}
+  .more .btn{margin-top:36px;}
+
+  @media (max-width:860px){
+    .narrow.phead{padding-bottom:32px;}
+    .grid{grid-template-columns:1fr;gap:28px;}
+    .more{padding:72px 0 96px;}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    html{scroll-behavior:smooth;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .item img,.item h3{transition:none;}
+  }
+</style>

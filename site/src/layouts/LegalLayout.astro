@@ -1,0 +1,80 @@
+---
+// Layout for the legal pages, which are written in Markdown (src/pages/*.md).
+// Frontmatter: title, description, versie (optional), bijgewerkt, artikelen (optional).
+// Every "## heading" becomes a section; the index on the left is built from them.
+import type { MarkdownHeading } from 'astro';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    description: string;
+    versie?: string;
+    bijgewerkt: string;
+    artikelen?: boolean;   // label sections as "Artikel 1", "Artikel 2", ...
+  };
+  headings: MarkdownHeading[];
+}
+
+const { frontmatter: fm, headings } = Astro.props;
+const secties = headings.filter((h) => h.depth === 2);
+// a date still in [brackets] is a placeholder and is highlighted until it is filled in
+const placeholder = fm.bijgewerkt.startsWith('[');
+---
+<BaseLayout title={`${fm.title} · Astrohout`} description={fm.description}>
+<main>
+  <div class="narrow">
+    <span class="eyebrow">Juridisch</span>
+    <h1>{fm.title}</h1>
+    <p class="meta">
+      {fm.versie ? `Versie ${fm.versie} · laatst bijgewerkt ` : 'Laatst bijgewerkt '}
+      {placeholder ? <span class="ph">{fm.bijgewerkt}</span> : fm.bijgewerkt}
+    </p>
+
+    <div class="legal-doc">
+      <nav class="toc" aria-label="Inhoud">
+        {secties.map((h, i) => <a href={`#${h.slug}`}>{i + 1}. {h.text}</a>)}
+      </nav>
+      <article class:list={['doc', { artikelen: fm.artikelen }]}>
+        <slot />
+      </article>
+    </div>
+  </div>
+</main>
+</BaseLayout>
+
+<style is:global>
+  /* ===== legal page: index left, document right ===== */
+  .eyebrow{display:inline-block;padding:7px 14px 0 9px;border-top:1px solid;border-left:1px solid;
+    font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.4;color:var(--pencil);}
+  h1{font-size:clamp(34px,5.4vw,64px);line-height:1.05;margin-top:22px;hyphens:auto;overflow-wrap:break-word;}
+  .meta{margin-top:16px;font-size:12px;letter-spacing:.02em;color:var(--ink-soft);}
+  .legal-doc{display:grid;grid-template-columns:220px minmax(0,1fr);gap:clamp(32px,6vw,88px);align-items:start;
+    margin-top:clamp(40px,6vw,64px);padding-bottom:clamp(96px,12vw,140px);}
+  .toc{position:sticky;top:calc(var(--hh) + 28px);border-top:1px solid var(--ink);}
+  .toc a{display:block;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px;line-height:1.5;color:var(--ink-soft);transition:color .2s;}
+  .toc a:hover{color:var(--rust);}
+  .doc > p:first-child{margin-top:0;}
+  .doc h2{font-size:clamp(20px,2vw,24px);line-height:1.35;margin:48px 0 12px;scroll-margin-top:calc(var(--hh) + 24px);}
+  .doc h2:first-child{margin-top:0;}
+  .doc.artikelen{counter-reset:artikel;}
+  .doc.artikelen h2{counter-increment:artikel;}
+  .doc.artikelen h2::before{content:"Artikel " counter(artikel);
+    display:block;margin-bottom:4px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--pencil);}
+  .doc p,.doc li{font-size:15px;line-height:1.95;max-width:68ch;}
+  .doc p + p{margin-top:12px;}
+  .doc ol,.doc ul{padding-left:1.4em;margin-top:8px;}
+  .doc li + li{margin-top:6px;}
+  .doc a{border-bottom:1px solid currentColor;}
+  .doc a:hover{color:var(--rust);}
+  .ph{padding:0 4px;background:#F6E7CC;color:var(--pencil);font-weight:600;white-space:nowrap;}   /* still to fill in */
+  .card{margin-top:12px;padding:16px 20px;border-left:2px solid var(--pencil);background:#fff;font-size:15px;line-height:1.9;}
+
+  @media (max-width:860px){
+    .legal-doc{grid-template-columns:1fr;gap:32px;}
+    .toc{position:static;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .toc a{transition:none;}
+  }
+</style>

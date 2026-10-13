@@ -1,0 +1,51 @@
+---
+import { Font, getImage } from 'astro:assets';
+import Spine from '../components/Spine.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { cleanPath } from '../utils/path';
+import shareImage from '../assets/portfolio/bed8.jpg';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(cleanPath(Astro.url.pathname), Astro.site);
+// preview picture when the page is shared (WhatsApp, LinkedIn, ...)
+const og = await getImage({ src: shareImage, width: 1200, format: 'jpg' });
+---
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={canonical}>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="sitemap" href="/sitemap-index.xml">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:site_name" content="Astrohout">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={canonical}>
+<meta property="og:image" content={new URL(og.src, Astro.site)}>
+<Font cssVariable="--font-montserrat" preload />
+<Font cssVariable="--font-bebas" />
+<slot name="head" />
+</head>
+<body>
+
+<Spine />
+<Header />
+
+<slot />
+
+<Footer />
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+/* Shared by every page: colours, base type, header, spine, footer and the walnut button.
+   Page-specific styles live in a <style is:global> block in the page itself. */
+
+:root{
+  --ink:#292929;          /* body text */
+  --ink-soft:#575757;     /* headings, paragraphs */
+  --nav:rgba(0,0,0,.79);
+  --line:#e6e6e6;
+  --bg:#fff;
+  --pencil:#8A5A33;
+  --rust:#C8560A;
+  --walnut:#2B1D14;
+  --gut:clamp(16px,3vw,40px);
+  --hh:85px;              /* header height */
+  --max:1440px;
+  --spine:72px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:   /* workshop drawings as wallpaper, softly veiled in the text column so text stays readable */
+    linear-gradient(90deg,rgba(255,255,255,0) calc(50% - 640px),rgba(255,255,255,.85) calc(50% - 520px),
+                    rgba(255,255,255,.85) calc(50% + 520px),rgba(255,255,255,0) calc(50% + 640px)),
+    var(--bg) url(/drawings-wallpaper.svg) 0 0/1100px auto repeat;
+  color:var(--ink);
+  font-family:var(--font-montserrat);font-weight:400;font-size:15px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  padding-left:var(--spine);
+}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+button,input,textarea{font:inherit;color:inherit;}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut);}
+.narrow{max-width:1120px;margin:0 auto;padding:0 var(--gut);}   /* content column */
+
+main{padding-top:calc(var(--hh) + 28px);}  /* breathing room under the navbar */
+h1,h2,h3{font-family:var(--font-montserrat);font-weight:500;color:var(--ink-soft);letter-spacing:-.02em;}
+
+/* ===== header ===== */
+.top{position:fixed;inset:0 0 auto;z-index:20;background:#EADCC4;padding-left:var(--spine);
+  box-shadow:0 1px 0 rgba(43,29,20,.10),0 4px 14px rgba(43,29,20,.16);}  /* soft shade under the plank */
+.grain{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block;}
+.top .wrap{height:var(--hh);display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;align-items:center;gap:10px;color:var(--nav);}
+.top .brand{gap:12px;}
+.brand img{height:34px;width:auto;aspect-ratio:1000/1335;opacity:.85;}
+.brand span{font-family:var(--font-montserrat);font-weight:600;font-size:28px;letter-spacing:-.02em;line-height:1;}
+.top .brand img{height:54px;}
+.top .brand span{font-size:24px;}
+.nav{display:flex;gap:clamp(28px,3.6vw,52px);margin-right:clamp(0px,2.5vw,40px);}
+.nav a{font-size:14px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--nav);line-height:1;}
+.nav a[aria-current]{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;}
+.nav a:hover{opacity:.6;}
+.burger{display:none;background:none;border:0;cursor:pointer;width:32px;height:32px;position:relative;}
+.burger i{position:absolute;left:4px;right:4px;height:1px;background:var(--ink);transition:transform .3s,top .3s;}
+.burger i:first-child{top:12px;}
+.burger i:last-child{top:20px;}
+.burger[aria-expanded="true"] i:first-child{top:16px;transform:rotate(45deg);}
+.burger[aria-expanded="true"] i:last-child{top:16px;transform:rotate(-45deg);}
+
+/* ===== spine: vertical wordmark in the lower-left (from header seed 6yobedbf) ===== */
+.spine{
+  position:fixed;left:0;top:var(--hh);bottom:0;z-index:10;width:var(--spine);
+  display:flex;justify-content:center;align-items:flex-end;padding-bottom:28px;
+}
+.lockup{display:flex;flex-direction:column;align-items:center;gap:16px;color:var(--ink);}
+.lockup:hover{opacity:.6;}
+.lockup img{height:64px;width:auto;aspect-ratio:1000/1335;}
+.lockup span{
+  writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;
+  font-family:var(--font-bebas);text-transform:uppercase;letter-spacing:.02em;
+  font-size:39px;line-height:1;
+}
+
+/* ===== walnut button ===== */
+.btn{
+  display:inline-flex;align-items:center;gap:12px;min-height:50px;padding:0 26px;border:0;cursor:pointer;
+  background:var(--walnut);color:#F7F0E4;
+  font-family:var(--font-montserrat);font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+  transition:background .2s;
+}
+.btn:hover{background:#5A3D28;}
+.btn .arrow{width:16px;height:16px;flex:none;transition:transform .2s;}
+.btn:hover .arrow{transform:translateX(4px);}
+
+/* ===== footer ===== */
+footer{border-top:1px solid var(--line);padding:40px 0 32px;font-size:13px;background:var(--bg);position:relative;z-index:1;}
+footer{margin-left:calc(-1 * var(--spine));padding-left:var(--spine);}  /* white runs under the spine too */
+.foot{display:grid;grid-template-columns:1fr auto auto auto;gap:24px 48px;align-items:start;}
+.foot .brand span{font-size:25px;}
+.foot .brand img{height:28px;}
+.social{display:flex;gap:14px;padding-top:4px;}
+.social svg{width:16px;height:16px;fill:var(--ink);}
+.social a:hover{opacity:.6;}
+.foot address{font-style:normal;line-height:2;}
+.sitemap{display:grid;grid-template-columns:repeat(2,minmax(0,190px));gap:0 24px;margin-top:40px;line-height:2.1;}
+.sitemap a{display:block;text-transform:lowercase;}
+.sitemap a:hover,.legal a:hover,.foot address a:hover{text-decoration:underline;}
+.legal{margin-top:48px;text-align:center;font-size:11px;}
+.legal nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 10px;}
+.legal p{margin-top:16px;}
+
+/* ===== small screens ===== */
+@media (max-width:860px){
+  :root{--spine:44px;--hh:68px;}
+  main{padding-top:calc(var(--hh) + 18px);}
+  .spine{padding-bottom:20px;}
+  .lockup{gap:12px;}
+  .lockup img{height:44px;}
+  .lockup span{font-size:28px;}
+  .top .brand img{height:42px;}
+  .top .brand span{font-size:20px;}
+  .burger{display:block;}
+  .nav{
+    position:fixed;inset:var(--hh) 0 0;background:var(--bg);margin-right:0;
+    flex-direction:column;align-items:center;justify-content:center;gap:28px;
+    opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;
+  }
+  .nav.open{opacity:1;visibility:visible;}
+  .nav a{font-size:20px;}
+  .foot{grid-template-columns:1fr;}
+  .sitemap{grid-template-columns:1fr 1fr;}
+}
+@media (prefers-reduced-motion:reduce){
+  .nav,.burger i,.btn,.btn .arrow{transition:none;}
+}
