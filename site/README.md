@@ -1,4 +1,4 @@
-# AstroHout website
+# Astrohout website
 
 De website, gebouwd met [Astro](https://astro.build). Bij het bouwen komen er gewone HTML-pagina's uit (in `dist/`), die op elke hosting werken.
 

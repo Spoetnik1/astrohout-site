@@ -1,12 +1,12 @@
 ---
-import { nav, specialismen, juridisch, contact } from '../data/site';
+import { nav, specialismen, juridisch, contact, bedrijf } from '../data/site';
 
 const year = new Date().getFullYear();
 ---
 <footer>
   <div class="wrap">
     <div class="foot">
-      <a class="brand" href="/" aria-label="AstroHout home">
+      <a class="brand" href="/" aria-label="Astrohout home">
         <img src="/logo/base-logo.svg" alt="">
         <span>astrohout</span>
       </a>
@@ -33,7 +33,7 @@ const year = new Date().getFullYear();
         <a href={juridisch[0].href}>{juridisch[0].label}</a><span>·</span>
         <a href={juridisch[1].href}>{juridisch[1].label}</a>
       </nav>
-      <p>© <span id="y">{year}</span> AstroHout</p>
+      <p>© <span id="y">{year}</span> · Astrohout valt onder {bedrijf.naam} · KvK {bedrijf.kvk}</p>
     </div>
   </div>
 </footer>

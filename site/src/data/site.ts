@@ -20,6 +20,12 @@ export const juridisch = [
   { href: '/privacyverklaring', label: 'privacyverklaring' },
 ];
 
+// The company Astrohout currently runs under (footer, KvK).
+export const bedrijf = {
+  naam: 'JambalayaTMB',
+  kvk: '42017220',
+};
+
 export const contact = {
   email: 'info@astrohout.nl',
   instagram: { handle: '@astrohout', href: '#' },
