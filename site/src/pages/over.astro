@@ -1,0 +1,105 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Arrow from '../components/Arrow.astro';
+import portret from '../assets/img/woodworker-temp.jpg';
+---
+<BaseLayout
+  title="Over · AstroHout"
+  description="Over de maker achter AstroHout: meubels op maat, met de hand gemaakt in de eigen werkplaats."
+>
+<main>
+  <section class="narrow about">
+    <div class="about-text">
+      <span class="eyebrow">Over</span>
+      <h1>Over mij</h1>
+      <p class="lead">Ik ben de maker achter AstroHout. In mijn werkplaats ontwerp en bouw ik meubels die precies passen, in je ruimte en bij hoe je leeft.</p>
+      <div class="story">
+        <p>Het begon met een simpele wens: dingen maken die blijven. Een meubel dat klopt voelt vanzelfsprekend. De maten, het hout, de manier waarop een la dichtgaat. Daar zit het werk in, en daar haal ik mijn plezier uit.</p>
+        <p>Ik werk het liefst met massief hout en goed plaatmateriaal, combineer machines met handwerk en denk liever één keer te veel na dan één keer te weinig. Van een kastenwand onder een schuin dak tot een bed dat precies in die ene nis past: geen opdracht is hetzelfde.</p>
+        <p>En waarom AstroHout? Dat vertel ik je graag bij een kop koffie in de werkplaats.</p>
+      </div>
+      <p class="sign">— De maker</p>
+    </div>
+
+    <figure class="portrait">
+      <div class="dim dim-h" aria-hidden="true"><span id="scale">Schaal 1 : 12</span></div>
+      <div class="frame">
+        <Image src={portret} alt="Houtbewerker met schort in een werkplaats vol gereedschap" loading="eager" />
+        <div class="dim dim-v" aria-hidden="true"><span>De maker</span></div>
+      </div>
+      <figcaption>Stand-in. De echte foto volgt binnenkort.</figcaption>
+    </figure>
+  </section>
+
+  <div class="narrow">
+    <section class="more">
+      <h2>Zullen we kennismaken?</h2>
+      <p>Benieuwd hoe een opdracht verloopt? Lees de <a href="/werkwijze">werkwijze</a>, of neem direct contact op.</p>
+      <a class="btn" href="/contact">Neem contact op <Arrow /></a>
+    </section>
+  </div>
+</main>
+</BaseLayout>
+
+<style is:global>
+  /* ===== about: text left, portrait right ===== */
+  .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:clamp(40px,6vw,96px);align-items:start;}
+  .eyebrow{display:inline-block;padding:7px 14px 0 9px;border-top:1px solid;border-left:1px solid;
+    font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.4;color:var(--pencil);}
+  h1{font-size:clamp(44px,6vw,72px);line-height:1;margin-top:22px;}
+  .lead{font-size:clamp(18px,1.8vw,21px);line-height:1.7;color:var(--ink-soft);margin-top:28px;max-width:34ch;font-weight:500;letter-spacing:-.01em;}
+  .story p{font-size:15px;line-height:2;max-width:52ch;margin-top:18px;}
+  .story p:first-of-type{margin-top:28px;}
+  .sign{margin-top:28px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--pencil);}
+
+  /* portrait with dimension lines, like on the workshop drawings */
+  .portrait{position:relative;margin:calc(30px + clamp(40px,5vw,72px)) 30px 0 0;}   /* sits a bit lower than the title */
+  .portrait img{width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;background:#e9e2d6;}
+  .portrait figcaption{margin-top:12px;font-size:12px;color:var(--ink-soft);}
+  .dim{position:absolute;color:var(--pencil);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;}
+  .dim span{position:absolute;background:var(--bg);padding:0 8px;white-space:nowrap;line-height:1;}
+  .dim-h{left:0;right:0;top:-30px;height:13px;border-left:1px solid;border-right:1px solid;}
+  .dim-h::before{content:"";position:absolute;left:0;right:0;top:6px;border-top:1px solid;}
+  .dim-h span{left:50%;top:6px;transform:translate(-50%,-50%);}
+  .dim-v{right:-30px;top:0;width:13px;border-top:1px solid;border-bottom:1px solid;}   /* height = the photo, set below */
+  .dim-v::before{content:"";position:absolute;top:0;bottom:0;left:6px;border-left:1px solid;}
+  .dim-v span{left:6px;top:50%;transform:translate(-50%,-50%) rotate(-90deg);}
+  .portrait .frame{position:relative;}
+  .portrait .frame .dim-v{height:100%;}
+
+  /* ===== closing call to action ===== */
+  .more{padding:clamp(80px,10vw,120px) 0 clamp(96px,12vw,140px);}
+  .more h2{font-size:clamp(26px,3vw,32px);line-height:1.6;}
+  .more p{font-size:14px;line-height:2.1;max-width:40ch;margin-top:12px;}
+  .more p a{border-bottom:1px solid currentColor;}
+  .more p a:hover{color:var(--rust);}
+  .more .btn{margin-top:36px;}
+
+  @media (max-width:860px){
+    .about{grid-template-columns:1fr;gap:0;}
+    .portrait{order:-1;max-width:340px;margin:30px 30px 8px 0;}   /* photo first on phones */
+    .about-text{margin-top:32px;}
+  }
+</style>
+
+<script>
+  // drawing scale of the portrait: what the photo covers in real life (~1.9 m) against
+  // how tall it is on this screen. A CSS pixel is roughly 0.26 mm on a monitor and
+  // 0.17 mm on a phone; browser zoom is read from devicePixelRatio relative to the
+  // ratio when this tab first opened. Rough on purpose, but it moves with you.
+  const REAL_MM=1900,
+        photo=document.querySelector('.portrait img')!,scaleEl=document.getElementById('scale')!,
+        phoneScreen=matchMedia('(pointer:coarse) and (max-width:860px)');
+  let baseDpr=devicePixelRatio;
+  try{baseDpr=+(sessionStorage.getItem('baseDpr') ?? 0)||devicePixelRatio;sessionStorage.setItem('baseDpr',String(baseDpr));}catch(e){}
+  function updateScale(){
+    const zoom=devicePixelRatio/baseDpr,
+          pxMm=phoneScreen.matches?.17:25.4/96,
+          onScreenMm=photo.getBoundingClientRect().height*pxMm*zoom;
+    if(onScreenMm>0)scaleEl.textContent='Schaal 1 : '+Math.max(1,Math.round(REAL_MM/onScreenMm));
+  }
+  addEventListener('resize',updateScale);   // also fires when zooming
+  new ResizeObserver(updateScale).observe(photo);
+  updateScale();
+</script>
