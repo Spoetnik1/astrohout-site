@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio · AstroHout</title>
+<meta name="description" content="Portfolio van AstroHout: bedden, kasten, keukens en ander meubelwerk op maat, met de hand gemaakt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#292929;          /* body text */
+    --ink-soft:#575757;     /* headings, paragraphs */
+    --nav:rgba(0,0,0,.79);
+    --line:#e6e6e6;
+    --bg:#fff;
+    --gut:clamp(16px,3vw,40px);
+    --hh:85px;              /* header height */
+    --max:1440px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:   /* workshop drawings as wallpaper, softly veiled in the text column so text stays readable */
+      linear-gradient(90deg,rgba(255,255,255,0) calc(50% - 640px),rgba(255,255,255,.85) calc(50% - 520px),
+                      rgba(255,255,255,.85) calc(50% + 520px),rgba(255,255,255,0) calc(50% + 640px)),
+      var(--bg) url(drawings-wallpaper.svg) 0 0/1100px auto repeat;
+    color:var(--ink);
+    font-family:'Montserrat',sans-serif;font-weight:400;font-size:15px;line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut);}
+
+  /* ===== header ===== */
+  .top{position:fixed;inset:0 0 auto;z-index:20;background:#EADCC4;
+    box-shadow:0 1px 0 rgba(43,29,20,.10),0 4px 14px rgba(43,29,20,.16);}  /* soft shade under the plank */
+  .grain{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block;}
+  .top .wrap{height:var(--hh);display:flex;align-items:center;justify-content:space-between;}
+  .brand{display:flex;align-items:center;gap:10px;color:var(--nav);}
+  .top .brand{gap:12px;}
+  .brand img{height:34px;width:auto;aspect-ratio:1000/1335;opacity:.85;}
+  .brand span{font-family:'Montserrat',sans-serif;font-weight:600;font-size:28px;letter-spacing:-.02em;line-height:1;}
+  .top .brand img{height:54px;}
+  .top .brand span{font-family:'Montserrat',sans-serif;font-weight:600;font-size:24px;letter-spacing:-.02em;}
+  .nav{display:flex;gap:clamp(28px,3.6vw,52px);margin-right:clamp(0px,2.5vw,40px);}
+  .nav a{font-family:'Montserrat',sans-serif;font-size:14px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--nav);line-height:1;}
+  .nav a[aria-current]{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px;}
+  .nav a:hover{opacity:.6;}
+  .burger{display:none;background:none;border:0;cursor:pointer;width:32px;height:32px;position:relative;}
+  .burger i{position:absolute;left:4px;right:4px;height:1px;background:var(--ink);transition:transform .3s,top .3s;}
+  .burger i:first-child{top:12px;}
+  .burger i:last-child{top:20px;}
+  .burger[aria-expanded="true"] i:first-child{top:16px;transform:rotate(45deg);}
+  .burger[aria-expanded="true"] i:last-child{top:16px;transform:rotate(-45deg);}
+
+  /* ===== spine: vertical wordmark in the lower-left (from header seed 6yobedbf) ===== */
+  :root{--spine:72px;}
+  body{padding-left:var(--spine);}
+  .top{padding-left:var(--spine);}
+  .spine{
+    position:fixed;left:0;top:var(--hh);bottom:0;z-index:10;width:var(--spine);
+    display:flex;justify-content:center;align-items:flex-end;padding-bottom:28px;
+  }
+  .lockup{display:flex;flex-direction:column;align-items:center;gap:16px;color:var(--ink);}
+  .lockup:hover{opacity:.6;}
+  .lockup img{height:64px;width:auto;aspect-ratio:1000/1335;}
+  .lockup span{
+    writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;
+    font-family:'Bebas Neue',Impact,sans-serif;text-transform:uppercase;letter-spacing:.02em;
+    font-size:39px;line-height:1;
+  }
+
+  main{padding-top:calc(var(--hh) + 28px);}  /* breathing room under the navbar */
+  h1,h2{font-family:'Montserrat',sans-serif;font-weight:500;color:var(--ink-soft);letter-spacing:-.02em;}
+
+  /* ===== page head ===== */
+  .phead{text-align:right;}   /* title in the top-right corner */
+  .narrow.phead{padding-bottom:48px;}  /* .narrow's padding shorthand would otherwise reset this */
+  h1{font-size:clamp(44px,6vw,72px);line-height:1;}
+  .phead p{font-size:14px;letter-spacing:.01em;margin-top:14px;}
+  .item{scroll-margin-top:calc(var(--hh) + 24px);}
+
+  /* ===== project grid: full-bleed, two square columns ===== */
+  .narrow{max-width:1120px;margin:0 auto;padding:0 var(--gut);}  /* content column for this page */
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 30px;}
+  .item img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#f2f2f2;transition:opacity .2s;}
+  .item:hover img{opacity:.8;}
+  .item h3{   /* letter · name label above the photo, same style as the button labels on home */
+    display:inline-block;margin-bottom:10px;padding:7px 14px 0 9px;background:var(--bg);
+    border-top:1px solid;border-left:1px solid;   /* half box: top + left line, follows the text colour */
+    font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;
+    letter-spacing:.16em;text-transform:uppercase;line-height:1.4;color:var(--ink-soft);transition:color .2s;
+  }
+  .item:hover h3{color:#C8560A;}
+
+  /* ===== closing call to action ===== */
+  .more{position:relative;padding:120px 0 140px;}
+  .more-txt{position:relative;z-index:1;max-width:520px;}
+  h2{font-size:clamp(26px,3vw,32px);line-height:1.6;}
+  .more p{font-size:14px;line-height:2.1;max-width:34ch;margin-top:12px;}
+  .more p a{border-bottom:1px solid currentColor;}
+  .btn{   /* walnut button, same as on home (variant A) */
+    display:inline-flex;align-items:center;gap:12px;margin-top:36px;min-height:50px;padding:0 26px;
+    background:#2B1D14;color:#F7F0E4;
+    font-family:'Montserrat',sans-serif;font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    transition:background .2s;
+  }
+  .btn:hover{background:#5A3D28;}
+  .btn .arrow{width:16px;height:16px;flex:none;transition:transform .2s;}
+  .btn:hover .arrow{transform:translateX(4px);}
+
+  /* ===== footer ===== */
+  footer{border-top:1px solid var(--line);padding:40px 0 32px;font-size:13px;background:var(--bg);}  /* plain white, no wallpaper */
+  .foot{display:grid;grid-template-columns:1fr auto auto auto;gap:24px 48px;align-items:start;}
+  .foot .brand span{font-size:25px;}
+  .foot .brand img{height:28px;}
+  .social{display:flex;gap:14px;padding-top:4px;}
+  .social svg{width:16px;height:16px;fill:var(--ink);}
+  .social a:hover{opacity:.6;}
+  .foot address{font-style:normal;line-height:2;}
+  .sitemap{display:grid;grid-template-columns:repeat(2,minmax(0,190px));gap:0 24px;margin-top:40px;line-height:2.1;}
+  .sitemap a{display:block;text-transform:lowercase;}
+  .sitemap a:hover,.legal a:hover,.foot address a:hover{text-decoration:underline;}
+  .legal{margin-top:48px;text-align:center;font-size:11px;}
+  .legal nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 10px;}
+  .legal p{margin-top:16px;}
+
+  footer{margin-left:calc(-1 * var(--spine));padding-left:var(--spine);}  /* white runs under the spine too */
+
+  /* ===== small screens ===== */
+  @media (max-width:860px){
+    :root{--spine:44px;}
+    .spine{padding-bottom:20px;}
+    .lockup{gap:12px;}
+    .lockup img{height:44px;}
+    .lockup span{font-size:28px;}
+    main{padding-top:calc(var(--hh) + 18px);}
+    :root{--hh:68px;}
+    .top .brand img{height:42px;}
+    .top .brand span{font-size:20px;}
+    .burger{display:block;}
+    .nav{
+      position:fixed;inset:var(--hh) 0 0;background:var(--bg);
+      flex-direction:column;align-items:center;justify-content:center;gap:28px;
+      opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;
+    }
+    .nav.open{opacity:1;visibility:visible;}
+    .nav{margin-right:0;}
+    .nav a{font-size:20px;}
+    .narrow.phead{padding-bottom:32px;}
+    .grid{grid-template-columns:1fr;gap:28px;}
+    .more{padding:72px 0 96px;}
+    .foot{grid-template-columns:1fr;}
+    .sitemap{grid-template-columns:1fr 1fr;}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    html{scroll-behavior:smooth;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .item img,.item h3,.nav,.burger i,.btn,.btn .arrow{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<aside class="spine">
+  <a class="lockup" href="index.html" aria-label="AstroHout home">
+    <img src="logo/base-logo.svg" alt="">
+    <span>AstroHout</span>
+  </a>
+</aside>
+
+<header class="top">
+  <!-- generated oak grain: stretched noise folded into bands, tinted oak → teak -->
+  <svg class="grain" aria-hidden="true">
+    <filter id="wood" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.0011 0.028" numOctaves="3" seed="11"/>
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0 0 .12 .55 .12 0 0 .1 .4 .1 0 0 .12 .55 .12 0 0 .1 .4 .1 0 0 .12 .55 .12 0"/>
+      </feComponentTransfer>
+      <feColorMatrix type="matrix" values="-.094 0 0 0 .918  -.141 0 0 0 .863  -.196 0 0 0 .769  0 0 0 0 1"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#wood)"/>
+  </svg>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="AstroHout home">
+      <img src="logo/base-logo.svg" alt="">
+      <span>astrohout</span>
+    </a>
+    <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><i></i><i></i></button>
+    <nav class="nav" id="nav">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html" aria-current="page">Portfolio</a>
+      <a href="werkwijze.html">Werkwijze</a>
+      <a href="over.html">Over</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="narrow phead">
+    <div class="ptitle">
+      <h1>Portfolio</h1>
+      <p>Een selectie van recente projecten</p>
+    </div>
+  </div>
+
+  <section class="narrow grid" aria-label="Projecten">
+    <a class="item" id="p-a" href="#">
+      <h3>A · Zolderslaapkamer</h3>
+      <img src="portfolio/web/bed8.jpg" alt="Zolderslaapkamer met bed van massief hout en ingebouwde kasten">
+    </a>
+    <a class="item" id="p-b" href="#">
+      <h3>B · Keuken</h3>
+      <img src="portfolio/web/keuken1.jpg" alt="Keuken met groene kasten, houten werkblad en visgraatvloer">
+    </a>
+    <a class="item" id="p-c" href="#">
+      <h3>C · Inbouwkast</h3>
+      <img src="portfolio/web/schappen1.jpg" alt="Inbouwkasten met open schappen onder een schuin dak" loading="lazy">
+    </a>
+    <a class="item" id="p-d" href="#">
+      <h3>D · Bedframe</h3>
+      <img src="portfolio/web/bed5.jpg" alt="Hoek van een massief houten bedframe met zichtbare nerf" loading="lazy">
+    </a>
+    <a class="item" id="p-e" href="#">
+      <h3>E · Badkamer</h3>
+      <img src="portfolio/web/badkamer.jpg" alt="Badkamer met houten wastafelmeubel en spiegelkast" loading="lazy">
+    </a>
+    <a class="item" id="p-f" href="#">
+      <h3>F · Balustrade</h3>
+      <img src="portfolio/web/hek2.jpg" alt="Trapbalustrade met spijlen van ongeschilde takken" loading="lazy">
+    </a>
+    <a class="item" id="p-g" href="#">
+      <h3>G · Kastenwand</h3>
+      <img src="portfolio/web/single_room2.jpg" alt="Kastenwand van multiplex in een smalle kamer" loading="lazy">
+    </a>
+    <a class="item" id="p-h" href="#">
+      <h3>H · Kamerscherm</h3>
+      <img src="portfolio/web/divider1.jpg" alt="Vouwbaar kamerscherm met beschilderde panelen" loading="lazy">
+    </a>
+    <a class="item" id="p-i" href="#">
+      <h3>I · Tuinstoelen</h3>
+      <img src="portfolio/web/buitenstoel1.jpg" alt="Twee houten tuinstoelen in het gras" loading="lazy">
+    </a>
+    <a class="item" id="p-j" href="#">
+      <h3>J · Borrelplanken</h3>
+      <img src="portfolio/web/borrelplank1.jpg" alt="Borrelplank van gelamineerd hout met handgreep" loading="lazy">
+    </a>
+  </section>
+
+  <div class="narrow">
+    <section class="more">
+      <div class="more-txt">
+        <h2>Een idee voor jouw ruimte?</h2>
+        <p>Vertel wat je in gedachten hebt, dan denk ik mee over ontwerp, houtsoort en planning. Mail naar <a href="mailto:info@astrohout.nl">info@astrohout.nl</a>.</p>
+        <a class="btn" href="contact.html">Neem contact op <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <a class="brand" href="index.html" aria-label="AstroHout home">
+        <img src="logo/base-logo.svg" alt="">
+        <span>astrohout</span>
+      </a>
+      <div class="social">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2M12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.1 1.4C1.3 2.7.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.2.6 2.9.3.8.7 1.5 1.4 2.1.7.7 1.3 1.1 2.1 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.2-.3 2.9-.6.8-.3 1.5-.7 2.1-1.4.7-.7 1.1-1.3 1.4-2.1.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.2-.6-2.9-.3-.8-.7-1.5-1.4-2.1C21.3 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg></a>
+        <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24"><path d="M12 0a12 12 0 0 0-4.4 23.2c-.1-.9-.2-2.4 0-3.4l1.4-6s-.4-.7-.4-1.8c0-1.7 1-2.9 2.2-2.9 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.1 0 3.8-2.2 3.8-5.5 0-2.9-2.1-4.9-5-4.9-3.4 0-5.4 2.6-5.4 5.2 0 1 .4 2.1.9 2.7.1.1.1.2.1.3l-.3 1.4c-.1.2-.2.3-.4.2-1.5-.7-2.4-2.9-2.4-4.6 0-3.8 2.7-7.2 7.9-7.2 4.1 0 7.3 2.9 7.3 6.9 0 4.1-2.6 7.4-6.2 7.4-1.2 0-2.4-.6-2.7-1.4l-.8 2.8c-.3 1-1 2.3-1.5 3.1A12 12 0 1 0 12 0z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2zM5.3 7.4a2.1 2.1 0 1 1 0-4.1 2.1 2.1 0 0 1 0 4.1zm1.8 13.1H3.6V9h3.6v11.5zM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0z"/></svg></a>
+      </div>
+      <address><a href="mailto:info@astrohout.nl">info@astrohout.nl</a><br><a href="#">@astrohout</a></address>
+      <address>Werkplaats<br>Nederland</address>
+    </div>
+
+    <div class="sitemap">
+      <nav aria-label="Menu">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="werkwijze.html">Werkwijze</a>
+        <a href="over.html">Over</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <nav aria-label="Specialismen">
+        <a href="#">Kasten op maat</a>
+        <a href="#">Bedden</a>
+        <a href="#">Keukens</a>
+        <a href="#">Trappen en hekken</a>
+      </nav>
+    </div>
+
+    <div class="legal">
+      <nav aria-label="Juridisch">
+        <a href="algemene-voorwaarden.html">algemene voorwaarden</a><span>·</span>
+        <a href="privacyverklaring.html">privacyverklaring</a>
+      </nav>
+      <p>© <span id="y">2026</span> AstroHout</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const burger=document.querySelector('.burger'),nav=document.getElementById('nav');
+  burger.addEventListener('click',()=>{
+    const open=nav.classList.toggle('open');
+    burger.setAttribute('aria-expanded',open);
+    document.body.style.overflow=open?'hidden':'';
+  });
+
+  document.getElementById('y').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
