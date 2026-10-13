@@ -24,7 +24,7 @@ const here = cleanPath(Astro.url.pathname);
     <button class="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><i></i><i></i></button>
     <nav class="nav" id="nav">
       {nav.map(({ href, label }) => (
-        <a href={href} aria-current={href === here ? 'page' : undefined}>{label}</a>
+        <a href={href} aria-current={href === here ? 'page' : here.startsWith(`${href}/`) && href !== '/' ? 'true' : undefined}>{label}</a>
       ))}
     </nav>
   </div>

@@ -21,7 +21,7 @@ import { contact } from '../data/site';
     {projecten.map((p, i) => {
       const letter = String.fromCharCode(65 + i);
       return (
-        <a class="item" id={`p-${letter.toLowerCase()}`} href="#">
+        <a class="item" id={`p-${letter.toLowerCase()}`} href={p.slug && p.fotos ? `/portfolio/${p.slug}` : '#'}>
           <h3>{letter} · {p.titel}</h3>
           <Image
             src={p.foto}

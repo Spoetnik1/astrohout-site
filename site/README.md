@@ -18,6 +18,7 @@ npm run preview  # bekijkt de gebouwde site
 | --- | --- |
 | Menu, e-mailadres, social links, footerlinks | `src/data/site.ts` |
 | Portfolioprojecten (foto, titel, alt-tekst) | `src/data/projecten.ts` + foto in `src/assets/portfolio/` |
+| Projectpagina (`/portfolio/<slug>`: specificaties en foto's) | `slug`, `specs` en `fotos` bij het project in `src/data/projecten.ts` |
 | Teksten van een pagina | `src/pages/<pagina>.astro` |
 | Algemene voorwaarden, privacyverklaring | `src/pages/*.md` (Markdown; `[invulvelden]` staan gemarkeerd) |
 | Header, spine, footer | `src/components/` |
