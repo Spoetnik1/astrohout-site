@@ -28,6 +28,7 @@ interface Props {
 const { project, letter, vorige, volgende } = Astro.props;
 const specs = project.specs ?? [];
 const ratio = (f: { src: ImageMetadata }) => f.src.width / f.src.height;
+const MAX_HOOGTE = 800;   // a row with few or upright photos stops growing at this height
 ---
 <BaseLayout
   title={`${project.titel} · Portfolio · Astrohout`}
@@ -44,15 +45,16 @@ const ratio = (f: { src: ImageMetadata }) => f.src.width / f.src.height;
   <section class="narrow gallery" aria-label="Foto's">
     {project.fotos!.map((rij, r) => {
       const totaal = rij.reduce((som, f) => som + ratio(f), 0);
+      const breedte = Math.min(1040, Math.round(totaal * MAX_HOOGTE));
       return (
-        <div class="row">
+        <div class="row" style={`--row-max:${breedte}px`}>
           {rij.map((f) => (
             <Image
               src={f.src}
               alt={f.alt}
-              style={`flex-grow:${ratio(f).toFixed(4)}`}
+              style={`flex-grow:${(ratio(f) * 100).toFixed(2)}`}
               widths={[600, 900, 1200, 1600, 2000]}
-              sizes={`(max-width: 860px) calc(100vw - 76px), ${Math.round((1040 * ratio(f)) / totaal)}px`}
+              sizes={`(max-width: 860px) calc(100vw - 76px), ${Math.round((breedte * ratio(f)) / totaal)}px`}
               loading={r === 0 ? 'eager' : 'lazy'}
             />
           ))}
@@ -90,15 +92,15 @@ const ratio = (f: { src: ImageMetadata }) => f.src.width / f.src.height;
 
   /* ===== photos: each row fills the width, photos in a row share one height ===== */
   .gallery{display:flex;flex-direction:column;gap:18px;}
-  .row{display:flex;gap:18px;}
-  .row img{flex:1 1 0;min-width:0;height:auto;background:#f2f2f2;}   /* flex-grow = aspect ratio, set inline */
+  .row{display:flex;gap:18px;max-width:var(--row-max);}
+  .row img{flex:1 1 0;min-width:0;height:auto;background:#f2f2f2;}   /* flex-grow = aspect ratio × 100 (inline; below 1 a lone photo would not fill its row) */
 
   /* ===== back to the overview, previous / next project ===== */
   .pager{display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap;
     margin-top:48px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);}
   .pager a:hover{color:var(--rust);}
   .back::before{content:"\2190\00a0\00a0";}
-  .prevnext{display:flex;gap:32px;}
+  .prevnext{display:flex;flex-wrap:wrap;gap:12px 32px;}
   .prevnext span{color:var(--pencil);margin-right:10px;}
 
   /* ===== closing call to action ===== */
@@ -110,8 +112,9 @@ const ratio = (f: { src: ImageMetadata }) => f.src.width / f.src.height;
   @media (max-width:860px){
     .narrow.phead{padding-bottom:32px;}
     .gallery,.row{gap:12px;}
-    .row{flex-direction:column;}   /* photos stacked on phones */
+    .row{flex-direction:column;max-width:none;}   /* photos stacked on phones */
     .row img{flex:none !important;width:100%;}
-    .pager{margin-top:36px;}
+    .pager{margin-top:36px;flex-direction:column;gap:16px;}
+    .prevnext{width:100%;justify-content:space-between;}
   }
 </style>
