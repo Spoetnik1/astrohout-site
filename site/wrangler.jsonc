@@ -11,6 +11,11 @@
 	"observability": {
 		"enabled": true
 	},
+	// the site's own domain: Cloudflare links these to the Worker (and creates their DNS records) on every deploy
+	"routes": [
+		{ "pattern": "astrohout.nl", "custom_domain": true },
+		{ "pattern": "www.astrohout.nl", "custom_domain": true }
+	],
 	// contact form: sends each message to the inbox below, from an address on our own domain.
 	"send_email": [
 		{
