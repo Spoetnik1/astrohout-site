@@ -8,13 +8,6 @@ export const nav = [
   { href: '/contact', label: 'Contact' },
 ];
 
-export const specialismen = [
-  { href: '#', label: 'Kasten op maat' },
-  { href: '#', label: 'Bedden' },
-  { href: '#', label: 'Keukens' },
-  { href: '#', label: 'Trappen en hekken' },
-];
-
 export const juridisch = [
   { href: '/algemene-voorwaarden', label: 'algemene voorwaarden' },
   { href: '/privacyverklaring', label: 'privacyverklaring' },

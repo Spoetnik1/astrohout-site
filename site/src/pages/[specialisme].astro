@@ -1,0 +1,106 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Arrow from '../components/Arrow.astro';
+import { specialismen, type Specialisme } from '../data/specialismen';
+import { projecten } from '../data/projecten';
+import { contact } from '../data/site';
+
+// one page per specialism in src/data/specialismen.ts, at /<slug>
+export function getStaticPaths() {
+  return specialismen.map((specialisme) => ({ params: { specialisme: specialisme.slug }, props: { specialisme } }));
+}
+
+interface Props {
+  specialisme: Specialisme;
+}
+
+const { specialisme } = Astro.props;
+// the projects tagged with this specialism, in portfolio order
+const werk = projecten.filter((p) => p.slug && p.fotos && p.specialismen?.includes(specialisme.slug));
+const [lead, ...tekst] = specialisme.intro;
+---
+<BaseLayout
+  title={`${specialisme.titel} · Astrohout`}
+  description={specialisme.description}
+  image={werk[0]?.foto}
+>
+<main>
+  {/* TODO AI-GENERATED: intro texts come from src/data/specialismen.ts and were written by AI. Check and rewrite. */}
+  <div class="narrow phead">
+    <a class="eyebrow" href="/portfolio">Specialisme</a>
+    <h1>{specialisme.titel}</h1>
+    <p class="lead">{lead}</p>
+    {tekst.map((t) => <p class="tekst">{t}</p>)}
+  </div>
+
+  {werk.length > 0 && (
+    <section class="narrow werk" aria-labelledby="werk-titel">
+      <h2 id="werk-titel">Eerder gemaakt</h2>
+      <div class="werk-grid">
+        {werk.map((p, i) => (
+          <a class="item" href={`/portfolio/${p.slug}`}>
+            <h3>{p.titel}</h3>
+            <Image
+              src={p.foto}
+              alt={p.alt}
+              widths={[400, 600, 900]}
+              sizes="(max-width: 860px) calc(100vw - 76px), 330px"
+              loading={i < 3 ? 'eager' : 'lazy'}
+            />
+          </a>
+        ))}
+      </div>
+      <a class="link" href="/portfolio">Bekijk het hele portfolio</a>
+    </section>
+  )}
+
+  {/* TODO AI-GENERATED: closing text below was written by AI. Check and rewrite. */}
+  <div class="narrow">
+    <section class="more">
+      <h2>Ook iets op maat voor jouw ruimte?</h2>
+      <p>Vertel wat je in gedachten hebt, dan denk ik mee over ontwerp, hout en planning. Lees eerst de <a href="/werkwijze">werkwijze</a>, of mail naar <a href={`mailto:${contact.email}`}>{contact.email}</a>.</p>
+      <a class="btn" href="/contact">Neem contact op <Arrow /></a>
+    </section>
+  </div>
+</main>
+</BaseLayout>
+
+<style is:global>
+  /* ===== page head: label, title and the intro ===== */
+  .narrow.phead{padding-bottom:48px;}
+  .eyebrow{display:inline-block;padding:7px 14px 0 9px;border-top:1px solid;border-left:1px solid;
+    font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.4;color:var(--pencil);}
+  .eyebrow:hover{color:var(--rust);}
+  h1{font-size:clamp(44px,6vw,72px);line-height:1;margin-top:22px;}
+  .lead{font-size:clamp(17px,1.6vw,19px);line-height:1.8;color:var(--ink-soft);margin-top:28px;max-width:52ch;}
+  .tekst{font-size:15px;line-height:2;max-width:56ch;margin-top:18px;}
+  h2{font-size:clamp(26px,3vw,32px);line-height:1.4;}
+
+  /* ===== projects in this specialism, three square columns ===== */
+  .werk{margin-top:clamp(24px,4vw,48px);}
+  .werk-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;margin-top:36px;}
+  .item img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;background:#f2f2f2;transition:opacity .2s;}
+  .item:hover img{opacity:.8;}
+  .item h3{display:inline-block;margin-bottom:10px;padding:7px 14px 0 9px;background:var(--bg);border-top:1px solid;border-left:1px solid;
+    font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.4;color:var(--ink-soft);transition:color .2s;}
+  .item:hover h3{color:var(--rust);}
+  .link{display:inline-block;margin-top:28px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);}
+  .link::after{content:"\00a0\00a0\2192";}
+  .link:hover{color:var(--rust);}
+
+  /* ===== closing call to action ===== */
+  .more{padding:clamp(80px,10vw,120px) 0 clamp(96px,12vw,140px);}
+  .more p{font-size:14px;line-height:2.1;max-width:44ch;margin-top:12px;}
+  .more p a{border-bottom:1px solid currentColor;}
+  .more p a:hover{color:var(--rust);}
+  .more .btn{margin-top:36px;}
+
+  @media (max-width:860px){
+    .narrow.phead{padding-bottom:32px;}
+    .werk-grid{grid-template-columns:1fr;gap:28px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .item img,.item h3{transition:none;}
+  }
+</style>
