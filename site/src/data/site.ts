@@ -26,6 +26,16 @@ export const bedrijf = {
   kvk: '42017220',
 };
 
+// Where the workshop is: the starting point for the distances and the map on the werkgebied pages.
+// Between Wijhe and Heino, closer to Heino. The coordinates are rounded on purpose (about a km),
+// so the map shows the area but not the house.
+export const werkplaats = {
+  plaats: 'Wijhe',
+  provincie: 'Overijssel',
+  lat: 52.42,
+  lon: 6.19,
+};
+
 export const contact = {
   email: 'info@astrohout.nl',
   instagram: { handle: '@astro.hout', href: 'https://www.instagram.com/astro.hout/' },

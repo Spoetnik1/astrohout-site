@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Arrow from '../components/Arrow.astro';
+import { plaatsen, afstand } from '../data/plaatsen';
+import { contact, werkplaats } from '../data/site';
+
+// TODO AI-GENERATED: the texts on this page (lead, 'Woon je verder weg?', meta description)
+
+// nearest first by car (the IJssel makes Heerde close as the crow flies, but not by road)
+const lijst = [...plaatsen].sort((a, b) => a.rijtijd - b.rijtijd || afstand(a) - afstand(b));
+
+// map: the workshop in the middle, 10 units per km, north up
+const KM = 10;
+const kmPerLon = 111.32 * Math.cos((werkplaats.lat * Math.PI) / 180);
+const ONDER = ['wijhe'];   // label under the dot, where left or right would bump into a neighbour
+const punten = lijst.map((p) => {
+  const x = (p.lon - werkplaats.lon) * kmPerLon * KM;
+  const y = -(p.lat - werkplaats.lat) * 110.57 * KM;
+  const kant = ONDER.includes(p.slug) ? 'onder' : x < 0 ? 'links' : 'rechts';   // west of the workshop: label left of the dot
+  return { ...p, x, y, kant };
+});
+const ringen = [10, 20, 30];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': new URL('/#bedrijf', Astro.site).href,
+  name: 'Astrohout',
+  url: Astro.site!.href,
+  email: contact.email,
+  sameAs: [contact.instagram.href],
+  address: { '@type': 'PostalAddress', addressLocality: werkplaats.plaats, addressRegion: werkplaats.provincie, addressCountry: 'NL' },
+  areaServed: plaatsen.map((p) => ({ '@type': 'City', name: p.naam })),
+};
+---
+<BaseLayout
+  title="Werkgebied · Meubelmaker in Salland en omgeving · Astrohout"
+  description="Astrohout zit tussen Wijhe en Heino en maakt meubels op maat voor Zwolle, Deventer, Kampen, Raalte en de rest van Salland. Voor een mooie opdracht ook verder weg."
+>
+<script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+<main>
+  <div class="narrow phead">
+    <h1>Werkgebied</h1>
+    <p class="lead">Mijn werkplaats ligt net buiten Wijhe, richting Heino, midden in Salland. De meeste opdrachten doe ik hier in de buurt en in de steden eromheen: Zwolle, Deventer en Kampen. Voor een mooie opdracht kom ik ook verder.</p>
+  </div>
+
+  <section class="narrow gebied" aria-label="Plaatsen">
+    <figure class="kaart">
+      <svg viewBox="-265 -210 420 420" role="img" aria-label="Kaartje met de werkplaats tussen Wijhe en Heino in het midden en de plaatsen in het werkgebied eromheen, met cirkels op 10, 20 en 30 km">
+        {ringen.map((r) => (
+          <g class="ring">
+            <circle r={r * KM} />
+            <text x={r * KM * 0.5} y={r * KM * 0.866} text-anchor="middle">{r} km</text>
+          </g>
+        ))}
+        <g class="noord" transform="translate(125 -180)">
+          <path d="M0 18V-12M-5-4L0-12L5-4" />
+          <text y="34" text-anchor="middle">N</text>
+        </g>
+        <g class="werkplaats">
+          <circle r="6" />
+          <text x="10" y="20">werkplaats</text>
+        </g>
+        {punten.map((p) => (
+          <a href={`/meubelmaker-${p.slug}`} class="pt" transform={`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`}>
+            <circle r="4.5" />
+            {p.kant === 'onder'
+              ? <text y="22" text-anchor="middle">{p.naam}</text>
+              : <text x={p.kant === 'links' ? -10 : 10} y="5" text-anchor={p.kant === 'links' ? 'end' : 'start'}>{p.naam}</text>}
+          </a>
+        ))}
+      </svg>
+      <figcaption>Hemelsbreed, vanaf de werkplaats tussen Wijhe en Heino</figcaption>
+    </figure>
+
+    <ol class="lijst">
+      {lijst.map((p) => (
+        <li>
+          <a href={`/meubelmaker-${p.slug}`}>
+            <b>Meubelmaker in {p.naam}</b>
+            <span>± {Math.round(afstand(p))} km · {p.rijtijd} min</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="narrow verder">
+    <h2>Woon je verder weg?</h2>
+    <p>Voor een grotere opdracht kom ik ook naar andere delen van Nederland. Vertel wat je in gedachten hebt en waar je woont, dan kijken we samen of het past.</p>
+  </section>
+
+  <div class="narrow">
+    <section class="more">
+      <h2>Een idee voor jouw ruimte?</h2>
+      <p>Het eerste gesprek is kosteloos, bij jou thuis of in de werkplaats. Mail naar <a href={`mailto:${contact.email}`}>{contact.email}</a>.</p>
+      <a class="btn" href="/contact">Neem contact op <Arrow /></a>
+    </section>
+  </div>
+</main>
+</BaseLayout>
+
+<style is:global>
+  /* ===== page head ===== */
+  .narrow.phead{padding-bottom:48px;}
+  h1{font-size:clamp(44px,6vw,72px);line-height:1;}
+  .lead{font-size:15px;line-height:1.9;max-width:52ch;margin-top:18px;}
+  h2{font-size:clamp(26px,3vw,32px);line-height:1.4;}
+
+  /* ===== map left, list right ===== */
+  .gebied{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(32px,6vw,80px);align-items:start;}
+  .kaart svg{display:block;width:100%;height:auto;background:#FFFDF8;border:1px solid #d8cfc2;
+    background-image:linear-gradient(rgba(138,90,51,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(138,90,51,.06) 1px,transparent 1px);
+    background-size:20px 20px;}
+  .kaart figcaption{margin-top:10px;font-size:12px;color:var(--ink-soft);}
+  .ring circle{fill:none;stroke:#c9bdae;stroke-dasharray:4 5;}
+  .ring text{font:600 10px var(--font-montserrat);letter-spacing:.14em;fill:#a8998a;
+    paint-order:stroke;stroke:#FFFDF8;stroke-width:5px;}
+  .noord path{fill:none;stroke:var(--pencil);stroke-width:1.4;}
+  .noord text{font:600 11px var(--font-montserrat);letter-spacing:.14em;fill:var(--pencil);}
+  .pt circle{fill:var(--bg);stroke:var(--pencil);stroke-width:1.6;}
+  .pt text{font:500 14px var(--font-montserrat);fill:var(--ink-soft);paint-order:stroke;stroke:#FFFDF8;stroke-width:5px;}
+  .werkplaats circle{fill:var(--rust);}
+  .werkplaats text{font:600 9px var(--font-montserrat);letter-spacing:.14em;text-transform:uppercase;fill:var(--rust);
+    paint-order:stroke;stroke:#FFFDF8;stroke-width:5px;}
+  .pt:hover text{fill:var(--rust);}
+  .pt:hover circle{stroke:var(--rust);}
+
+  .lijst{list-style:none;}
+  .lijst li + li{border-top:1px solid #e3d9cb;}
+  .lijst a{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:13px 0;}
+  .lijst b{font-weight:500;font-size:15px;color:var(--ink-soft);}
+  .lijst span{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--pencil);white-space:nowrap;}
+  .lijst a:hover b{color:var(--rust);}
+
+  /* ===== further away ===== */
+  .verder{margin-top:clamp(72px,9vw,112px);}
+  .verder p{font-size:15px;line-height:2;max-width:56ch;margin-top:14px;}
+
+  /* ===== closing call to action ===== */
+  .more{padding:clamp(80px,10vw,120px) 0 clamp(96px,12vw,140px);}
+  .more p{font-size:14px;line-height:2.1;max-width:40ch;margin-top:12px;}
+  .more p a{border-bottom:1px solid currentColor;}
+  .more p a:hover{color:var(--rust);}
+  .more .btn{margin-top:36px;}
+
+  @media (max-width:860px){
+    .narrow.phead{padding-bottom:32px;}
+    .gebied{grid-template-columns:1fr;}
+  }
+</style>

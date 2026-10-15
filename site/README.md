@@ -19,6 +19,7 @@ npm run preview  # bekijkt de gebouwde site
 | Menu, e-mailadres, social links, footerlinks | `src/data/site.ts` |
 | Portfolioprojecten (foto, titel, alt-tekst) | `src/data/projecten.ts` + foto in `src/assets/portfolio/` |
 | Projectpagina (`/portfolio/<slug>`: specificaties en foto's) | `slug`, `specs` en `fotos` bij het project in `src/data/projecten.ts` |
+| Werkgebied en plaatspagina's (`/werkgebied`, `/meubelmaker-<plaats>`: teksten, rijtijden) | `src/data/plaatsen.ts`; plek van de werkplaats: `werkplaats` in `src/data/site.ts` |
 | Teksten van een pagina | `src/pages/<pagina>.astro` |
 | Algemene voorwaarden, privacyverklaring | `src/pages/*.md` (Markdown; `[invulvelden]` staan gemarkeerd) |
 | Header, spine, footer | `src/components/` |
@@ -31,6 +32,7 @@ Lettertypen worden bij het bouwen gedownload en vanaf de eigen site geserveerd (
 
 ## Nog te doen
 
+- Concepttekst van de plaatspagina's nakijken (`src/data/plaatsen.ts`, gemarkeerd met `TODO AI-GENERATED`), vooral de rijtijden en wat er over de werkwijze staat
 - Contactformulier echt laten versturen (samen met de keuze voor hosting)
 - Bezoekersstatistieken (privacyvriendelijk)
 - Domein invullen in `astro.config.mjs`

@@ -1,0 +1,247 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Arrow from '../components/Arrow.astro';
+import { plaatsen, afstand, bijSlug, type Plaats } from '../data/plaatsen';
+import { projecten } from '../data/projecten';
+import { contact, werkplaats } from '../data/site';
+
+// one page per place in src/data/plaatsen.ts, at /meubelmaker-<slug>
+export function getStaticPaths() {
+  return plaatsen.map((plaats) => ({ params: { plaats: plaats.slug }, props: { plaats } }));
+}
+
+interface Props {
+  plaats: Plaats;
+}
+
+const { plaats } = Astro.props;
+const thuis = plaats.naam === werkplaats.plaats;
+const km = Math.max(1, Math.round(afstand(plaats)));
+const werk = plaats.projecten
+  .map((slug) => projecten.find((p) => p.slug === slug && p.fotos))
+  .filter((p) => p !== undefined);
+const buren = plaats.buren.map(bijSlug).filter((p) => p !== undefined);
+
+// the place-specific questions first, then the ones every page answers
+// TODO AI-GENERATED: the general answers below, the facts strip and the 'Gemaakt in Wijhe' text
+const faq = [
+  ...plaats.faq,
+  {
+    vraag: `Kom je langs in ${plaats.naam}?`,
+    antwoord: thuis
+      ? 'Ja. Het eerste gesprek is kosteloos en kan bij jou thuis of in de werkplaats. Ik bekijk de ruimte, meet globaal op en denk mee.'
+      : `Ja. ${plaats.naam} ligt op ongeveer ${plaats.rijtijd} minuten rijden van mijn werkplaats. Het eerste gesprek is kosteloos en kan bij jou thuis of in de werkplaats. Ik bekijk de ruimte, meet globaal op en denk mee.`,
+  },
+  {
+    vraag: 'Wat kost een meubel op maat?',
+    antwoord: 'Dat hangt af van het ontwerp, de houtsoort en de afwerking. Na het eerste gesprek krijg je een schets met een prijsindicatie, met een onder- en bovengrens. Dat is vrijblijvend. Bij de definitieve offerte krijg je een vaste prijs.',
+  },
+  {
+    vraag: 'Hoe lang duurt het?',
+    antwoord: `Het maken in de werkplaats duurt gemiddeld zes tot tien weken. Daarna breng ik het meubel zelf naar ${thuis ? 'je huis' : plaats.naam} en plaats ik het. Het restbedrag betaal je pas als alles goed staat.`,
+  },
+];
+
+const titel = `Meubelmaker in ${plaats.naam}`;
+const url = new URL(`/meubelmaker-${plaats.slug}`, Astro.site).href;
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'LocalBusiness',
+      '@id': new URL('/#bedrijf', Astro.site).href,
+      name: 'Astrohout',
+      url: Astro.site!.href,
+      email: contact.email,
+      sameAs: [contact.instagram.href],
+      address: { '@type': 'PostalAddress', addressLocality: werkplaats.plaats, addressRegion: werkplaats.provincie, addressCountry: 'NL' },
+    },
+    {
+      '@type': 'Service',
+      name: `${titel}: meubels en interieurwerk op maat`,
+      serviceType: 'Meubelmaker',
+      url,
+      provider: { '@id': new URL('/#bedrijf', Astro.site).href },
+      areaServed: { '@type': 'City', name: plaats.naam, containedInPlace: { '@type': 'State', name: plaats.provincie } },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.vraag, acceptedAnswer: { '@type': 'Answer', text: f.antwoord } })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: Astro.site!.href },
+        { '@type': 'ListItem', position: 2, name: 'Werkgebied', item: new URL('/werkgebied', Astro.site).href },
+        { '@type': 'ListItem', position: 3, name: titel, item: url },
+      ],
+    },
+  ],
+};
+---
+<BaseLayout
+  title={`${titel} · Kasten en meubels op maat · Astrohout`}
+  description={plaats.meta}
+  image={werk[0]?.foto}
+>
+<script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+<main>
+  <div class="narrow phead">
+    <a class="eyebrow" href="/werkgebied">Werkgebied</a>
+    <h1>{titel}</h1>
+    <p class="lead">{plaats.intro}</p>
+  </div>
+
+  <div class="narrow">
+    <ul class="facts">
+      {thuis
+        ? <li><span>Werkplaats</span><b>Net buiten Wijhe</b><p>Richting Heino, een paar minuten van het dorp.</p></li>
+        : <li><span>Afstand</span><b>± {km} km</b><p>Hemelsbreed vanaf de werkplaats tussen Wijhe en Heino, ongeveer {plaats.rijtijd} minuten rijden.</p></li>}
+      <li><span>Kennismaking</span><b>Kosteloos</b><p>Bij jou thuis in {plaats.naam} of in de werkplaats.</p></li>
+      <li><span>Bouwtijd</span><b>6 – 10 weken</b><p>Daarna plaats ik het meubel zelf.</p></li>
+    </ul>
+  </div>
+
+  <section class="narrow lokaal">
+    <div>
+      <h2>{plaats.lokaal.titel}</h2>
+      {plaats.lokaal.tekst.map((t) => <p>{t}</p>)}
+    </div>
+    <aside>
+      <h3>Denk aan</h3>
+      <ul>{plaats.ideeen.map((i) => <li>{i}</li>)}</ul>
+    </aside>
+  </section>
+
+  {werk.length > 0 && (
+    <section class="narrow werk">
+      <h2>Gemaakt in Wijhe</h2>
+      <p>Mijn portfolio is gemaakt in Wijhe, in een monumentale boerderij die een retraiteplek is: in het hoofdgebouw en in de schuren. Een oud gebouw waar elke ruimte anders is, en waar alles op maat moest.</p>
+      <div class="werk-grid">
+        {werk.map((p) => (
+          <a class="item" href={`/portfolio/${p.slug}`}>
+            <h3>{p.titel}</h3>
+            <Image
+              src={p.foto}
+              alt={p.alt}
+              widths={[400, 600, 900]}
+              sizes="(max-width: 860px) calc(100vw - 76px), 330px"
+              loading="lazy"
+            />
+          </a>
+        ))}
+      </div>
+      <a class="link" href="/portfolio">Bekijk het hele portfolio</a>
+    </section>
+  )}
+
+  <section class="narrow faq" aria-labelledby="faq-titel">
+    <h2 id="faq-titel">Veelgestelde vragen</h2>
+    {faq.map((f) => (
+      <details>
+        <summary>{f.vraag}</summary>
+        <p>{f.antwoord}</p>
+      </details>
+    ))}
+  </section>
+
+  <nav class="narrow buren" aria-label="Ook in de buurt">
+    <h2>Ook in de buurt</h2>
+    <ul>
+      {buren.map((b) => <li><a href={`/meubelmaker-${b.slug}`}>Meubelmaker in {b.naam}</a></li>)}
+      <li><a href="/werkgebied">Het hele werkgebied</a></li>
+    </ul>
+  </nav>
+
+  <div class="narrow">
+    <section class="more">
+      <h2>Een idee voor jouw huis in {plaats.naam}?</h2>
+      <p>Vertel wat je in gedachten hebt, dan kom ik langs om te kijken. Lees eerst de <a href="/werkwijze">werkwijze</a>, of mail naar <a href={`mailto:${contact.email}`}>{contact.email}</a>.</p>
+      <a class="btn" href="/contact">Neem contact op <Arrow /></a>
+    </section>
+  </div>
+</main>
+</BaseLayout>
+
+<style is:global>
+  /* ===== page head ===== */
+  .narrow.phead{padding-bottom:48px;}
+  .eyebrow{display:inline-block;padding:7px 14px 0 9px;border-top:1px solid;border-left:1px solid;
+    font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.4;color:var(--pencil);}
+  .eyebrow:hover{color:var(--rust);}
+  h1{font-size:clamp(44px,6vw,72px);line-height:1;margin-top:22px;}
+  .lead{font-size:clamp(17px,1.6vw,19px);line-height:1.8;color:var(--ink-soft);margin-top:28px;max-width:52ch;}
+  h2{font-size:clamp(26px,3vw,32px);line-height:1.4;}
+
+  /* ===== three facts on a dimension line, like the payment strip on werkwijze ===== */
+  .facts{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));position:relative;padding-top:30px;}
+  .facts::before{content:"";position:absolute;left:0;right:0;top:6px;border-top:1px solid var(--pencil);}
+  .facts li{position:relative;padding:0 20px 0 0;}
+  .facts li::before{content:"";position:absolute;left:0;top:-30px;height:13px;border-left:1px solid var(--pencil);}
+  .facts li:last-child::after{content:"";position:absolute;right:0;top:-30px;height:13px;border-left:1px solid var(--pencil);}
+  .facts span{display:block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--pencil);}
+  .facts b{display:block;font-size:20px;font-weight:500;color:var(--ink-soft);margin:6px 0 4px;letter-spacing:-.01em;}
+  .facts p{font-size:13px;line-height:1.9;max-width:30ch;}
+
+  /* ===== the houses there: text left, ideas right ===== */
+  .lokaal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:clamp(32px,6vw,96px);align-items:start;margin-top:clamp(72px,9vw,112px);}
+  .lokaal p{font-size:15px;line-height:2;max-width:56ch;margin-top:18px;}
+  .lokaal aside{border-top:1px solid;border-left:1px solid;border-color:var(--pencil);padding:18px 0 0 20px;margin-top:10px;}
+  .lokaal h3{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--pencil);}
+  .lokaal ul{list-style:none;margin-top:12px;}
+  .lokaal li{font-size:14px;line-height:1.8;padding:6px 0 6px 22px;position:relative;}
+  .lokaal li::before{content:"";position:absolute;left:0;top:18px;width:12px;border-top:1px solid var(--pencil);}
+
+  /* ===== portfolio pieces ===== */
+  .werk{margin-top:clamp(72px,9vw,112px);}
+  .werk > p{font-size:15px;line-height:2;max-width:56ch;margin-top:14px;}
+  .werk-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;margin-top:36px;}
+  .item img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;background:#f2f2f2;transition:opacity .2s;}
+  .item:hover img{opacity:.8;}
+  .item h3{display:inline-block;margin-bottom:10px;padding:7px 14px 0 9px;background:var(--bg);border-top:1px solid;border-left:1px solid;
+    font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.4;color:var(--ink-soft);transition:color .2s;}
+  .item:hover h3{color:var(--rust);}
+  .link{display:inline-block;margin-top:28px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);}
+  .link::after{content:"\00a0\00a0\2192";}
+  .link:hover{color:var(--rust);}
+
+  /* ===== questions ===== */
+  .faq{margin-top:clamp(72px,9vw,112px);}
+  .faq details{max-width:860px;}
+  .faq h2{margin-bottom:20px;}
+  .faq details{border-top:1px solid #e3d9cb;}
+  .faq details:last-child{border-bottom:1px solid #e3d9cb;}
+  .faq summary{cursor:pointer;list-style:none;padding:18px 40px 18px 0;position:relative;font-size:16px;font-weight:500;color:var(--ink-soft);}
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary::after{content:"+";position:absolute;right:4px;top:14px;font-size:22px;font-weight:400;color:var(--pencil);}
+  .faq details[open] summary::after{content:"\2212";}
+  .faq summary:hover{color:var(--rust);}
+  .faq details p{font-size:14px;line-height:2;max-width:60ch;padding-bottom:20px;}
+
+  /* ===== nearby places ===== */
+  .buren{margin-top:clamp(72px,9vw,112px);}
+  .buren h2{font-size:clamp(20px,2.2vw,24px);}
+  .buren ul{list-style:none;display:flex;flex-wrap:wrap;gap:12px 32px;margin-top:16px;}
+  .buren a{font-size:14px;border-bottom:1px solid var(--line);}
+  .buren a:hover{color:var(--rust);border-color:currentColor;}
+
+  /* ===== closing call to action ===== */
+  .more{padding:clamp(80px,10vw,120px) 0 clamp(96px,12vw,140px);}
+  .more p{font-size:14px;line-height:2.1;max-width:44ch;margin-top:12px;}
+  .more p a{border-bottom:1px solid currentColor;}
+  .more p a:hover{color:var(--rust);}
+  .more .btn{margin-top:36px;}
+
+  @media (max-width:860px){
+    .narrow.phead{padding-bottom:32px;}
+    .facts{grid-template-columns:1fr;gap:24px;padding-top:0;}
+    .facts::before,.facts li::before,.facts li:last-child::after{display:none;}
+    .facts li{padding:0 0 0 14px;border-left:1px solid var(--pencil);}
+    .lokaal{grid-template-columns:1fr;}
+    .werk-grid{grid-template-columns:1fr;gap:28px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .item img,.item h3{transition:none;}
+  }
+</style>

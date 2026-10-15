@@ -22,6 +22,7 @@ const year = new Date().getFullYear();
     <div class="sitemap">
       <nav aria-label="Menu">
         {nav.map(({ href, label }) => <a href={href}>{label}</a>)}
+        <a href="/werkgebied">Werkgebied</a>
       </nav>
       <nav aria-label="Specialismen">
         {specialismen.map(({ href, label }) => <a href={href}>{label}</a>)}
