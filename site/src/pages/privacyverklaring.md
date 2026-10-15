@@ -55,7 +55,7 @@ We bewaren je gegevens niet langer dan nodig:
 
 We delen je gegevens alleen als dat nodig is voor de doelen hierboven, bijvoorbeeld met:
 
-- de partij die onze website en het contactformulier host (Cloudflare);
+- de partij die onze website en het contactformulier host en berichten van het formulier naar onze mailbox stuurt (Cloudflare);
 - onze e-mailprovider (<span class="ph">[e-mailprovider]</span>);
 - ons boekhoudpakket en onze boekhouder (<span class="ph">[boekhoudpakket]</span>);
 - leveranciers of vervoerders, alleen als dat nodig is voor de levering, zoals het afleveradres.
@@ -71,6 +71,8 @@ We nemen passende maatregelen om je gegevens te beschermen tegen verlies en onbe
 ## Cookies en statistieken
 
 Deze website gebruikt geen tracking- of marketingcookies. We plaatsen alleen wat technisch nodig is om de website goed te laten werken. Gaan we in de toekomst bezoekersstatistieken bijhouden, dan doen we dat op een privacyvriendelijke manier en passen we deze verklaring daarop aan.
+
+Het contactformulier is beveiligd tegen spam met Cloudflare Turnstile. Turnstile controleert, zonder cookies voor tracking of advertenties, of het formulier door een mens wordt ingevuld. Daarvoor verwerkt Cloudflare onder meer je IP-adres en technische gegevens van je browser. Die gegevens gebruiken we alleen om misbruik van het formulier te voorkomen.
 
 ## Jouw rechten
 

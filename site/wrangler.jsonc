@@ -10,5 +10,30 @@
 	},
 	"observability": {
 		"enabled": true
+	},
+	// contact form: sends each message to the inbox below, from an address on our own domain.
+	"send_email": [
+		{
+			"name": "EMAIL",
+			"allowed_sender_addresses": ["website@astrohout.nl"],
+			"allowed_destination_addresses": ["info@astrohout.nl"]
+		}
+	],
+	// secret values are set in the Cloudflare dashboard (Settings > Variables and Secrets), never in this file
+	"secrets": {
+		"required": ["TURNSTILE_SECRET_KEY"]
+	},
+	// preview links (one per pull request) don't inherit the settings above, so the contact form gets them here too
+	"previews": {
+		"send_email": [
+			{
+				"name": "EMAIL",
+				"allowed_sender_addresses": ["website@astrohout.nl"],
+				"allowed_destination_addresses": ["info@astrohout.nl"]
+			}
+		],
+		"secrets": {
+			"required": ["TURNSTILE_SECRET_KEY"]
+		}
 	}
 }
