@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Arrow from '../components/Arrow.astro';
-import portret from '../assets/img/woodworker-temp.jpg';
+import portret from '../assets/img/noud.jpg';
 ---
 <BaseLayout
   title="Over · Astrohout"
@@ -25,10 +25,9 @@ import portret from '../assets/img/woodworker-temp.jpg';
     <figure class="portrait">
       <div class="dim dim-h" aria-hidden="true"><span id="scale">Schaal 1 : 12</span></div>
       <div class="frame">
-        <Image src={portret} alt="Houtbewerker met schort in een werkplaats vol gereedschap" loading="eager" />
+        <Image src={portret} alt="Noud lachend in een boomgaard, met een discobal boven zijn hand" widths={[340, 420, 680, 840, 1260]} sizes="(max-width: 860px) 340px, 420px" priority />
         <div class="dim dim-v" aria-hidden="true"><span>Noud</span></div>
       </div>
-      <figcaption>Stand-in. De echte foto volgt binnenkort.</figcaption>
     </figure>
   </section>
 
@@ -84,11 +83,11 @@ import portret from '../assets/img/woodworker-temp.jpg';
 </style>
 
 <script>
-  // drawing scale of the portrait: what the photo covers in real life (~1.9 m) against
+  // drawing scale of the portrait: what the photo covers in real life (~1.6 m) against
   // how tall it is on this screen. A CSS pixel is roughly 0.26 mm on a monitor and
   // 0.17 mm on a phone; browser zoom is read from devicePixelRatio relative to the
   // ratio when this tab first opened. Rough on purpose, but it moves with you.
-  const REAL_MM=1900,
+  const REAL_MM=1600,
         photo=document.querySelector('.portrait img')!,scaleEl=document.getElementById('scale')!,
         phoneScreen=matchMedia('(pointer:coarse) and (max-width:860px)');
   let baseDpr=devicePixelRatio;
