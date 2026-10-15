@@ -1,6 +1,6 @@
 # Astrohout website
 
-De website, gebouwd met [Astro](https://astro.build). Bij het bouwen komen er gewone HTML-pagina's uit (in `dist/`), die op elke hosting werken.
+De website, gebouwd met [Astro](https://astro.build). Bij het bouwen komen er gewone HTML-pagina's uit (in `dist/client/`). De site draait op [Cloudflare](https://developers.cloudflare.com/workers/static-assets/).
 
 ## Starten
 
@@ -9,8 +9,19 @@ cd site
 npm install      # eenmalig
 npm run dev      # lokale preview op http://localhost:4321, ververst vanzelf bij opslaan
 npm run build    # bouwt de site naar dist/
-npm run preview  # bekijkt de gebouwde site
+npm run preview  # bekijkt de gebouwde site, zoals hij op Cloudflare draait
 ```
+
+## Online zetten
+
+De site staat op Cloudflare (Workers, met de `@astrojs/cloudflare`-adapter). Cloudflare bouwt hem zelf vanuit GitHub:
+
+- een merge naar `main` gaat automatisch live op https://astrohout.nl;
+- elke pull request krijgt een eigen preview-link, zodat je wijzigingen eerst kunt bekijken.
+
+De instellingen staan in `wrangler.jsonc`. Alle pagina's blijven gewone HTML; wil je later iets op de server laten draaien
+(zoals `/api/contact` voor het contactformulier), zet dan `export const prerender = false` in dat bestand.
+Een database (D1), opslag voor bestanden (R2) en geheime sleutels voeg je toe via `wrangler.jsonc` en het Cloudflare-dashboard.
 
 ## Waar staat wat
 
@@ -36,6 +47,5 @@ Lettertypen worden bij het bouwen gedownload en vanaf de eigen site geserveerd (
 - Concepttekst van de plaatspagina's nakijken (`src/data/plaatsen.ts`, gemarkeerd met `TODO AI-GENERATED`), vooral de rijtijden en wat er over de werkwijze staat
 - Concepttekst van de specialismepagina's nakijken en herschrijven (`src/data/specialismen.ts`, gemarkeerd met `TODO AI-GENERATED`)
 - Concepttekst van de projectpagina's nakijken en herschrijven, samen met de nieuwe foto's (`src/data/projecten.ts`, gemarkeerd met `TODO AI-GENERATED`)
-- Contactformulier echt laten versturen (samen met de keuze voor hosting)
+- Contactformulier echt laten versturen (`/api/contact` als serverroute op Cloudflare, met Turnstile tegen spam)
 - Bezoekersstatistieken (privacyvriendelijk)
-- Domein invullen in `astro.config.mjs`

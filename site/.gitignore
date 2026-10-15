@@ -9,3 +9,5 @@ npm-debug.log*
 # environment variables
 .env
 .env.production
+# local Cloudflare dev state
+.wrangler/

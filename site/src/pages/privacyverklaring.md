@@ -55,12 +55,14 @@ We bewaren je gegevens niet langer dan nodig:
 
 We delen je gegevens alleen als dat nodig is voor de doelen hierboven, bijvoorbeeld met:
 
-- de partij die onze website en het contactformulier host (<span class="ph">[hostingpartij]</span>);
+- de partij die onze website en het contactformulier host (Cloudflare);
 - onze e-mailprovider (<span class="ph">[e-mailprovider]</span>);
 - ons boekhoudpakket en onze boekhouder (<span class="ph">[boekhoudpakket]</span>);
 - leveranciers of vervoerders, alleen als dat nodig is voor de levering, zoals het afleveradres.
 
 Met partijen die je gegevens in onze opdracht verwerken maken we afspraken om je gegevens te beschermen. Daarnaast delen we gegevens alleen als de wet ons daartoe verplicht.
+
+Cloudflare is een Amerikaans bedrijf, waardoor je gegevens ook buiten de Europese Unie verwerkt kunnen worden. Dat gebeurt op basis van het EU-VS Data Privacy Framework en de standaardcontractbepalingen van de Europese Commissie.
 
 ## Beveiliging
 
