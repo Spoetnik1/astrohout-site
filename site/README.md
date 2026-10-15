@@ -19,9 +19,29 @@ De site staat op Cloudflare (Workers, met de `@astrojs/cloudflare`-adapter). Clo
 - een merge naar `main` gaat automatisch live op https://astrohout.nl;
 - elke pull request krijgt een eigen preview-link, zodat je wijzigingen eerst kunt bekijken.
 
-De instellingen staan in `wrangler.jsonc`. Alle pagina's blijven gewone HTML; wil je later iets op de server laten draaien
-(zoals `/api/contact` voor het contactformulier), zet dan `export const prerender = false` in dat bestand.
+De instellingen staan in `wrangler.jsonc`. Alle pagina's blijven gewone HTML; alleen `/api/contact` (het contactformulier)
+draait op de server. Wil je later nog iets op de server laten draaien, zet dan `export const prerender = false` in dat bestand.
 Een database (D1), opslag voor bestanden (R2) en geheime sleutels voeg je toe via `wrangler.jsonc` en het Cloudflare-dashboard.
+
+## Contactformulier
+
+Het formulier op `/contact` stuurt naar `src/pages/api/contact.ts`. Die controleert de velden en Turnstile (tegen spam)
+en mailt het bericht via Cloudflare naar info@astrohout.nl, van website@astrohout.nl. Op *Beantwoorden* klikken
+in je mailprogramma gaat direct naar de bezoeker. Adressen en de Turnstile-sitekey staan in `src/data/site.ts` (`contactform`).
+
+Eenmalig instellen in het Cloudflare-dashboard:
+
+1. **Turnstile**: maak een widget aan (Turnstile > Add widget) voor `astrohout.nl` en, voor de preview-links, `workers.dev`.
+   Zet de *site key* in `contactform.turnstileSiteKey` in `src/data/site.ts`.
+2. **Geheime sleutel**: zet de *secret key* van die widget bij de Worker `astrohout-site` onder
+   Settings > Variables and Secrets, als secret `TURNSTILE_SECRET_KEY`. Doe dit voor zowel *Production* als *Previews*,
+   anders werkt het formulier niet op de preview-links.
+3. **Mail versturen**: astrohout.nl moet als domein in Cloudflare staan. Zet *Email Sending* aan voor het domein
+   (Compute > Email Service) en voeg de DNS-records toe die het voorstelt (SPF en DKIM).
+   Pas op dat je de bestaande MX-records van je e-mailprovider niet weghaalt.
+
+Bij `npm run dev` gebruikt het formulier de testsleutels van Turnstile (altijd goed) en wordt er niets echt verstuurd:
+het bericht verschijnt in de terminal.
 
 ## Waar staat wat
 
@@ -47,5 +67,5 @@ Lettertypen worden bij het bouwen gedownload en vanaf de eigen site geserveerd (
 - Concepttekst van de plaatspagina's nakijken (`src/data/plaatsen.ts`, gemarkeerd met `TODO AI-GENERATED`), vooral de rijtijden en wat er over de werkwijze staat
 - Concepttekst van de specialismepagina's nakijken en herschrijven (`src/data/specialismen.ts`, gemarkeerd met `TODO AI-GENERATED`)
 - Concepttekst van de projectpagina's nakijken en herschrijven, samen met de nieuwe foto's (`src/data/projecten.ts`, gemarkeerd met `TODO AI-GENERATED`)
-- Contactformulier echt laten versturen (`/api/contact` als serverroute op Cloudflare, met Turnstile tegen spam)
+- Contactformulier in het Cloudflare-dashboard instellen (zie [Contactformulier](#contactformulier))
 - Bezoekersstatistieken (privacyvriendelijk)

@@ -36,3 +36,11 @@ export const contact = {
   pinterest: '',
   linkedin: '',
 };
+
+// contact form: where messages go, who they come from, and the public Turnstile key (anti-spam).
+// The site key is public; the secret key belongs in the Cloudflare dashboard (TURNSTILE_SECRET_KEY).
+export const contactform = {
+  to: 'info@astrohout.nl',
+  from: { name: 'Astrohout website', email: 'website@astrohout.nl' },
+  turnstileSiteKey: '0x4AAAAAAFXqILO2o67DMm--',   // from Cloudflare dashboard > Turnstile
+};

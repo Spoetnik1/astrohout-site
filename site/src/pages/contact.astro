@@ -2,24 +2,23 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Arrow from '../components/Arrow.astro';
-import { contact } from '../data/site';
+import { contact, contactform } from '../data/site';
 import kamer from '../assets/portfolio/single_room1.jpg';
+
+// Turnstile (anti-spam): Cloudflare's always-passing test key while developing, the real one on the site
+const turnstileKey = import.meta.env.DEV ? '1x00000000000000000000AA' : contactform.turnstileSiteKey;
 ---
 <BaseLayout
   title="Contact · Astrohout"
   description="Neem contact op met Astrohout voor een meubel op maat: mail, Instagram of via het contactformulier."
 >
-<main class="contact">
-  <figure class="photo">
-    <Image src={kamer} alt="Kamer met wanden, open kasten en een bedbak van multiplex" widths={[800, 1200, 1600]} sizes="(max-width: 860px) calc(100vw - 44px), calc(50vw - 72px)" priority />
-  </figure>
-
+<main>
+<section class="narrow contact">
   <div class="info">
     <span class="eyebrow">Contact</span>
     <h1>Vertel eens.</h1>
     <p class="lead">Elk meubel begint met een gesprek. Vertel wat je in gedachten hebt, hoe vaag of precies ook, dan denk ik mee over ontwerp, houtsoort en planning.</p>
 
-    <!-- sending comes later (with the hosting); for now the form only shows the confirmation -->
     <form class="note" id="contactform" action="/api/contact" method="post" novalidate>
       <div class="note-head"><span>Contactformulier</span><span class="brand note-brand"><img src="/logo/base-logo.svg" alt=""><span>astrohout</span></span></div>
       <h2>Stuur een bericht</h2>
@@ -52,8 +51,12 @@ import kamer from '../assets/portfolio/single_room1.jpg';
         </label>
       </div>
 
+      <!-- Turnstile only shows itself when it needs you to click; usually it stays invisible -->
+      <div class="cf-turnstile" data-sitekey={turnstileKey} data-language="nl" data-theme="light" data-size="flexible" data-appearance="interaction-only"></div>
+
       <button class="btn" type="submit">Verstuur bericht <Arrow /></button>
       <p class="hint">Je gegevens gebruik ik alleen om op je bericht te reageren.</p>
+      <p class="fail" id="fail" role="alert" hidden><span></span> Je kunt ook direct mailen naar <a href={`mailto:${contact.email}`}>{contact.email}</a>.</p>
       <div class="thanks" id="thanks" role="status" hidden></div>
     </form>
 
@@ -68,21 +71,24 @@ import kamer from '../assets/portfolio/single_room1.jpg';
       <p>Ik reageer meestal binnen een dag. Daarna plannen we een kennismaking: stap 1 van de <a href="/werkwijze">werkwijze</a>.</p>
     </div>
   </div>
+
+  <figure class="photo">
+    <Image src={kamer} alt="Kamer met wanden, open kasten en een bedbak van multiplex" widths={[480, 840, 1260]} sizes="(max-width: 860px) calc(100vw - 2 * var(--gut)), 420px" priority />
+  </figure>
+</section>
 </main>
 </BaseLayout>
 
 <style is:global>
-  main.contact{padding-top:var(--hh);}   /* the photo starts right under the header */
-
-  /* ===== photo left, contact right ===== */
-  .contact{--pad:clamp(24px,3vw,48px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);}
-  .photo{   /* left half with some breathing room; stays put while the right side scrolls */
-    position:sticky;top:calc(var(--hh) + var(--pad));height:calc(100vh - var(--hh) - 2 * var(--pad));
-    margin:var(--pad) 0 var(--pad) var(--pad);overflow:hidden;background:#d9d2c4;
+  /* ===== contact left, photo right, in the same column as the other pages (like Over) ===== */
+  .contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:clamp(40px,6vw,96px);align-items:start;}
+  .info{padding-bottom:clamp(72px,9vw,120px);}
+  .photo{   /* sits a bit lower than the title, like the portrait on Over; stays put while the form scrolls */
+    position:sticky;top:calc(var(--hh) + 28px);margin-top:calc(30px + clamp(40px,5vw,72px));
+    background:#d9d2c4;
   }
-  .photo img{width:100%;height:100%;object-fit:cover;object-position:58% 50%;}
+  .photo img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:72% 50%;}
 
-  .info{padding:clamp(48px,7vw,96px) clamp(24px,5vw,80px) clamp(72px,9vw,120px);max-width:680px;}
   .eyebrow{display:inline-block;padding:7px 14px 0 9px;border-top:1px solid;border-left:1px solid;
     font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.4;color:var(--pencil);}
   h1{font-size:clamp(46px,5.6vw,76px);line-height:1;margin-top:22px;}
@@ -128,12 +134,16 @@ import kamer from '../assets/portfolio/single_room1.jpg';
   textarea.input{min-height:150px;resize:vertical;}
   .err{display:none;margin-top:6px;font-size:12px;color:#b3261e;}
   .input:user-invalid + .err,.tried .input:invalid + .err{display:block;}
+  .cf-turnstile{margin:24px 0 -24px;}   /* takes no room while invisible, sits above the button when it asks for a click */
   .note .btn{margin-top:32px;}
+  .note .btn:disabled{opacity:.6;cursor:wait;}
+  .fail{margin-top:16px;padding:14px 18px;border-left:2px solid #b3261e;background:#fff;font-size:13px;line-height:1.8;}
+  .fail a{border-bottom:1px solid currentColor;}
   .hint{margin-top:12px;font-size:12px;color:var(--ink-soft);}
   .thanks{margin-top:26px;padding:22px 24px;border-left:2px solid var(--pencil);background:#fff;}
   .thanks h3{font-size:22px;line-height:1.3;}
   .thanks p{font-size:14px;line-height:1.9;margin-top:6px;}
-  .note.sent .fields,.note.sent .btn,.note.sent .hint,.note.sent > p{display:none;}
+  .note.sent .fields,.note.sent .btn,.note.sent .hint,.note.sent > p,.note.sent .cf-turnstile{display:none;}
 
   .next{margin-top:56px;padding-top:28px;border-top:1px solid var(--line);}
   .next h3{font-size:20px;line-height:1.4;}
@@ -142,10 +152,10 @@ import kamer from '../assets/portfolio/single_room1.jpg';
   .next a:hover{color:var(--rust);}
 
   @media (max-width:860px){
-    .contact{grid-template-columns:1fr;}
-    .photo{position:relative;top:auto;height:auto;margin:0;aspect-ratio:4/3;}   /* photo on top, then the text */
-    .photo img{object-position:50% 50%;}
-    .info{padding:40px var(--gut) 72px;}
+    .contact{grid-template-columns:1fr;gap:0;}
+    .photo{order:-1;position:relative;top:auto;margin:0;}   /* photo on top, then the text */
+    .photo img{aspect-ratio:4/3;object-position:50% 50%;}
+    .info{margin-top:32px;padding-bottom:72px;}
     .lines > div{grid-template-columns:1fr;gap:4px;}
     .fields{grid-template-columns:1fr;}
   }
@@ -154,20 +164,42 @@ import kamer from '../assets/portfolio/single_room1.jpg';
   }
 </style>
 
+<script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
-  // contact form: the browser checks the fields. Actually sending the message comes later,
-  // together with the hosting; for now it only shows the confirmation.
-  const form=document.getElementById('contactform'),thanks=document.getElementById('thanks');
-  form.addEventListener('submit',e=>{
+  // contact form: the browser checks the fields, then /api/contact checks Turnstile and mails the message.
+  const form=document.getElementById('contactform') as HTMLFormElement,
+        thanks=document.getElementById('thanks')!,fail=document.getElementById('fail')!,
+        button=form.querySelector('button')!;
+  const errors:Record<string,string>={
+    turnstile:'De spamcontrole is niet gelukt. Probeer het nog een keer.',
+    invalid:'Niet alle velden zijn goed ingevuld.',
+  };
+  form.addEventListener('submit',async e=>{
     e.preventDefault();
     if(!form.checkValidity()){
       form.classList.add('tried');   // from now on, show which fields still need attention
       form.reportValidity();
       return;
     }
-    const naam=form.naam.value.trim().split(' ')[0];
+    fail.hidden=true;
+    button.disabled=true;
+    let error='send';
+    try{
+      const res=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{accept:'application/json'}});
+      const body=await res.json().catch(()=>({}));
+      if(res.ok&&body.ok) error='';
+      else error=body.error||'send';
+    }catch{}
+    button.disabled=false;
+    if(error){
+      fail.querySelector('span')!.textContent=errors[error]||'Versturen is niet gelukt.';
+      fail.hidden=false;
+      (window as any).turnstile?.reset();   // a Turnstile token works only once
+      return;
+    }
+    const naam=(form.elements.namedItem('naam') as HTMLInputElement).value.trim().split(' ')[0];
     thanks.innerHTML='<h3></h3><p>Je bericht is verstuurd. Ik neem meestal binnen een dag contact met je op.</p>';
-    thanks.querySelector('h3').textContent=`Bedankt, ${naam}!`;
+    thanks.querySelector('h3')!.textContent=`Bedankt, ${naam}!`;
     thanks.hidden=false;
     form.classList.add('sent');
   });
