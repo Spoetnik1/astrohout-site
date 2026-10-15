@@ -3,7 +3,9 @@
 // The letter (A, B, C, ...) is assigned automatically from the position.
 // A project with a slug, specs and fotos also gets its own page at /portfolio/<slug>.
 // fotos is a list of rows; photos in one row get the same height and together fill the width.
+// specialismen puts the project on those specialism pages, see src/data/specialismen.ts.
 import type { ImageMetadata } from 'astro';
+import type { SpecialismeSlug } from './specialismen';
 import bed1 from '../assets/portfolio/bed1.jpg';
 import bed2 from '../assets/portfolio/bed2.jpg';
 import bed3 from '../assets/portfolio/bed3.jpg';
@@ -56,6 +58,7 @@ export interface Project {
   slug?: string;
   specs?: string[];
   fotos?: Foto[][];
+  specialismen?: SpecialismeSlug[];
 }
 
 export const projecten: Project[] = [
@@ -64,6 +67,8 @@ export const projecten: Project[] = [
     foto: bed8,
     alt: 'Zolderslaapkamer met bed van massief hout en ingebouwde kasten',
     slug: 'zolderslaapkamer',
+    specialismen: ['bedden-op-maat', 'kasten-op-maat'],
+    // TODO AI-GENERATED: spec line and photo descriptions were written by AI from the photos. Check and rewrite.
     specs: [
       'slaapkamer op maat onder een schuin dak',
       'bed van massief hout',
@@ -89,6 +94,8 @@ export const projecten: Project[] = [
     foto: keuken1,
     alt: 'Keuken met groene kasten, houten werkblad en visgraatvloer',
     slug: 'keuken',
+    specialismen: ['keukens-op-maat'],
+    // TODO AI-GENERATED: spec line and photo descriptions were written by AI from the photos. Check and rewrite.
     specs: [
       'keuken op maat onder een schuin dak',
       'bovenkast die de dakhelling volgt',
@@ -110,6 +117,8 @@ export const projecten: Project[] = [
     foto: schappen1,
     alt: 'Inbouwkasten met open schappen onder een schuin dak',
     slug: 'inbouwkast',
+    specialismen: ['kasten-op-maat'],
+    // TODO AI-GENERATED: spec line and photo descriptions were written by AI from the photos. Check and rewrite.
     specs: [
       'inbouwkasten onder een schuin dak',
       'open schappen',
@@ -128,6 +137,8 @@ export const projecten: Project[] = [
     foto: bed5,
     alt: 'Hoek van een massief houten bedframe met zichtbare nerf',
     slug: 'bedframe',
+    specialismen: ['bedden-op-maat'],
+    // TODO AI-GENERATED: spec line and photo descriptions were written by AI from the photos. Check and rewrite.
     specs: [
       'bedframe van massief hout',
       'dikke planken met zichtbare nerf',
@@ -150,6 +161,7 @@ export const projecten: Project[] = [
     foto: badkamer,
     alt: 'Badkamer met houten wastafelmeubel en spiegelkast',
     slug: 'badkamer',
+    // TODO AI-GENERATED: spec line and photo descriptions were written by AI from the photos. Check and rewrite.
     specs: [
       'wastafelmeubel van massief hout',
       'zwarte waskom',
@@ -179,6 +191,8 @@ export const projecten: Project[] = [
     foto: hek2,
     alt: 'Trapbalustrade met spijlen van ongeschilde takken',
     slug: 'balustrade',
+    specialismen: ['trappen-en-hekken'],
+    // TODO AI-GENERATED: spec line and photo descriptions were written by AI from the photos. Check and rewrite.
     specs: [
       'balustrade rond het trapgat',
       'spijlen van takken, elke spijl anders',
@@ -200,6 +214,8 @@ export const projecten: Project[] = [
     foto: singleRoom2,
     alt: 'Kastenwand van multiplex in een smalle kamer',
     slug: 'kastenwand',
+    specialismen: ['kasten-op-maat', 'bedden-op-maat'],
+    // TODO AI-GENERATED: spec line and photo descriptions were written by AI from the photos. Check and rewrite.
     specs: [
       'kastenwand van multiplex in een smalle kamer',
       'verhoogd bed met kasten eronder',
@@ -219,6 +235,7 @@ export const projecten: Project[] = [
     foto: divider1,
     alt: 'Vouwbaar kamerscherm met beschilderde panelen',
     slug: 'kamerscherm',
+    // TODO AI-GENERATED: spec line and photo descriptions were written by AI from the photos. Check and rewrite.
     specs: [
       'vouwbaar kamerscherm',
       'beschilderde panelen met vogels en bloesem',
@@ -232,6 +249,7 @@ export const projecten: Project[] = [
     foto: buitenstoel1,
     alt: 'Twee houten tuinstoelen in het gras',
     slug: 'tuinstoelen',
+    // TODO AI-GENERATED: spec line and photo descriptions were written by AI from the photos. Check and rewrite.
     specs: [
       'tuinstoelen van hout',
       'rugleuning van brede planken',
@@ -254,6 +272,7 @@ export const projecten: Project[] = [
     foto: borrelplank1,
     alt: 'Borrelplank van gelamineerd hout met handgreep',
     slug: 'borrelplanken',
+    // TODO AI-GENERATED: spec line and photo descriptions were written by AI from the photos. Check and rewrite.
     specs: [
       'borrelplanken van verlijmd hout',
       'uitgefreesde handgrepen',

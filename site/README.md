@@ -17,6 +17,7 @@ npm run preview  # bekijkt de gebouwde site
 | Wat je wilt aanpassen | Bestand |
 | --- | --- |
 | Menu, e-mailadres, social links, footerlinks | `src/data/site.ts` |
+| Specialismepagina's (`/kasten-op-maat` enz.: tekst en footerlink) | `src/data/specialismen.ts`; welke projecten erop staan: `specialismen` bij het project in `src/data/projecten.ts` |
 | Portfolioprojecten (foto, titel, alt-tekst) | `src/data/projecten.ts` + foto in `src/assets/portfolio/` |
 | Projectpagina (`/portfolio/<slug>`: specificaties en foto's) | `slug`, `specs` en `fotos` bij het project in `src/data/projecten.ts` |
 | Werkgebied en plaatspagina's (`/werkgebied`, `/meubelmaker-<plaats>`: teksten, rijtijden) | `src/data/plaatsen.ts`; plek van de werkplaats: `werkplaats` in `src/data/site.ts` |
@@ -33,6 +34,8 @@ Lettertypen worden bij het bouwen gedownload en vanaf de eigen site geserveerd (
 ## Nog te doen
 
 - Concepttekst van de plaatspagina's nakijken (`src/data/plaatsen.ts`, gemarkeerd met `TODO AI-GENERATED`), vooral de rijtijden en wat er over de werkwijze staat
+- Concepttekst van de specialismepagina's nakijken en herschrijven (`src/data/specialismen.ts`, gemarkeerd met `TODO AI-GENERATED`)
+- Concepttekst van de projectpagina's nakijken en herschrijven, samen met de nieuwe foto's (`src/data/projecten.ts`, gemarkeerd met `TODO AI-GENERATED`)
 - Contactformulier echt laten versturen (samen met de keuze voor hosting)
 - Bezoekersstatistieken (privacyvriendelijk)
 - Domein invullen in `astro.config.mjs`
