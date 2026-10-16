@@ -4,6 +4,7 @@ import Spine from '../components/Spine.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { cleanPath } from '../utils/path';
+import { bedrijfSchema } from '../utils/schema';
 import shareImage from '../assets/portfolio/bed8.jpg';
 import '../styles/global.css';
 
@@ -11,12 +12,23 @@ interface Props {
   title: string;
   description: string;
   image?: ImageMetadata;   // share picture; the attic bedroom when left out
+  imageAlt?: string;       // description of the share picture
+  noindex?: boolean;       // keep the page out of Google
 }
 
-const { title, description, image = shareImage } = Astro.props;
+const {
+  title,
+  description,
+  image = shareImage,
+  imageAlt = image === shareImage ? 'Zolderslaapkamer met bed van massief hout en ingebouwde kasten' : 'Meubel op maat van Astrohout',
+  noindex = false,
+} = Astro.props;
 const canonical = new URL(cleanPath(Astro.url.pathname), Astro.site);
 // preview picture when the page is shared (WhatsApp, LinkedIn, ...)
 const og = await getImage({ src: image, width: 1200, format: 'jpg' });
+// the business, the same on every page; the picture is always the default one so it never differs
+const ogDefault = image === shareImage ? og : await getImage({ src: shareImage, width: 1200, format: 'jpg' });
+const bedrijf = { '@context': 'https://schema.org', ...bedrijfSchema(Astro.site!, new URL(ogDefault.src, Astro.site).href) };
 ---
 <!DOCTYPE html>
 <html lang="nl">
@@ -25,8 +37,11 @@ const og = await getImage({ src: image, width: 1200, format: 'jpg' });
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content={description}>
+{noindex && <meta name="robots" content="noindex">}
 <link rel="canonical" href={canonical}>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="sitemap" href="/sitemap-index.xml">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nl_NL">
@@ -35,6 +50,11 @@ const og = await getImage({ src: image, width: 1200, format: 'jpg' });
 <meta property="og:description" content={description}>
 <meta property="og:url" content={canonical}>
 <meta property="og:image" content={new URL(og.src, Astro.site)}>
+<meta property="og:image:width" content={String(og.attributes.width)}>
+<meta property="og:image:height" content={String(og.attributes.height)}>
+<meta property="og:image:alt" content={imageAlt}>
+<meta name="twitter:card" content="summary_large_image">
+<script is:inline type="application/ld+json" set:html={JSON.stringify(bedrijf)} />
 <Font cssVariable="--font-montserrat" preload />
 <Font cssVariable="--font-bebas" />
 <slot name="head" />

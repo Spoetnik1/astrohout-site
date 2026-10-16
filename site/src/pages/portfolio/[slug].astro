@@ -1,8 +1,9 @@
 ---
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Arrow from '../../components/Arrow.astro';
 import { projecten, type Project } from '../../data/projecten';
+import { bedrijfId, breadcrumbs } from '../../utils/schema';
 
 // one page per project that has a slug and photos, see src/data/projecten.ts
 export function getStaticPaths() {
@@ -29,12 +30,37 @@ const { project, letter, vorige, volgende } = Astro.props;
 const specs = project.specs ?? [];
 const ratio = (f: { src: ImageMetadata }) => f.src.width / f.src.height;
 const MAX_HOOGTE = 800;   // a row with few or upright photos stops growing at this height
+const description = `${project.titel} van Astrohout: ${specs.join(', ')}.`;
+
+// structured data: the project as a CreativeWork (a one-off piece, so no Product with offers)
+const pad = `/portfolio/${project.slug}`;
+const fotos = await Promise.all(
+  project.fotos!.flat().map(async (f) => {
+    const img = await getImage({ src: f.src, width: 1200, format: 'jpg' });
+    return { '@type': 'ImageObject', contentUrl: new URL(img.src, Astro.site).href, caption: f.alt };
+  }),
+);
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CreativeWork',
+      name: project.titel,
+      description,
+      url: new URL(pad, Astro.site).href,
+      creator: { '@id': bedrijfId(Astro.site!) },
+      image: fotos,
+    },
+    breadcrumbs(Astro.site!, ['Portfolio', '/portfolio'], [project.titel, pad]),
+  ],
+};
 ---
 <BaseLayout
   title={`${project.titel} · Portfolio · Astrohout`}
-  description={`${project.titel} van Astrohout: ${specs.join(', ')}.`}
+  description={description}
   image={project.foto}
 >
+<script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
 <main>
   <div class="narrow phead">
     <a class="eyebrow" href={`/portfolio#p-${letter.toLowerCase()}`}>Project {letter}</a>

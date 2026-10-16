@@ -3,7 +3,7 @@ layout: ../layouts/LegalLayout.astro
 title: Algemene voorwaarden
 description: Algemene voorwaarden van Astrohout voor ontwerp, maatwerk meubels en plaatsing.
 versie: "1.0"
-bijgewerkt: "[datum]"
+bijgewerkt: "16 oktober 2026"
 artikelen: true
 ---
 
@@ -13,7 +13,7 @@ Deze voorwaarden gelden voor elke opdracht van Astrohout. Ze zijn bedoeld om dui
 
 In deze algemene voorwaarden wordt verstaan onder:
 
-- **Astrohout**: Astrohout valt onder JambalayaTMB, ingeschreven bij de Kamer van Koophandel onder nummer 42017220, gevestigd te <span class="ph">[adres, postcode en plaats]</span>. Waar in deze voorwaarden Astrohout staat, wordt JambalayaTMB bedoeld.
+- **Astrohout**: Astrohout valt onder JambalayaTMB, ingeschreven bij de Kamer van Koophandel onder nummer 42017220, gevestigd aan de Duisterendijk 2, 8131 RA Wijhe. Waar in deze voorwaarden Astrohout staat, wordt JambalayaTMB bedoeld.
 - **Opdrachtgever**: iedere natuurlijke persoon of rechtspersoon die Astrohout een opdracht geeft of met Astrohout in gesprek is over een opdracht.
 - **Consument**: een opdrachtgever die niet handelt in de uitoefening van een beroep of bedrijf.
 - **Opdracht**: het ontwerpen, maken, leveren en/of plaatsen van meubels, interieurwerk of andere producten door Astrohout.

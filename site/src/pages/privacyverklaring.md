@@ -2,7 +2,7 @@
 layout: ../layouts/LegalLayout.astro
 title: Privacyverklaring
 description: Hoe Astrohout omgaat met je persoonsgegevens, in lijn met de AVG.
-bijgewerkt: "[datum]"
+bijgewerkt: "16 oktober 2026"
 ---
 
 Astrohout gaat zorgvuldig om met je persoonsgegevens. In deze verklaring lees je welke gegevens we verwerken, waarom, hoe lang we ze bewaren en welke rechten je hebt. We houden ons daarbij aan de Algemene Verordening Gegevensbescherming (AVG).
@@ -11,7 +11,7 @@ Astrohout gaat zorgvuldig om met je persoonsgegevens. In deze verklaring lees je
 
 Astrohout is verantwoordelijk voor de verwerking van de persoonsgegevens zoals beschreven in deze verklaring. Je kunt ons bereiken via:
 
-<div class="card">Astrohout (valt onder JambalayaTMB)<br><span class="ph">[adres]</span><br><span class="ph">[postcode en plaats]</span><br><a href="mailto:info@astrohout.nl">info@astrohout.nl</a><br><span class="ph">[telefoonnummer]</span><br>KvK 42017220</div>
+<div class="card">Astrohout (valt onder JambalayaTMB)<br>Duisterendijk 2<br>8131 RA Wijhe<br><a href="mailto:info@astrohout.nl">info@astrohout.nl</a><br><span class="ph">[telefoonnummer]</span><br>KvK 42017220</div>
 
 ## Welke gegevens verwerken we?
 

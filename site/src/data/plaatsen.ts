@@ -38,20 +38,19 @@ export const plaatsen: Plaats[] = [
     lat: 52.3858,
     lon: 6.1339,
     rijtijd: 5,
-    meta: 'Meubelmaker in Wijhe: Astrohout maakt kasten, bedden, keukens en trappen op maat, vlak buiten het dorp. Het eerste gesprek bij jou thuis is gratis.',
+    meta: 'Meubelmaker in Wijhe: Astrohout maakt kasten, bedden en keukens op maat, vlak buiten het dorp. Het eerste gesprek bij jou thuis is gratis.',
     intro: 'Ik woon en werk net buiten Wijhe, richting Heino. Wijhe is dus echt mijn dorp, en hier staat ook het meeste werk uit mijn portfolio: kasten, bedden, een keuken en een badkamer voor een monumentale boerderij die nu een retraiteplek is, in het hoofdgebouw en in de schuren.',
     lokaal: {
       titel: 'Boerderijen, dijkhuizen en het dorp',
       tekst: [
         'Rond Wijhe staan veel oude boerderijen, en langs de IJssel huizen die al generaties meegaan. Mooie gebouwen, maar zelden recht: balken die net anders lopen, muren die uit het lood staan, een schuur die een nieuwe functie krijgt.',
-        'Daar werkt maatwerk het best. Een kast die precies tussen de balken past, een bed onder een schuin dak of een balustrade rond een trapgat. Dat soort werk heb ik hier in het dorp al gedaan.',
+        'Daar werkt maatwerk het best. Een kast die precies tussen de balken past of een bed onder een schuin dak. Dat soort werk heb ik hier in het dorp al gedaan.',
       ],
     },
     ideeen: [
       'Inbouwkasten tussen de balken of onder een schuin dak',
       'Een slaapkamer of keuken in een verbouwde schuur',
       'Een bed of tafel van massief hout',
-      'Een balustrade die bij het huis past',
     ],
     projecten: ['zolderslaapkamer', 'keuken', 'balustrade'],
     faq: [
@@ -64,7 +63,7 @@ export const plaatsen: Plaats[] = [
         antwoord: 'Ja. Het meeste werk in mijn portfolio is gemaakt voor een monumentale boerderij hier in Wijhe. Of je voor een verbouwing in een monument een vergunning nodig hebt, hangt af van wat je wilt aanpassen. Dat zoek je uit bij de gemeente; ik denk graag mee over een ontwerp dat het gebouw heel laat.',
       },
     ],
-    buren: ['heino', 'olst', 'raalte', 'heerde'],
+    buren: ['heino', 'raalte'],
   },
   // TODO AI-GENERATED
   {
@@ -128,39 +127,7 @@ export const plaatsen: Plaats[] = [
         antwoord: 'Ja, bijvoorbeeld in Heeten, Mariënheem, Broekland en Luttenberg. Ze liggen allemaal binnen een halfuur van mijn werkplaats.',
       },
     ],
-    buren: ['heino', 'wijhe', 'olst', 'dalfsen'],
-  },
-  // TODO AI-GENERATED
-  {
-    naam: 'Olst',
-    slug: 'olst',
-    provincie: 'Overijssel',
-    lat: 52.3376,
-    lon: 6.1105,
-    rijtijd: 15,
-    meta: 'Meubelmaker in Olst: kastenwanden, inbouwkasten en bedden op maat, uit dezelfde gemeente. Kennismaken bij jou thuis is gratis en vrijblijvend.',
-    intro: 'Olst ligt aan de IJssel, in dezelfde gemeente als mijn werkplaats. Een kwartiertje rijden, dus voor een eerste gesprek kom ik makkelijk even langs. Dat kost niets, en je zit nergens aan vast.',
-    lokaal: {
-      titel: 'Dorpshuizen en het buitengebied',
-      tekst: [
-        'Olst en Wijhe vormen samen één gemeente, en dat zie je aan de huizen: een dorpskern met oudere woningen, nieuwere wijken eromheen en een buitengebied vol boerderijen.',
-        'Oudere huizen hebben vaak een trapkast, een nis of een zolder waar weinig mee gebeurt. In een nieuwer huis zit de uitdaging meestal in het opbergen: veel spullen, weinig wandruimte. In allebei haal je met een ontwerp op maat meer uit de ruimte.',
-      ],
-    },
-    ideeen: [
-      'Een kastenwand van vloer tot plafond',
-      'Kasten in de knieschotten van de zolder',
-      'Een trapkast die echt bruikbaar wordt',
-      'Een bed met kasten eronder',
-    ],
-    projecten: ['kastenwand', 'inbouwkast', 'bedframe'],
-    faq: [
-      {
-        vraag: 'Kom je ook in de dorpen rond Olst?',
-        antwoord: 'Ja, ook in Boskamp, Den Nul, Welsum en het buitengebied. Alles in de gemeente Olst-Wijhe ligt binnen een kwartier van mijn werkplaats.',
-      },
-    ],
-    buren: ['wijhe', 'deventer', 'raalte', 'heerde'],
+    buren: ['heino', 'wijhe', 'dalfsen'],
   },
   // TODO AI-GENERATED
   {
@@ -209,7 +176,7 @@ export const plaatsen: Plaats[] = [
     lon: 6.256,
     rijtijd: 20,
     meta: 'Meubelmaker in Dalfsen: keukens, bedden en kasten van massief hout, op maat voor dorpshuis of boerderij aan de Vecht. Met de hand gemaakt door Astrohout.',
-    intro: 'Dalfsen, aan de Vecht: een mooi stuk Overijssel, en vanaf mijn werkplaats ben ik er in zo\'n twintig minuten. Kast, bed, keuken of trap? Ik kom kijken, meet op en maak iets dat precies in jouw huis past.',
+    intro: 'Dalfsen, aan de Vecht: een mooi stuk Overijssel, en vanaf mijn werkplaats ben ik er in zo\'n twintig minuten. Kast, bed of keuken? Ik kom kijken, meet op en maak iets dat precies in jouw huis past.',
     lokaal: {
       titel: 'Aan de Vecht, tussen de havezaten',
       tekst: [
@@ -221,7 +188,6 @@ export const plaatsen: Plaats[] = [
       'Een keuken op maat in een (woon)boerderij',
       'Een tafel of bed van massief hout',
       'Inbouwkasten onder een schuin dak',
-      'Een balustrade met een eigen karakter',
     ],
     projecten: ['keuken', 'balustrade', 'bedframe'],
     faq: [
@@ -240,7 +206,7 @@ export const plaatsen: Plaats[] = [
     lat: 52.255,
     lon: 6.16,
     rijtijd: 25,
-    meta: 'Meubelmaker in Deventer: boekenkasten, inbouwkasten en trappen op maat voor oude panden en jaren-30-huizen. Met de hand gemaakt, kennismaken is gratis.',
+    meta: 'Meubelmaker in Deventer: boekenkasten en inbouwkasten op maat voor oude panden en jaren-30-huizen. Met de hand gemaakt, kennismaken is gratis.',
     intro: 'Deventer is een stad waar ik graag kom. Scheve gevels in het Bergkwartier, jaren-30-straten met erkers en glas-in-lood, zolders onder een steil dak: in bijna elk huis daar zit een plek die om maatwerk vraagt. Vanaf mijn werkplaats ben ik er in een minuut of 25, en ik kom graag kijken wat er bij jou kan.',
     lokaal: {
       titel: 'Oude panden en jaren-30-huizen',
@@ -255,7 +221,6 @@ export const plaatsen: Plaats[] = [
       'Inbouwkasten onder een schuin dak',
       'Een kastenwand in een smalle kamer',
       'Een trapkast die echt bruikbaar wordt',
-      'Een balustrade of trapleuning op maat',
     ],
     projecten: ['inbouwkast', 'kastenwand', 'balustrade'],
     faq: [
@@ -268,7 +233,7 @@ export const plaatsen: Plaats[] = [
         antwoord: 'Ja. Mijn portfolio is grotendeels gemaakt voor een monumentale boerderij, dus ik weet hoe het is om te werken in een gebouw waar weinig recht is. Wil je in een monument iets vast inbouwen, check dan bij de gemeente of daar een vergunning voor nodig is.',
       },
     ],
-    buren: ['olst', 'wijhe', 'raalte', 'epe'],
+    buren: ['wijhe', 'raalte'],
   },
   // TODO AI-GENERATED
   {
@@ -300,71 +265,7 @@ export const plaatsen: Plaats[] = [
         antwoord: 'Ja. Hattem ligt in Gelderland en mijn werkplaats in Overijssel, maar voor mij maakt die grens niets uit. Hattem, Heerde en Epe horen gewoon bij mijn werkgebied.',
       },
     ],
-    buren: ['zwolle', 'heerde', 'epe', 'kampen'],
-  },
-  // TODO AI-GENERATED
-  {
-    naam: 'Heerde',
-    slug: 'heerde',
-    provincie: 'Gelderland',
-    lat: 52.387,
-    lon: 6.04,
-    rijtijd: 30,
-    meta: 'Meubelmaker in Heerde, Wapenveld en Veessen: tafels, bedden en kasten van massief hout, op maat gemaakt voor huizen met karakter.',
-    intro: 'Een oude boerderij, een dijkhuis, een huis tussen de bomen: in Heerde staan huizen met karakter, en daar horen meubels bij die je mag zien. Ik werk aan de overkant van de IJssel, op zo\'n halfuur rijden, en kom graag langs met een meetlint en een schetsboek.',
-    lokaal: {
-      titel: 'Tussen de Veluwe en de IJssel',
-      tekst: [
-        'Heerde ligt op de grens van twee landschappen: aan de ene kant de bossen van de Veluwe, aan de andere kant de uiterwaarden en dijken langs de IJssel. Je vindt er dijkhuizen, boerderijen en vrijstaande huizen tussen het groen.',
-        'Bij zulke huizen past hout dat je mag zien: een tafel, bed of kast van massief hout, met de nerf en soms de boomrand nog zichtbaar. Zo maak ik het graag.',
-      ],
-    },
-    ideeen: [
-      'Een bed of tafel van massief hout met boomrand',
-      'Tuinstoelen van massief hout',
-      'Inbouwkasten in een oude boerderij',
-      'Borrelplanken en ander klein werk als cadeau',
-    ],
-    projecten: ['tuinstoelen', 'bedframe', 'borrelplanken'],
-    faq: [
-      {
-        vraag: 'Maak je ook kleinere dingen?',
-        antwoord: 'Ja. Naast inbouw en grote meubels maak ik ook kleiner werk, zoals de borrelplanken en tuinstoelen in mijn portfolio. Vraag gerust wat er kan.',
-      },
-    ],
-    buren: ['wijhe', 'hattem', 'epe', 'olst'],
-  },
-  // TODO AI-GENERATED
-  {
-    naam: 'Epe',
-    slug: 'epe',
-    provincie: 'Gelderland',
-    lat: 52.348,
-    lon: 5.984,
-    rijtijd: 35,
-    meta: 'Meubelmaker voor Epe, Vaassen en Emst: kastenwanden, keukens en badkamermeubels van massief hout. Eén maker, van eerste schets tot plaatsing.',
-    intro: 'Meubelmaker voor Epe? Ik zit aan de andere kant van de IJssel, tussen Wijhe en Heino, en rij er in ruim een halfuur naartoe. Een kastenwand, keuken of bed van massief hout: je hebt met één maker te maken, van eerste schets tot plaatsing.',
-    lokaal: {
-      titel: 'Wonen tussen de bossen',
-      tekst: [
-        'Epe is een dorp tussen de bossen, met veel vrijstaande huizen, villa\'s en bungalows, vaak met een flinke tuin.',
-        'In een ruim huis wil je dat meubels de ruimte vullen zonder haar dicht te zetten. Een kastenwand die precies tussen muur en plafond valt, een keuken met een houten werkblad of een badkamermeubel van massief hout: rustig, warm en gemaakt voor die ene plek.',
-      ],
-    },
-    ideeen: [
-      'Een kastenwand van vloer tot plafond',
-      'Een keuken op maat met houten werkblad',
-      'Een badkamermeubel van massief hout',
-      'Een bed van massief hout',
-    ],
-    projecten: ['keuken', 'badkamer', 'bedframe'],
-    faq: [
-      {
-        vraag: 'Kom je ook in Vaassen en Emst?',
-        antwoord: 'Ja, de hele gemeente Epe ligt binnen drie kwartier van mijn werkplaats.',
-      },
-    ],
-    buren: ['heerde', 'hattem', 'deventer'],
+    buren: ['zwolle', 'kampen'],
   },
   // TODO AI-GENERATED
   {
@@ -387,7 +288,6 @@ export const plaatsen: Plaats[] = [
       'Inbouwkasten in een smal, hoog pand',
       'Een slaapkamer onder de kap',
       'Een badkamermeubel op maat',
-      'Een trapleuning of balustrade',
     ],
     projecten: ['badkamer', 'zolderslaapkamer', 'balustrade'],
     faq: [

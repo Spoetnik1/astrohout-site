@@ -19,14 +19,18 @@ export const bedrijf = {
   kvk: '42017220',
 };
 
-// Where the workshop is: the starting point for the distances and the map on the werkgebied pages.
-// Between Wijhe and Heino, closer to Heino. The coordinates are rounded on purpose (about a km),
-// so the map shows the area but not the house.
+// Where the workshop is: the address in the footer and the business schema, and the starting point
+// for the distances and the map on the werkgebied pages. Between Wijhe and Heino, closer to Heino,
+// on the grounds of The Makers Barn. Visits by appointment.
 export const werkplaats = {
+  terrein: 'The Makers Barn',
+  straat: 'Duisterendijk 2',
+  postcode: '8131 RA',
   plaats: 'Wijhe',
+  richting: 'Heino',   // the other village it sits towards
   provincie: 'Overijssel',
-  lat: 52.42,
-  lon: 6.19,
+  lat: 52.4145,        // Duisterendijk 2, from the PDOK address register
+  lon: 6.1913,
 };
 
 export const contact = {
