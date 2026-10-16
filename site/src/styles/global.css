@@ -120,6 +120,12 @@ footer{margin-left:calc(-1 * var(--spine));padding-left:var(--spine);}  /* white
   .foot{grid-template-columns:1fr;}
   .sitemap{grid-template-columns:1fr 1fr;}
 }
+/* phones: the spine stops taking a column and sinks behind the page like the drawings on the wall,
+   so photos get the full width and slide over it */
+@media (max-width:600px){
+  :root{--spine:0px;}
+  .spine{z-index:-1;width:44px;opacity:.2;}
+}
 @media (prefers-reduced-motion:reduce){
   .nav,.burger i,.btn,.btn .arrow{transition:none;}
 }
