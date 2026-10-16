@@ -5,6 +5,8 @@ import Arrow from '../components/Arrow.astro';
 import { specialismen, type Specialisme } from '../data/specialismen';
 import { projecten } from '../data/projecten';
 import { contact } from '../data/site';
+import { plaatsen } from '../data/plaatsen';
+import { bedrijfId, breadcrumbs } from '../utils/schema';
 
 // one page per specialism in src/data/specialismen.ts, at /<slug>
 export function getStaticPaths() {
@@ -19,12 +21,32 @@ const { specialisme } = Astro.props;
 // the projects tagged with this specialism, in portfolio order
 const werk = projecten.filter((p) => p.slug && p.fotos && p.specialismen?.includes(specialisme.slug));
 const [lead, ...tekst] = specialisme.intro;
+
+const url = new URL(`/${specialisme.slug}`, Astro.site).href;
+// served area as the provinces the werkgebied cities lie in; the full city list is on /werkgebied
+const provincies = [...new Set(plaatsen.map((p) => p.provincie))];
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: specialisme.titel,
+      serviceType: specialisme.titel,
+      description: specialisme.description,
+      url,
+      provider: { '@id': bedrijfId(Astro.site!) },
+      areaServed: provincies.map((naam) => ({ '@type': 'State', name: naam })),
+    },
+    breadcrumbs(Astro.site!, [specialisme.titel, `/${specialisme.slug}`]),
+  ],
+};
 ---
 <BaseLayout
   title={`${specialisme.titel} · Astrohout`}
   description={specialisme.description}
   image={werk[0]?.foto}
 >
+<script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
 <main>
   {/* TODO AI-GENERATED: intro texts come from src/data/specialismen.ts and were written by AI. Check and rewrite. */}
   <div class="narrow phead">
