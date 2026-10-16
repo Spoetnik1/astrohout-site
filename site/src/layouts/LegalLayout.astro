@@ -19,9 +19,10 @@ interface Props {
 const { frontmatter: fm, headings } = Astro.props;
 const secties = headings.filter((h) => h.depth === 2);
 // a date still in [brackets] is a placeholder and is highlighted until it is filled in
+// it also keeps the page out of Google (and the sitemap, see astro.config.mjs) until then
 const placeholder = fm.bijgewerkt.startsWith('[');
 ---
-<BaseLayout title={`${fm.title} · Astrohout`} description={fm.description}>
+<BaseLayout title={`${fm.title} · Astrohout`} description={fm.description} noindex={placeholder}>
 <main>
   <div class="narrow">
     <span class="eyebrow">Juridisch</span>

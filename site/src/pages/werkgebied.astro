@@ -21,23 +21,11 @@ const punten = lijst.map((p) => {
 });
 const ringen = [10, 20, 30];
 
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
-  '@id': new URL('/#bedrijf', Astro.site).href,
-  name: 'Astrohout',
-  url: Astro.site!.href,
-  email: contact.email,
-  sameAs: [contact.instagram.href],
-  address: { '@type': 'PostalAddress', addressLocality: werkplaats.plaats, addressRegion: werkplaats.provincie, addressCountry: 'NL' },
-  areaServed: plaatsen.map((p) => ({ '@type': 'City', name: p.naam })),
-};
 ---
 <BaseLayout
   title="Werkgebied · Meubelmaker in Salland en omgeving · Astrohout"
   description="Astrohout zit tussen Wijhe en Heino en maakt meubels op maat voor Zwolle, Deventer, Kampen, Raalte en de rest van Salland. Voor een mooie opdracht ook verder weg."
 >
-<script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
 <main>
   <div class="narrow phead">
     <h1>Werkgebied</h1>

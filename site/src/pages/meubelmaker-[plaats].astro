@@ -5,6 +5,7 @@ import Arrow from '../components/Arrow.astro';
 import { plaatsen, afstand, bijSlug, type Plaats } from '../data/plaatsen';
 import { projecten } from '../data/projecten';
 import { contact, werkplaats } from '../data/site';
+import { bedrijfId } from '../utils/schema';
 
 // one page per place in src/data/plaatsen.ts, at /meubelmaker-<slug>
 export function getStaticPaths() {
@@ -49,20 +50,12 @@ const schema = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': 'LocalBusiness',
-      '@id': new URL('/#bedrijf', Astro.site).href,
-      name: 'Astrohout',
-      url: Astro.site!.href,
-      email: contact.email,
-      sameAs: [contact.instagram.href],
-      address: { '@type': 'PostalAddress', addressLocality: werkplaats.plaats, addressRegion: werkplaats.provincie, addressCountry: 'NL' },
-    },
-    {
       '@type': 'Service',
       name: `${titel}: meubels en interieurwerk op maat`,
       serviceType: 'Meubelmaker',
       url,
-      provider: { '@id': new URL('/#bedrijf', Astro.site).href },
+      // the business itself is described once, in BaseLayout
+      provider: { '@id': bedrijfId(Astro.site!) },
       areaServed: { '@type': 'City', name: plaats.naam, containedInPlace: { '@type': 'State', name: plaats.provincie } },
     },
     {
@@ -84,6 +77,7 @@ const schema = {
   title={`${titel} · Kasten en meubels op maat · Astrohout`}
   description={plaats.meta}
   image={werk[0]?.foto}
+  imageAlt={werk[0]?.alt}
 >
 <script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
 <main>
