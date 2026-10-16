@@ -6,18 +6,25 @@ import { contact, werkplaats } from '../data/site';
 
 // TODO AI-GENERATED: the texts on this page (lead, 'Woon je verder weg?', meta description)
 
-// nearest first by car (the IJssel makes Heerde close as the crow flies, but not by road)
+// nearest first by car
 const lijst = [...plaatsen].sort((a, b) => a.rijtijd - b.rijtijd || afstand(a) - afstand(b));
 
 // map: the workshop in the middle, 10 units per km, north up
 const KM = 10;
 const kmPerLon = 111.32 * Math.cos((werkplaats.lat * Math.PI) / 180);
 const ONDER = ['wijhe'];   // label under the dot, where left or right would bump into a neighbour
-const punten = lijst.map((p) => {
+// villages that only get a dot on the map, without a page of their own
+const dorpen = [
+  { naam: 'Olst', lat: 52.3376, lon: 6.1105 },
+  { naam: 'Heerde', lat: 52.387, lon: 6.04 },
+  { naam: 'Epe', lat: 52.348, lon: 5.984 },
+];
+const punten = [...lijst, ...dorpen].map((p) => {
+  const slug = 'slug' in p ? p.slug : undefined;
   const x = (p.lon - werkplaats.lon) * kmPerLon * KM;
   const y = -(p.lat - werkplaats.lat) * 110.57 * KM;
-  const kant = ONDER.includes(p.slug) ? 'onder' : x < 0 ? 'links' : 'rechts';   // west of the workshop: label left of the dot
-  return { ...p, x, y, kant };
+  const kant = slug && ONDER.includes(slug) ? 'onder' : x < 0 ? 'links' : 'rechts';   // west of the workshop: label left of the dot
+  return { naam: p.naam, slug, x, y, kant };
 });
 const ringen = [10, 20, 30];
 
@@ -49,14 +56,17 @@ const ringen = [10, 20, 30];
           <circle r="6" />
           <text x="10" y="20">werkplaats</text>
         </g>
-        {punten.map((p) => (
-          <a href={`/meubelmaker-${p.slug}`} class="pt" transform={`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`}>
-            <circle r="4.5" />
-            {p.kant === 'onder'
-              ? <text y="22" text-anchor="middle">{p.naam}</text>
-              : <text x={p.kant === 'links' ? -10 : 10} y="5" text-anchor={p.kant === 'links' ? 'end' : 'start'}>{p.naam}</text>}
-          </a>
-        ))}
+        {punten.map((p) => {
+          const Punt = p.slug ? 'a' : 'g';   // only places with a page are links
+          return (
+            <Punt href={p.slug && `/meubelmaker-${p.slug}`} class="pt" transform={`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`}>
+              <circle r="4.5" />
+              {p.kant === 'onder'
+                ? <text y="22" text-anchor="middle">{p.naam}</text>
+                : <text x={p.kant === 'links' ? -10 : 10} y="5" text-anchor={p.kant === 'links' ? 'end' : 'start'}>{p.naam}</text>}
+            </Punt>
+          );
+        })}
       </svg>
       <figcaption>Hemelsbreed, vanaf de werkplaats tussen Wijhe en Heino</figcaption>
     </figure>
@@ -111,8 +121,8 @@ const ringen = [10, 20, 30];
   .werkplaats circle{fill:var(--rust);}
   .werkplaats text{font:600 9px var(--font-montserrat);letter-spacing:.14em;text-transform:uppercase;fill:var(--rust);
     paint-order:stroke;stroke:#FFFDF8;stroke-width:5px;}
-  .pt:hover text{fill:var(--rust);}
-  .pt:hover circle{stroke:var(--rust);}
+  a.pt:hover text{fill:var(--rust);}
+  a.pt:hover circle{stroke:var(--rust);}
 
   .lijst{list-style:none;}
   .lijst li + li{border-top:1px solid #e3d9cb;}
