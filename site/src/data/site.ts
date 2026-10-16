@@ -24,6 +24,7 @@ export const bedrijf = {
 // so the map shows the area but not the house.
 export const werkplaats = {
   plaats: 'Wijhe',
+  richting: 'Heino',   // the other village it sits towards
   provincie: 'Overijssel',
   lat: 52.42,
   lon: 6.19,
