@@ -191,7 +191,6 @@ export const projecten: Project[] = [
     foto: hek2,
     alt: 'Trapbalustrade met spijlen van ongeschilde takken',
     slug: 'balustrade',
-    specialismen: ['trappen-en-hekken'],
     // TODO AI-GENERATED: spec line and photo descriptions were written by AI from the photos. Check and rewrite.
     specs: [
       'balustrade rond het trapgat',

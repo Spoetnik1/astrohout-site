@@ -24,6 +24,7 @@ export default defineConfig({
     '/meubelmaker-olst': { status: 301, destination: '/werkgebied' },
     '/meubelmaker-heerde': { status: 301, destination: '/werkgebied' },
     '/meubelmaker-epe': { status: 301, destination: '/werkgebied' },
+    '/trappen-en-hekken': { status: 301, destination: '/portfolio' },
   },
   integrations: [sitemap({ filter: (page) => !concepten.includes(new URL(page).pathname) })],
   // hosted on Cloudflare: pages stay static HTML, server routes (like /api/contact) can opt in with `export const prerender = false`
