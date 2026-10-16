@@ -1,5 +1,5 @@
-// The business itself as schema.org data. BaseLayout puts it on every page; other pages
-// point to it with { '@id': bedrijfId(site) } instead of describing it again.
+// schema.org data the pages put in their head. The business is described once (BaseLayout puts it on
+// every page); other nodes point to it with { '@id': bedrijfId(site) } instead of describing it again.
 import { contact, werkplaats } from '../data/site';
 import { plaatsen } from '../data/plaatsen';
 
@@ -21,5 +21,18 @@ export function bedrijfSchema(site: URL, image: string) {
     address: { '@type': 'PostalAddress', addressLocality: werkplaats.plaats, addressRegion: werkplaats.provincie, addressCountry: 'NL' },
     geo: { '@type': 'GeoCoordinates', latitude: werkplaats.lat, longitude: werkplaats.lon },
     areaServed: plaatsen.map((p) => ({ '@type': 'City', name: p.naam, containedInPlace: { '@type': 'State', name: p.provincie } })),
+  };
+}
+
+// BreadcrumbList from [name, path] pairs, starting after Home: breadcrumbs(site, ['Portfolio', '/portfolio'], ...)
+export function breadcrumbs(site: URL, ...kruimels: [naam: string, pad: string][]) {
+  return {
+    '@type': 'BreadcrumbList',
+    itemListElement: [['Home', '/'], ...kruimels].map(([naam, pad], i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: naam,
+      item: new URL(pad, site).href,
+    })),
   };
 }
