@@ -34,8 +34,9 @@ Eenmalig instellen in het Cloudflare-dashboard:
 1. **Turnstile**: maak een widget aan (Turnstile > Add widget) voor `astrohout.nl` en, voor de preview-links, `workers.dev`.
    Zet de *site key* in `contactform.turnstileSiteKey` in `src/data/site.ts`.
 2. **Geheime sleutel**: zet de *secret key* van die widget bij de Worker `astrohout-site` onder
-   Settings > Variables and Secrets, als secret `TURNSTILE_SECRET_KEY`. Doe dit voor zowel *Production* als *Previews*,
-   anders werkt het formulier niet op de preview-links.
+   Settings > Variables and Secrets, als secret `TURNSTILE_SECRET_KEY`. Niet bij *Builds > Variables and secrets*:
+   die zijn er alleen tijdens het bouwen, de draaiende site ziet ze niet. Zolang de sleutel ontbreekt,
+   toont het formulier een foutmelding met het e-mailadres.
 3. **Mail versturen**: astrohout.nl moet als domein in Cloudflare staan. Zet *Email Sending* aan voor het domein
    (Compute > Email Service) en voeg de DNS-records toe die het voorstelt (SPF en DKIM).
    Pas op dat je de bestaande MX-records van je e-mailprovider niet weghaalt.
