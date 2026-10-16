@@ -24,10 +24,8 @@
 			"allowed_destination_addresses": ["info@astrohout.nl"]
 		}
 	],
-	// secret values are set in the Cloudflare dashboard (Settings > Variables and Secrets), never in this file
-	"secrets": {
-		"required": ["TURNSTILE_SECRET_KEY"]
-	},
+	// the contact form also needs the secret TURNSTILE_SECRET_KEY. Secrets are set in the Cloudflare dashboard
+	// (Settings > Variables and Secrets), never in this file; until it is set the form shows its error message.
 	// preview links (one per pull request) don't inherit the settings above, so the contact form gets them here too
 	"previews": {
 		"send_email": [
@@ -36,9 +34,6 @@
 				"allowed_sender_addresses": ["website@astrohout.nl"],
 				"allowed_destination_addresses": ["info@astrohout.nl"]
 			}
-		],
-		"secrets": {
-			"required": ["TURNSTILE_SECRET_KEY"]
-		}
+		]
 	}
 }
