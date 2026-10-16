@@ -18,6 +18,10 @@ export default defineConfig({
   // clean URLs: /over instead of /over/ or over.html
   trailingSlash: 'never',
   build: { format: 'file' },
+  // pages that are gone. The Cloudflare adapter writes these to dist/_redirects as real 301s (no meta-refresh page)
+  redirects: {
+    '/trappen-en-hekken': { status: 301, destination: '/portfolio' },
+  },
   integrations: [sitemap({ filter: (page) => !concepten.includes(new URL(page).pathname) })],
   // hosted on Cloudflare: pages stay static HTML, server routes (like /api/contact) can opt in with `export const prerender = false`
   adapter: cloudflare(),

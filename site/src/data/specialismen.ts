@@ -36,16 +36,6 @@ export const specialismen = [
       'Kasten, werkblad, open vakken en ruimte voor inbouwapparatuur: samen bepalen we de indeling, de kleuren en het hout.',
     ],
   },
-  {
-    slug: 'trappen-en-hekken',
-    label: 'Trappen en hekken',
-    titel: 'Trappen en hekken',
-    description: 'Balustrades, trapleuningen en hekken op maat van Astrohout.',
-    intro: [
-      'Een balustrade of trapleuning zie je elke dag en pak je elke dag vast. Dan mag hij ook mooi zijn.',
-      'Ik maak balustrades en hekken op maat, bijvoorbeeld met spijlen van takken waarbij elke spijl anders is, in een strak zwart frame.',
-    ],
-  },
 ] as const;
 
 export type Specialisme = (typeof specialismen)[number];

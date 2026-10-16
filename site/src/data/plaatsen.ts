@@ -38,20 +38,19 @@ export const plaatsen: Plaats[] = [
     lat: 52.3858,
     lon: 6.1339,
     rijtijd: 5,
-    meta: 'Meubelmaker in Wijhe: Astrohout maakt kasten, bedden, keukens en trappen op maat, vlak buiten het dorp. Het eerste gesprek bij jou thuis is gratis.',
+    meta: 'Meubelmaker in Wijhe: Astrohout maakt kasten, bedden en keukens op maat, vlak buiten het dorp. Het eerste gesprek bij jou thuis is gratis.',
     intro: 'Ik woon en werk net buiten Wijhe, richting Heino. Wijhe is dus echt mijn dorp, en hier staat ook het meeste werk uit mijn portfolio: kasten, bedden, een keuken en een badkamer voor een monumentale boerderij die nu een retraiteplek is, in het hoofdgebouw en in de schuren.',
     lokaal: {
       titel: 'Boerderijen, dijkhuizen en het dorp',
       tekst: [
         'Rond Wijhe staan veel oude boerderijen, en langs de IJssel huizen die al generaties meegaan. Mooie gebouwen, maar zelden recht: balken die net anders lopen, muren die uit het lood staan, een schuur die een nieuwe functie krijgt.',
-        'Daar werkt maatwerk het best. Een kast die precies tussen de balken past, een bed onder een schuin dak of een balustrade rond een trapgat. Dat soort werk heb ik hier in het dorp al gedaan.',
+        'Daar werkt maatwerk het best. Een kast die precies tussen de balken past of een bed onder een schuin dak. Dat soort werk heb ik hier in het dorp al gedaan.',
       ],
     },
     ideeen: [
       'Inbouwkasten tussen de balken of onder een schuin dak',
       'Een slaapkamer of keuken in een verbouwde schuur',
       'Een bed of tafel van massief hout',
-      'Een balustrade die bij het huis past',
     ],
     projecten: ['zolderslaapkamer', 'keuken', 'balustrade'],
     faq: [
@@ -209,7 +208,7 @@ export const plaatsen: Plaats[] = [
     lon: 6.256,
     rijtijd: 20,
     meta: 'Meubelmaker in Dalfsen: keukens, bedden en kasten van massief hout, op maat voor dorpshuis of boerderij aan de Vecht. Met de hand gemaakt door Astrohout.',
-    intro: 'Dalfsen, aan de Vecht: een mooi stuk Overijssel, en vanaf mijn werkplaats ben ik er in zo\'n twintig minuten. Kast, bed, keuken of trap? Ik kom kijken, meet op en maak iets dat precies in jouw huis past.',
+    intro: 'Dalfsen, aan de Vecht: een mooi stuk Overijssel, en vanaf mijn werkplaats ben ik er in zo\'n twintig minuten. Kast, bed of keuken? Ik kom kijken, meet op en maak iets dat precies in jouw huis past.',
     lokaal: {
       titel: 'Aan de Vecht, tussen de havezaten',
       tekst: [
@@ -221,7 +220,6 @@ export const plaatsen: Plaats[] = [
       'Een keuken op maat in een (woon)boerderij',
       'Een tafel of bed van massief hout',
       'Inbouwkasten onder een schuin dak',
-      'Een balustrade met een eigen karakter',
     ],
     projecten: ['keuken', 'balustrade', 'bedframe'],
     faq: [
@@ -240,7 +238,7 @@ export const plaatsen: Plaats[] = [
     lat: 52.255,
     lon: 6.16,
     rijtijd: 25,
-    meta: 'Meubelmaker in Deventer: boekenkasten, inbouwkasten en trappen op maat voor oude panden en jaren-30-huizen. Met de hand gemaakt, kennismaken is gratis.',
+    meta: 'Meubelmaker in Deventer: boekenkasten en inbouwkasten op maat voor oude panden en jaren-30-huizen. Met de hand gemaakt, kennismaken is gratis.',
     intro: 'Deventer is een stad waar ik graag kom. Scheve gevels in het Bergkwartier, jaren-30-straten met erkers en glas-in-lood, zolders onder een steil dak: in bijna elk huis daar zit een plek die om maatwerk vraagt. Vanaf mijn werkplaats ben ik er in een minuut of 25, en ik kom graag kijken wat er bij jou kan.',
     lokaal: {
       titel: 'Oude panden en jaren-30-huizen',
@@ -255,7 +253,6 @@ export const plaatsen: Plaats[] = [
       'Inbouwkasten onder een schuin dak',
       'Een kastenwand in een smalle kamer',
       'Een trapkast die echt bruikbaar wordt',
-      'Een balustrade of trapleuning op maat',
     ],
     projecten: ['inbouwkast', 'kastenwand', 'balustrade'],
     faq: [
@@ -387,7 +384,6 @@ export const plaatsen: Plaats[] = [
       'Inbouwkasten in een smal, hoog pand',
       'Een slaapkamer onder de kap',
       'Een badkamermeubel op maat',
-      'Een trapleuning of balustrade',
     ],
     projecten: ['badkamer', 'zolderslaapkamer', 'balustrade'],
     faq: [

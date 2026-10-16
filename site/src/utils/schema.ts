@@ -6,7 +6,7 @@ import { plaatsen } from '../data/plaatsen';
 export const bedrijfId = (site: URL) => new URL('/#bedrijf', site).href;
 
 // HomeAndConstructionBusiness rather than FurnitureStore: there is no shop or showroom with opening
-// hours; the work is designed, made and installed in people's homes (kasten, keukens, trappen).
+// hours; the work is designed, made and installed in people's homes (kasten, keukens, bedden).
 export function bedrijfSchema(site: URL, image: string) {
   return {
     '@type': 'HomeAndConstructionBusiness',
