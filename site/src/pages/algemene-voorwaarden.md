@@ -3,7 +3,7 @@ layout: ../layouts/LegalLayout.astro
 title: Algemene voorwaarden
 description: Algemene voorwaarden van Astrohout voor ontwerp, maatwerk meubels en plaatsing.
 versie: "1.0"
-bijgewerkt: "[datum]"
+bijgewerkt: "16 oktober 2026"
 artikelen: true
 ---
 

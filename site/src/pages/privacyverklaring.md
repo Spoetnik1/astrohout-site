@@ -2,7 +2,7 @@
 layout: ../layouts/LegalLayout.astro
 title: Privacyverklaring
 description: Hoe Astrohout omgaat met je persoonsgegevens, in lijn met de AVG.
-bijgewerkt: "[datum]"
+bijgewerkt: "16 oktober 2026"
 ---
 
 Astrohout gaat zorgvuldig om met je persoonsgegevens. In deze verklaring lees je welke gegevens we verwerken, waarom, hoe lang we ze bewaren en welke rechten je hebt. We houden ons daarbij aan de Algemene Verordening Gegevensbescherming (AVG).
