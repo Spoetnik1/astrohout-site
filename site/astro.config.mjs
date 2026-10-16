@@ -18,6 +18,13 @@ export default defineConfig({
   // clean URLs: /over instead of /over/ or over.html
   trailingSlash: 'never',
   build: { format: 'file' },
+  // pages that no longer exist. The Cloudflare adapter writes these to dist/client/_redirects,
+  // so Cloudflare answers with a real 301 (no meta-refresh page)
+  redirects: {
+    '/meubelmaker-olst': { status: 301, destination: '/werkgebied' },
+    '/meubelmaker-heerde': { status: 301, destination: '/werkgebied' },
+    '/meubelmaker-epe': { status: 301, destination: '/werkgebied' },
+  },
   integrations: [sitemap({ filter: (page) => !concepten.includes(new URL(page).pathname) })],
   // hosted on Cloudflare: pages stay static HTML, server routes (like /api/contact) can opt in with `export const prerender = false`
   adapter: cloudflare(),
