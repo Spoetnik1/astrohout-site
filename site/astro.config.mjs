@@ -12,6 +12,8 @@ export default defineConfig({
   integrations: [sitemap()],
   // hosted on Cloudflare: pages stay static HTML, server routes (like /api/contact) can opt in with `export const prerender = false`
   adapter: cloudflare(),
+  // no Astro sessions: the site has no logins or carts, so it needs no KV storage on Cloudflare
+  session: false,
   // keep the texts exactly as written: no automatic curly quotes or dashes
   markdown: { smartypants: false },
   // fonts are downloaded at build time and served from the site itself, so visitors never hit Google
