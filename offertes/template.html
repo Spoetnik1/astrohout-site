@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Offerte Astrohout</title>
+<!-- Offerte template. Do not fill this in by hand: maak-offerte.mjs injects bedrijf.json and a
+     client file (e.g. 2026-001-schaap-hendriksen.json) and prints it to PDF with Chrome.
+     Opened on its own in a browser it shows placeholder data, handy for tweaking the layout. -->
+<style>
+  @font-face{font-family:Montserrat;src:url(assets/montserrat-400.woff2) format("woff2");font-weight:400;}
+  @font-face{font-family:Montserrat;src:url(assets/montserrat-500.woff2) format("woff2");font-weight:500;}
+  @font-face{font-family:Montserrat;src:url(assets/montserrat-600.woff2) format("woff2");font-weight:600;}
+  @font-face{font-family:Caveat;src:url(assets/caveat-500.woff2) format("woff2");font-weight:500;}
+
+  :root{
+    --ink:#292929;
+    --ink-soft:#575757;
+    --muted:#8a8278;
+    --line:#e4ddd2;
+    --plank:#EADCC4;
+    --pencil:#8A5A33;
+    --walnut:#2B1D14;
+  }
+  @page{size:A4;margin:12mm 17mm 16mm;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body{font-family:Montserrat,Arial,sans-serif;font-size:9pt;line-height:1.5;color:var(--ink);background:#fff;}
+  @media screen{body{max-width:210mm;margin:24px auto;padding:14mm 17mm 30mm;box-shadow:0 2px 20px rgba(0,0,0,.12);}}
+
+  /* header: the plank from the website's navbar */
+  .plank{background:var(--plank);border-radius:3px;padding:5.5mm 7mm;display:flex;justify-content:space-between;align-items:center;
+    background-image:repeating-linear-gradient(178deg,rgba(138,90,51,.05) 0 1px,transparent 1px 7px);}
+  .brand{display:flex;align-items:center;gap:10px;color:rgba(0,0,0,.8);}
+  .brand img{height:13mm;opacity:.85;}
+  .brand span{font-weight:600;font-size:22pt;letter-spacing:-.02em;line-height:1;}
+  h1{font-weight:500;font-size:24pt;letter-spacing:-.02em;color:var(--walnut);line-height:1;text-align:right;}
+  .plank .nummer{text-align:right;font-size:8.5pt;color:var(--walnut);margin-top:1.5mm;opacity:.8;}
+
+  /* client, sender, dates */
+  .partijen{display:grid;grid-template-columns:1.15fr 1fr auto;gap:8mm;margin:6mm 0 5mm;}
+  .label{font-size:7pt;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--pencil);margin-bottom:1.5mm;}
+  .partijen p{font-size:8.5pt;line-height:1.5;}
+  .naam{font-weight:600;}
+  .meta{display:grid;grid-template-columns:auto auto;gap:.3mm 6mm;font-size:8.5pt;line-height:1.5;}
+  .meta dt{color:var(--muted);}
+  .meta dd{font-weight:500;text-align:right;}
+
+  .betreft{font-weight:600;font-size:10.5pt;color:var(--ink-soft);margin-bottom:2.5mm;}
+  .intro{margin-bottom:5mm;max-width:160mm;}
+  .intro p+p{margin-top:1.5mm;}
+
+  /* line items */
+  table{width:100%;border-collapse:collapse;}
+  thead th{font-size:7pt;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--pencil);
+    text-align:left;padding:0 0 2mm;border-bottom:1.2pt solid var(--walnut);}
+  thead th.bedrag{text-align:right;}
+  tbody tr{break-inside:avoid;}
+  tbody td{padding:3mm 0;border-bottom:.6pt solid var(--line);vertical-align:top;}
+  td.nr{width:9mm;color:var(--muted);font-weight:500;}
+  td.bedrag{width:32mm;text-align:right;font-weight:500;white-space:nowrap;}
+  .post-titel{font-weight:600;font-size:10pt;margin-bottom:1mm;}
+  .post ul{list-style:none;color:var(--ink-soft);}
+  .post li{padding-left:4mm;position:relative;}
+  .post li::before{content:"";position:absolute;left:0;top:.62em;width:1.6mm;height:.6pt;background:var(--pencil);}
+  .regels{margin-top:2mm;display:grid;grid-template-columns:1fr auto;gap:.5mm 6mm;font-size:8.5pt;color:var(--ink-soft);max-width:110mm;}
+  .regels span:nth-child(even){text-align:right;white-space:nowrap;}
+
+  .totaal{display:flex;justify-content:flex-end;margin-top:4mm;break-inside:avoid;}
+  .totaal dl{display:grid;grid-template-columns:auto 32mm;gap:1.5mm 0;min-width:85mm;}
+  .totaal dt{color:var(--ink-soft);}
+  .totaal dd{text-align:right;}
+  .totaal .eind{font-weight:600;font-size:12pt;color:var(--walnut);padding-top:2.5mm;margin-top:1mm;border-top:1.2pt solid var(--walnut);}
+  .btw-noot{text-align:right;font-size:7.5pt;color:var(--muted);margin-top:1.5mm;}
+
+  /* terms + sign-off */
+  .slot{margin-top:5mm;display:grid;grid-template-columns:1fr 1fr;gap:12mm;break-inside:avoid;}
+  .afspraken ul{list-style:none;font-size:8.5pt;color:var(--ink-soft);}
+  .afspraken li{padding-left:4mm;position:relative;margin-bottom:.8mm;}
+  .afspraken li::before{content:"";position:absolute;left:0;top:.62em;width:1.6mm;height:.6pt;background:var(--pencil);}
+
+  .slot p{font-size:8.5pt;color:var(--ink-soft);}
+  .ondertekend{margin-top:4mm;}
+  .groet{font-family:Caveat,cursive;font-weight:500;font-size:22pt;color:var(--walnut);line-height:1;margin:2mm 0 1mm;}
+  .akkoord{border:.6pt solid var(--line);border-radius:3px;padding:5mm 6mm;align-self:start;}
+  .lijn{border-bottom:.6pt solid var(--ink-soft);height:10mm;margin-bottom:1.5mm;}
+  .klein{font-size:7.5pt;color:var(--muted);}
+
+  /* footer on every page: filled in as @page margin boxes by the script below */
+  #voet{display:none;}
+  @media screen{#voet{display:flex;justify-content:space-between;margin-top:14mm;padding-top:2mm;
+    font-size:7pt;color:var(--muted);border-top:.6pt solid var(--line);}}
+</style>
+</head>
+<body>
+
+<header class="plank">
+  <div class="brand"><img src="assets/logo.svg" alt=""><span data-veld="b.merk"></span></div>
+  <div><h1>Offerte</h1><div class="nummer">nr. <span data-veld="o.nummer"></span></div></div>
+</header>
+
+<section class="partijen">
+  <div><div class="label">Voor</div><p id="klant"></p></div>
+  <div><div class="label">Van</div><p id="afzender"></p></div>
+  <div>
+    <div class="label">Offerte</div>
+    <dl class="meta">
+      <dt>Nummer</dt><dd data-veld="o.nummer"></dd>
+      <dt>Datum</dt><dd id="datum"></dd>
+      <dt>Geldig tot</dt><dd id="geldig"></dd>
+    </dl>
+  </div>
+</section>
+
+<p class="betreft" data-veld="o.betreft"></p>
+<section class="intro" id="intro"></section>
+
+<table>
+  <thead><tr><th></th><th>Omschrijving</th><th class="bedrag">Bedrag</th></tr></thead>
+  <tbody id="posten"></tbody>
+</table>
+
+<section class="totaal"><dl id="totaal"></dl></section>
+<p class="btw-noot" id="btw-noot"></p>
+
+<section class="slot">
+  <div>
+    <div class="afspraken">
+      <div class="label">Goed om te weten</div>
+      <ul id="afspraken"></ul>
+    </div>
+    <div class="ondertekend">
+      <p>Met vriendelijke groet,</p>
+      <div class="groet" data-veld="o.ondertekening.voornaam"></div>
+      <p><span data-veld="o.ondertekening.naam"></span>, <span data-veld="b.naam"></span></p>
+    </div>
+  </div>
+  <div class="akkoord">
+    <div class="label">Akkoord</div>
+    <p>Mail even naar <span data-veld="b.email"></span>, of teken hieronder en stuur een foto terug.</p>
+    <div class="lijn"></div>
+    <div class="klein">Naam, datum en handtekening opdrachtgever</div>
+  </div>
+</section>
+
+<div id="voet"></div>
+
+<script id="data" type="application/json">/*DATA*/</script>
+<script>
+  const placeholder = {
+    bedrijf: {merk:'astrohout',naam:'Astrohout',rechtspersoon:'[rechtspersoon]',kvk:'[kvk]',straat:'[straat]',postcode:'[postcode]',plaats:'[plaats]',email:'[email]',website:'[website]',voorwaardenUrl:'[voorwaarden]'},
+    offerte: {nummer:'[0000-000]',datum:'2026-01-01',geldigDagen:30,klant:{namen:['[Naam klant]'],adres:['[Straat 1]','[Plaats]']},
+      betreft:'[Korte omschrijving]',intro:['[Aanhef]','[Introtekst]'],btw:'incl',
+      posten:[{titel:'[Post]',punten:['[punt]'],bedrag:100}],afspraken:['[afspraak]'],ondertekening:{voornaam:'[Naam]',naam:'[Volledige naam]'}}
+  };
+  const raw = document.getElementById('data').textContent.trim();
+  const {bedrijf: b, offerte: o} = raw.startsWith('{') ? JSON.parse(raw) : placeholder;
+
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const eur = n => new Intl.NumberFormat('nl-NL',{style:'currency',currency:'EUR'}).format(n);
+  const datum = d => d.toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'});
+  const get = (obj, pad) => pad.split('.').reduce((v, k) => v?.[k], obj);
+
+  document.querySelectorAll('[data-veld]').forEach(el => {
+    const [bron, ...pad] = el.dataset.veld.split('.');
+    el.textContent = get(bron === 'b' ? b : o, pad.join('.')) ?? '';
+  });
+
+  // sender block: only the fields that are filled in
+  const regel = (label, v) => v ? `${label}${esc(v)}<br>` : '';
+  document.getElementById('afzender').innerHTML =
+    `<span class="naam">${esc(b.naam)}</span><br>${esc(b.straat)}<br>${esc(b.postcode)} ${esc(b.plaats)}<br>` +
+    regel('', b.email) + regel('', b.telefoon) + regel('', b.website);
+
+  const d = new Date(o.datum);
+  const geldig = new Date(d); geldig.setDate(d.getDate() + (o.geldigDagen ?? 30));
+  document.getElementById('datum').textContent = datum(d);
+  document.getElementById('geldig').textContent = datum(geldig);
+  document.title = `Offerte ${o.nummer} - ${b.naam}`;
+
+  document.getElementById('klant').innerHTML =
+    o.klant.namen.map(n => `<span class="naam">${esc(n)}</span>`).join('<br>') + '<br>' + o.klant.adres.map(esc).join('<br>');
+  document.getElementById('intro').innerHTML = o.intro.map(p => `<p>${esc(p)}</p>`).join('');
+
+  // a post has either one "bedrag", or "regels" (e.g. material + labour) that add up to its amount
+  const bedragVan = p => p.regels ? p.regels.reduce((s, r) => s + r.bedrag, 0) : p.bedrag;
+  document.getElementById('posten').innerHTML = o.posten.map((p, i) => `
+    <tr>
+      <td class="nr">${String(i + 1).padStart(2, '0')}</td>
+      <td class="post">
+        <div class="post-titel">${esc(p.titel)}</div>
+        ${p.punten?.length ? `<ul>${p.punten.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
+        ${p.regels ? `<div class="regels">${p.regels.map(r => `<span>${esc(r.omschrijving)}</span><span>${eur(r.bedrag)}</span>`).join('')}</div>` : ''}
+      </td>
+      <td class="bedrag">${eur(bedragVan(p))}</td>
+    </tr>`).join('');
+
+  // btw: "incl" (consumer prices incl. btw), "excl" (business: adds btw on top), "kor" (kleineondernemersregeling)
+  const som = o.posten.reduce((s, p) => s + bedragVan(p), 0);
+  const pct = o.btwPercentage ?? 21;
+  let rijen, noot;
+  if (o.btw === 'excl') {
+    const btw = Math.round(som * pct) / 100;
+    rijen = [['Subtotaal excl. btw', som], [`Btw ${pct}%`, btw], ['Totaal incl. btw', som + btw, true]];
+    noot = '';
+  } else if (o.btw === 'kor') {
+    rijen = [['Totaal', som, true]];
+    noot = 'Vrijgesteld van btw op grond van de kleineondernemersregeling (KOR).';
+  } else {
+    rijen = [['Totaal incl. btw', som, true]];
+    noot = 'Alle bedragen zijn inclusief btw.';
+  }
+  document.getElementById('totaal').innerHTML = rijen.map(([l, v, eind]) =>
+    `<dt class="${eind ? 'eind' : ''}">${l}</dt><dd class="${eind ? 'eind' : ''}">${eur(v)}</dd>`).join('');
+  document.getElementById('btw-noot').textContent = noot;
+
+  const afspraken = [
+    `Deze offerte is geldig tot ${datum(geldig)}.`,
+    ...(o.afspraken ?? []),
+    `De algemene voorwaarden zijn van toepassing: ${b.voorwaardenUrl}`,
+  ];
+  document.getElementById('afspraken').innerHTML = afspraken.map(a => `<li>${esc(a)}</li>`).join('');
+
+  const voet = [`${b.naam} valt onder ${b.rechtspersoon}`, `KvK ${b.kvk}`, b.btwNummer && `Btw ${b.btwNummer}`, b.iban && `IBAN ${b.iban}`]
+    .filter(Boolean).join(' · ');
+  document.getElementById('voet').innerHTML = `<span>${esc(voet)}</span><span>Offerte ${esc(o.nummer)}</span>`;
+  // in print the footer lives in the page margin, so it repeats on every page with page numbers
+  const css = t => '"' + t.replace(/["\\]/g, '\\$&') + '"';
+  const box = 'font-family:Montserrat,Arial,sans-serif;font-size:7pt;color:#8a8278;border-top:.6pt solid #e4ddd2;vertical-align:top;padding-top:2mm;';
+  document.head.insertAdjacentHTML('beforeend', `<style>@page{
+    @bottom-left{content:${css(voet)};${box}}
+    @bottom-right{content:${css('Offerte ' + o.nummer + ' · pagina ')} counter(page) " van " counter(pages);text-align:right;${box}}
+  }</style>`);
+</script>
+</body>
+</html>
