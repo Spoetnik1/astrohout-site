@@ -37,7 +37,7 @@
   .plank .nummer{text-align:right;font-size:8.5pt;color:var(--walnut);margin-top:1.5mm;opacity:.8;}
 
   /* client, sender, dates */
-  .partijen{display:grid;grid-template-columns:1.15fr 1fr auto;gap:8mm;margin:6mm 0 5mm;}
+  .partijen{display:grid;grid-template-columns:1.15fr 1fr auto;gap:8mm;margin:5mm 0 4mm;}
   .label{font-size:7pt;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--pencil);margin-bottom:1.5mm;}
   .partijen p{font-size:8.5pt;line-height:1.5;}
   .naam{font-weight:600;}
@@ -65,12 +65,13 @@
   .regels{margin-top:2mm;display:grid;grid-template-columns:1fr auto;gap:.5mm 6mm;font-size:8.5pt;color:var(--ink-soft);max-width:110mm;}
   .regels span:nth-child(even){text-align:right;white-space:nowrap;}
 
-  .totaal{display:flex;justify-content:flex-end;margin-top:3mm;break-inside:avoid;}
+  .totaal{display:flex;justify-content:space-between;align-items:flex-end;gap:8mm;margin-top:3mm;break-inside:avoid;}
   .totaal dl{display:grid;grid-template-columns:auto 32mm;gap:1.5mm 0;min-width:85mm;}
+  .totaal dl .klein{margin-top:-.8mm;}
   .totaal dt{color:var(--ink-soft);}
   .totaal dd{text-align:right;}
   .totaal .eind{font-weight:600;font-size:12pt;color:var(--walnut);padding-top:2.5mm;margin-top:1mm;border-top:1.2pt solid var(--walnut);}
-  .btw-noot{text-align:right;font-size:7.5pt;color:var(--muted);margin-top:1.5mm;}
+  .totaal .klein{font-size:7.5pt;color:var(--muted);}  .btw-noot{font-size:7.5pt;color:var(--muted);}   /* left of the total, level with its last line */
 
   /* terms + sign-off */
   .slot{margin-top:4mm;display:grid;grid-template-columns:1fr 1fr;gap:12mm;break-inside:avoid;}
@@ -79,7 +80,7 @@
   .afspraken li::before{content:"";position:absolute;left:0;top:.62em;width:1.6mm;height:.6pt;background:var(--pencil);}
 
   .slot p{font-size:8.5pt;color:var(--ink-soft);}
-  .ondertekend{margin-top:4mm;}
+  .ondertekend{margin-top:3mm;}
   .groet{font-family:Caveat,cursive;font-weight:500;font-size:22pt;color:var(--walnut);line-height:1;margin:2mm 0 1mm;}
   .akkoord{border:.6pt solid var(--line);border-radius:3px;padding:5mm 6mm;align-self:start;}
   .lijn{border-bottom:.6pt solid var(--ink-soft);height:10mm;margin-bottom:1.5mm;}
@@ -119,8 +120,7 @@
   <tbody id="posten"></tbody>
 </table>
 
-<section class="totaal"><dl id="totaal"></dl></section>
-<p class="btw-noot" id="btw-noot"></p>
+<section class="totaal"><p class="btw-noot" id="btw-noot"></p><dl id="totaal"></dl></section>
 
 <section class="slot">
   <div>
@@ -197,20 +197,23 @@
   // btw: "incl" (consumer prices incl. btw), "excl" (business: adds btw on top), "kor" (kleineondernemersregeling)
   const som = o.posten.reduce((s, p) => s + bedragVan(p), 0);
   const pct = o.btwPercentage ?? 21;
+  // each row is [label, amount, class]: '' a normal row, 'eind' the total, 'klein' the btw breakdown under it
   let rijen, noot;
   if (o.btw === 'excl') {
     const btw = Math.round(som * pct) / 100;
-    rijen = [['Subtotaal excl. btw', som], [`Btw ${pct}%`, btw], ['Totaal incl. btw', som + btw, true]];
+    rijen = [['Subtotaal excl. btw', som, ''], [`Btw ${pct}%`, btw, ''], ['Totaal incl. btw', som + btw, 'eind']];
     noot = '';
   } else if (o.btw === 'kor') {
-    rijen = [['Totaal', som, true]];
+    rijen = [['Totaal', som, 'eind']];
     noot = 'Vrijgesteld van btw op grond van de kleineondernemersregeling (KOR).';
   } else {
-    rijen = [['Totaal incl. btw', som, true]];
+    // prices already include btw, so work the btw back out of the total
+    const btw = Math.round((som - som / (1 + pct / 100)) * 100) / 100;
+    rijen = [['Totaal incl. btw', som, 'eind'], ['Bedrag excl. btw', som - btw, 'klein'], [`Waarvan btw ${pct}%`, btw, 'klein']];
     noot = 'Alle bedragen zijn inclusief btw.';
   }
-  document.getElementById('totaal').innerHTML = rijen.map(([l, v, eind]) =>
-    `<dt class="${eind ? 'eind' : ''}">${l}</dt><dd class="${eind ? 'eind' : ''}">${eur(v)}</dd>`).join('');
+  document.getElementById('totaal').innerHTML = rijen.map(([l, v, cls]) =>
+    `<dt class="${cls}">${l}</dt><dd class="${cls}">${eur(v)}</dd>`).join('');
   document.getElementById('btw-noot').textContent = noot;
 
   const afspraken = [
