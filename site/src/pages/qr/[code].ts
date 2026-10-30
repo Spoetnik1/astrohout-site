@@ -2,8 +2,8 @@
 // No cookies and no raw IP addresses: repeat scans are recognised by a hash that changes every day.
 //
 // Scans per flyer (Cloudflare dashboard > D1 > astrohout-qr > Console):
-//   SELECT code, COUNT(*) AS scans, COUNT(DISTINCT bezoeker) AS mensen
-//   FROM scans WHERE bot = 0 AND herhaling = 0 GROUP BY code;
+//   SELECT code, COUNT(*) AS scans, COUNT(DISTINCT visitor) AS people
+//   FROM scans WHERE is_bot = 0 AND is_repeat = 0 GROUP BY code;
 import type { APIRoute } from 'astro';
 import { env } from 'cloudflare:workers';
 import { qrCodes } from '../../data/qr';
@@ -18,13 +18,13 @@ const HERHALING_MINUTEN = 30;
 const SCHEMA = `CREATE TABLE IF NOT EXISTS scans (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   code TEXT NOT NULL,
-  tijd TEXT NOT NULL DEFAULT (datetime('now')),
-  bezoeker TEXT,
-  bot INTEGER NOT NULL,
-  herhaling INTEGER NOT NULL,
-  apparaat TEXT,
-  plaats TEXT,
-  land TEXT
+  scanned_at TEXT NOT NULL DEFAULT (datetime('now')),
+  visitor TEXT,
+  is_bot INTEGER NOT NULL,
+  is_repeat INTEGER NOT NULL,
+  device TEXT,
+  city TEXT,
+  country TEXT
 )`;
 
 const sha256 = async (s: string) =>
@@ -32,7 +32,7 @@ const sha256 = async (s: string) =>
     .map((b) => b.toString(16).padStart(2, '0')).join('').slice(0, 16);
 
 const apparaat = (ua: string) =>
-  /iphone|ipad/i.test(ua) ? 'iOS' : /android/i.test(ua) ? 'Android' : /mobile/i.test(ua) ? 'mobiel' : 'desktop';
+  /iphone|ipad/i.test(ua) ? 'iOS' : /android/i.test(ua) ? 'Android' : /mobile/i.test(ua) ? 'mobile' : 'desktop';
 
 async function logScan(request: Request, code: string) {
   const ua = request.headers.get('user-agent') ?? '';
@@ -43,10 +43,10 @@ async function logScan(request: Request, code: string) {
 
   await env.QR_DB.prepare(SCHEMA).run();
   const eerder = await env.QR_DB.prepare(
-    `SELECT 1 FROM scans WHERE code = ? AND bezoeker = ? AND tijd > datetime('now', ?) LIMIT 1`,
+    `SELECT 1 FROM scans WHERE code = ? AND visitor = ? AND scanned_at > datetime('now', ?) LIMIT 1`,
   ).bind(code, bezoeker, `-${HERHALING_MINUTEN} minutes`).first();
   await env.QR_DB.prepare(
-    `INSERT INTO scans (code, bezoeker, bot, herhaling, apparaat, plaats, land) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO scans (code, visitor, is_bot, is_repeat, device, city, country) VALUES (?, ?, ?, ?, ?, ?, ?)`,
   ).bind(code, bezoeker, bot, eerder ? 1 : 0, apparaat(ua), cf?.city ?? null, cf?.country ?? null).run();
 }
 
