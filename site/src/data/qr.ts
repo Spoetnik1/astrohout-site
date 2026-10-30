@@ -8,4 +8,5 @@ export type QrCode = {
 
 export const qrCodes: Record<string, QrCode> = {
   test: { naar: '/', omschrijving: 'Testcode, niet printen' },
+  'tmb-plaat-20x20': { naar: '/', omschrijving: 'TMB plaat 20x20' },
 };
