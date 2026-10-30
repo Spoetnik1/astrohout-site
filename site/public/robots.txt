@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /kijk/
 
 Sitemap: https://astrohout.nl/sitemap-index.xml
