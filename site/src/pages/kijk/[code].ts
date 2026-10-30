@@ -1,4 +1,4 @@
-// QR redirect: /qr/<code> sends the visitor on to the page set in src/data/qr.ts, and logs the scan in D1.
+// QR redirect: /kijk/<code> sends the visitor on to the page set in src/data/qr.ts, and logs the scan in D1.
 // No cookies and no raw IP addresses: repeat scans are recognised by a hash that changes every day.
 //
 // Scans per flyer (Cloudflare dashboard > D1 > astrohout-qr > Console):

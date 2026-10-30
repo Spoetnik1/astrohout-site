@@ -24,7 +24,7 @@
 			"allowed_destination_addresses": ["info@astrohout.nl"]
 		}
 	],
-	// QR scans (src/pages/qr/[code].ts). No database_id: Cloudflare creates the database on the first deploy,
+	// QR scans (src/pages/kijk/[code].ts). No database_id: Cloudflare creates the database on the first deploy,
 	// and the code creates its table itself.
 	"d1_databases": [{ "binding": "QR_DB", "database_name": "astrohout-qr" }],
 	// the contact form also needs the secret TURNSTILE_SECRET_KEY. Secrets are set in the Cloudflare dashboard
