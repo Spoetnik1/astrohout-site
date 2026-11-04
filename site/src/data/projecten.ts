@@ -32,9 +32,8 @@ import hek1 from '../assets/portfolio/hek1.jpg';
 import hek2 from '../assets/portfolio/hek2.jpg';
 import hek3 from '../assets/portfolio/hek3.jpg';
 import hek4 from '../assets/portfolio/hek4.jpg';
-import singleRoom1 from '../assets/portfolio/single_room1.jpg';
-import singleRoom2 from '../assets/portfolio/single_room2.jpg';
-import singleRoom3 from '../assets/portfolio/single_room3.jpg';
+import singleRoom4 from '../assets/portfolio/single_room4.jpg';
+import singleRoom5 from '../assets/portfolio/single_room5.jpg';
 import divider1 from '../assets/portfolio/divider1.jpg';
 import buitenstoel1 from '../assets/portfolio/buitenstoel1.jpg';
 import buitenstoel2 from '../assets/portfolio/buitenstoel2.jpg';
@@ -210,7 +209,7 @@ export const projecten: Project[] = [
   },
   {
     titel: 'Kastenwand',
-    foto: singleRoom2,
+    foto: singleRoom4,
     alt: 'Kastenwand van multiplex in een smalle kamer',
     slug: 'kastenwand',
     specialismen: ['kasten-op-maat', 'bedden-op-maat'],
@@ -222,10 +221,9 @@ export const projecten: Project[] = [
       'opstapje naar het bed',
     ],
     fotos: [
-      [{ src: singleRoom1, alt: 'Verhoogd bed tussen kasten en open vakken van multiplex' }],
       [
-        { src: singleRoom2, alt: 'Hoge kastenwand van multiplex met open vakken en kastjes' },
-        { src: singleRoom3, alt: 'Opstapje van multiplex naar het bed, naast een zwarte trapleuning' },
+        { src: singleRoom4, alt: 'Slaapbankje van multiplex met open vakken en kastjes ernaast' },
+        { src: singleRoom5, alt: 'Hoek van het slaapbankje met kussens, een raam en bloemen' },
       ],
     ],
   },
